@@ -12,7 +12,7 @@ Dabei ergibt sich oft folgendes Szenario.
 3. Zur selben Zeit im Hirn: 
 4. Irgendwas ist mir vertraut...Die Serie kenn ich nicht. 
 5. Den Schauspieler kenne ich nicht... aber der hört sich doch genaue so an wie der Typ .... aus der Serie .... ja sach schon ahhhh??? Ich weiß es nicht!!!!!!
-6. ... genaue an diesem Punkt setzt die App dub an!
+6. ... genaue an diesem Punkt setzt die dub app an!
 
 ## Die App
 
