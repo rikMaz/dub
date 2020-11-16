@@ -1,16 +1,13 @@
 package de.neuefische.rikardo.dub.controller;
 
 
-import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.SearchMovieList;
 import de.neuefische.rikardo.dub.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/tmdb")
+@RequestMapping("api")
 public class TmdbController {
 
     private final MovieService movieService;
@@ -21,7 +18,7 @@ public class TmdbController {
     }
 
     @GetMapping("/movie/{movieName}")
-    public Movie getMovieDetailsByName(@RequestParam String movieName) {
+    public SearchMovieList getMovieDetailsByName(@PathVariable String movieName) {
         return movieService.getMovieDetailsByName(movieName);
     }
 
