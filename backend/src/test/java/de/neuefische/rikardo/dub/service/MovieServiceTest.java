@@ -43,9 +43,9 @@ class MovieServiceTest {
     @DisplayName("The method should return the movie details by id")
     void getMovieDetailsByIdTest() {
         //GIVEN
-        String id = "550";
+        String id = "603";
 
-        Movie movie = new Movie("550","Fight Club", "image.jpg");
+        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
 
         when(apiService.getMovieDetailsById(id)).thenReturn(movie);
         //WHEN
@@ -58,10 +58,10 @@ class MovieServiceTest {
     @DisplayName("The method should return the movie crew by id")
     void getMovieCrewByIdTest() {
         //GIVEN
-        String id = "550";
+        String id = "603";
 
         MovieCrew movieCrew = new MovieCrew(new ArrayList<>(List.of(
-                new Actor("819","Edward Norten","/image.jpg")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
         )));
 
         when(apiService.getMovieCrewById(id)).thenReturn(movieCrew);
