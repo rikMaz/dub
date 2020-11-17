@@ -1,16 +1,18 @@
-package de.neuefische.rikardo.dub.model.movie;
+package de.neuefische.rikardo.dub.model.actor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie {
+public class ActorSearchList {
 
-    private String id;
-    private String title;
-    private String poster_path;
+    @JsonProperty("results")
+    private List<Actor> actors;
+
 }

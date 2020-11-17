@@ -13,8 +13,8 @@ public class MovieService {
         this.apiService = apiService;
     }
 
-    public MovieSearchList getMovieSearchListByName(String movieName) {
-        return apiService.getMovieSearchListByName(movieName);
+    public MovieSearchList getMovieSearchListByName(String name) {
+        return apiService.getMovieSearchListByName(name);
     }
 
 }
