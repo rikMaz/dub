@@ -2,8 +2,10 @@ package de.neuefische.rikardo.dub.api;
 
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieSearchList;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +18,6 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 class ApiServiceTest {
-
 
     final ApiService apiService = new ApiService();
 

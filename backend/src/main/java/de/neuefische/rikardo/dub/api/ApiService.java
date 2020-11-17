@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ApiService {
 
-    @Value("${tmdb.api.key}")
+    @Value("${tmdb.api.key:defaultApiKeyPlaceholder}")
     private String apiKey;
 
     public MovieSearchList getMovieSearchListByName(String movieName) {
