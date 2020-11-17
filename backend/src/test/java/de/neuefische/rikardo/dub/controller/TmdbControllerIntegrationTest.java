@@ -95,7 +95,7 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/movie/";
         String id = "603";
 
-        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");;
+        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
 
         when(apiService.getMovieDetailsById(id)).thenReturn(movie);
         //WHEN
