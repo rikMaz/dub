@@ -10,8 +10,6 @@ class ApiServiceTest {
 
     final ApiService apiService = new ApiService();
 
-    final String apiKey = null;
-
     @Test
     @DisplayName("The method should return a valid URL to search for a movie name")
     void buildApiUrlToSearchMovieByNameTest() {
@@ -20,7 +18,7 @@ class ApiServiceTest {
         //WHEN
         String result = apiService.buildApiUrl(true,false,name,"","movie");
         //THEN
-        assertThat(result,is("https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=the matrix"));
+        assertThat(result,is("https://api.themoviedb.org/3/search/movie?api_key=" + null + "&query=the matrix"));
     }
 
     @Test
@@ -31,7 +29,7 @@ class ApiServiceTest {
         //WHEN
         String result = apiService.buildApiUrl(true,false,name,"","person");
         //THEN
-        assertThat(result,is("https://api.themoviedb.org/3/search/person?api_key=" + apiKey + "&query=daniel craig"));
+        assertThat(result,is("https://api.themoviedb.org/3/search/person?api_key=" + null + "&query=daniel craig"));
     }
 
     @Test
@@ -42,7 +40,7 @@ class ApiServiceTest {
         //WHEN
         String result = apiService.buildApiUrl(false,false,"",id,"person");
         //THEN
-        assertThat(result,is("https://api.themoviedb.org/3/person/8784?api_key=" + apiKey));
+        assertThat(result,is("https://api.themoviedb.org/3/person/8784?api_key=" + null));
     }
 
     @Test
@@ -53,7 +51,7 @@ class ApiServiceTest {
         //WHEN
         String result = apiService.buildApiUrl(false,false,"",id,"movie");
         //THEN
-        assertThat(result,is("https://api.themoviedb.org/3/movie/550?api_key=" + apiKey));
+        assertThat(result,is("https://api.themoviedb.org/3/movie/550?api_key=" + null));
     }
 
     @Test
@@ -64,7 +62,7 @@ class ApiServiceTest {
         //WHEN
         String result = apiService.buildApiUrl(false,true,"",id,"movie");
         //THEN
-        assertThat(result,is("https://api.themoviedb.org/3/movie/550/credits?api_key=" + apiKey));
+        assertThat(result,is("https://api.themoviedb.org/3/movie/550/credits?api_key=" + null));
     }
 
 }
