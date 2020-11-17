@@ -1,8 +1,8 @@
 package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
-import de.neuefische.rikardo.dub.model.movie.SearchMovieList;
-import de.neuefische.rikardo.dub.model.movie.SearchMovieListResult;
+import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MovieSearchList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,19 +26,17 @@ class MovieServiceTest {
         //GIVEN
         String movieName = "somename";
 
-        List<SearchMovieListResult> searchMovieListResults = new ArrayList<>(List.of(
-                new SearchMovieListResult(1,"The Matrix", "/image.jpg")
-        ));
+        MovieSearchList movieSearchList = new MovieSearchList(new ArrayList<>(List.of(
+                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+        )));
 
-        SearchMovieList searchMovieList = new SearchMovieList(searchMovieListResults);
-
-        when(apiService.searchMovieDetailsByName(movieName)).thenReturn(searchMovieList);
+        when(apiService.getMovieSearchListByName(movieName)).thenReturn(movieSearchList);
 
         //WHEN
-        SearchMovieList result = movieService.getMovieDetailsByName(movieName);
+        MovieSearchList result = movieService.getMovieSearchListByName(movieName);
 
         //THEN
-        assertThat(result,is(searchMovieList));
+        assertThat(result,is(movieSearchList));
 
     }
 

@@ -10,9 +10,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchMovieList {
+public class MovieSearchList {
 
     @JsonProperty("results")
-    private List<SearchMovieListResult> results;
+    private List<Movie> movies;
 
 }

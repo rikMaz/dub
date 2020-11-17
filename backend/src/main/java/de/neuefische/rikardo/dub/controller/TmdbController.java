@@ -1,7 +1,7 @@
 package de.neuefische.rikardo.dub.controller;
 
 
-import de.neuefische.rikardo.dub.model.movie.SearchMovieList;
+import de.neuefische.rikardo.dub.model.movie.MovieSearchList;
 import de.neuefische.rikardo.dub.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +18,8 @@ public class TmdbController {
     }
 
     @GetMapping("/movie/{movieName}")
-    public SearchMovieList getMovieDetailsByName(@PathVariable String movieName) {
-        return movieService.getMovieDetailsByName(movieName);
+    public MovieSearchList getMovieSearchListByName(@PathVariable String movieName) {
+        return movieService.getMovieSearchListByName(movieName);
     }
 
 }

@@ -1,6 +1,6 @@
 package de.neuefische.rikardo.dub.api;
 
-import de.neuefische.rikardo.dub.model.movie.SearchMovieList;
+import de.neuefische.rikardo.dub.model.movie.MovieSearchList;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ public class ApiService {
     @Value("${tmdb.api.key}")
     private String apiKey;
 
-    public SearchMovieList searchMovieDetailsByName(String movieName) {
+    public MovieSearchList getMovieSearchListByName(String movieName) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<SearchMovieList> response = restTemplate.getForEntity(buildApiUrlToSearchMovieDetailsByName(movieName), SearchMovieList.class);
+        ResponseEntity<MovieSearchList> response = restTemplate.getForEntity(buildApiUrlToGetMovieDetailsByName(movieName), MovieSearchList.class);
         return response.getBody();
     }
 
-    public String buildApiUrlToSearchMovieDetailsByName(String movieName) {
+    public String buildApiUrlToGetMovieDetailsByName(String movieName) {
         String name = movieName.toLowerCase();
         String apiUrl = "https://api.themoviedb.org/3/search/";
         String type = "movie";
