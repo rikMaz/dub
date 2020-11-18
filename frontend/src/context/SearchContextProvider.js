@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SearchContext from "./SearchContext";
 import {getMovieSearchResultByName} from "../service/SearchService";
 
 export default function SearchContextProvider({children}) {
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    getMovieSearchResultByName(name).then(setMovies)
-  },[]);
+  const getMoviesByName = (name) =>
+    getMovieSearchResultByName(name).then((movieSearch) => setMovies(movieSearch))
 
   return (
-    <SearchContext.Provider value={{movies}}>
+    <SearchContext.Provider value={{movies,getMoviesByName}}>
       {children}
     </SearchContext.Provider>
   )

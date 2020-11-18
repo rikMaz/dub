@@ -8,9 +8,8 @@ export default function MovieList() {
   const history = useHistory();
 
   return(
-    <ul>
-
-
-    </ul>
+    <>
+      <div>MovieList</div>
+    </>
   )
 }
