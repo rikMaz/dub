@@ -1,8 +1,11 @@
 package de.neuefische.rikardo.dub.controller;
 
 
-import de.neuefische.rikardo.dub.model.actor.ActorSearchList;
-import de.neuefische.rikardo.dub.model.movie.MovieSearchList;
+import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
+import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MovieCrew;
+import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import de.neuefische.rikardo.dub.service.ActorService;
 import de.neuefische.rikardo.dub.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +24,29 @@ public class TmdbController {
         this.actorService = actorService;
     }
 
-    @GetMapping("/movie/{name}")
-    public MovieSearchList getMovieSearchListByName(@PathVariable String name) {
-        return movieService.getMovieSearchListByName(name);
+    @GetMapping("/search/movie/{name}")
+    public MovieSearchResult getMovieSearchResultByName(@PathVariable String name) {
+        return movieService.getMovieSearchResultByName(name);
     }
 
-    @GetMapping("/actor/{name}")
-    public ActorSearchList getActorSearchListByName(@PathVariable String name) {
-        return actorService.getActorSearchListByName(name);
+    @GetMapping("/search/actor/{name}")
+    public ActorSearchResult getActorSearchResultByName(@PathVariable String name) {
+        return actorService.getActorSearchResultByName(name);
+    }
+
+    @GetMapping("/actor/{id}")
+    public Actor getActorDetailsById(@PathVariable String id) {
+        return actorService.getActorDetailsById(id);
+    }
+
+    @GetMapping("/movie/{id}")
+    public Movie getMovieDetailsById(@PathVariable String id) {
+        return movieService.getMovieDetailsById(id);
+    }
+
+    @GetMapping("/movie/{id}/crew")
+    public MovieCrew getMovieCrewById(@PathVariable String id) {
+        return movieService.getMovieCrewById(id);
     }
 
 }
