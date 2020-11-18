@@ -16,9 +16,13 @@ export default function Movie({movie}){
   return(
     <>
       <div>{movie.title}</div>
-      <img alt="MovieImage" src={imageUrl} onClick={onImageClick}/>
+      <img alt="MovieImage" src={imageUrl} onClick={onImageClick} onError={noImage}/>
     </>
   )
+
+  function noImage(event){
+    event.target.src = "/imageerror.png";
+  }
 
   function onImageClick() {
     getMovieById(movie.id);
