@@ -5,6 +5,8 @@ import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ActorService {
 
@@ -14,8 +16,8 @@ public class ActorService {
         this.apiService = apiService;
     }
 
-    public ActorSearchResult getActorSearchResultByName(String name) {
-        return apiService.getActorSearchResultByName(name);
+    public List<Actor> getActorSearchResultByName(String name) {
+        return apiService.getActorSearchResultByName(name).getActors();
     }
 
     public Actor getActorDetailsById(String id) {

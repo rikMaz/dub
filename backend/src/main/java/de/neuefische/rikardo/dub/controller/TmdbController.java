@@ -32,7 +32,7 @@ public class TmdbController {
     }
 
     @GetMapping("/search/actor/{name}")
-    public ActorSearchResult getActorSearchResultByName(@PathVariable String name) {
+    public List<Actor> getActorSearchResultByName(@PathVariable String name) {
         return actorService.getActorSearchResultByName(name);
     }
 
