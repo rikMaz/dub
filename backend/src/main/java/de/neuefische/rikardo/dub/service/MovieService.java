@@ -3,7 +3,6 @@ package de.neuefische.rikardo.dub.service;
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieCrew;
-import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

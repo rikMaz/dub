@@ -12,6 +12,5 @@ public class Actor {
 
     private String id;
     private String name;
-    @JsonProperty("profile_path")
-    private String image_path;
+    private String profile_path;
 }
