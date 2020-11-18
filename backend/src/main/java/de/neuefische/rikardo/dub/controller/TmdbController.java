@@ -11,6 +11,8 @@ import de.neuefische.rikardo.dub.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api")
 public class TmdbController {
@@ -25,7 +27,7 @@ public class TmdbController {
     }
 
     @GetMapping("/search/movie/{name}")
-    public MovieSearchResult getMovieSearchResultByName(@PathVariable String name) {
+    public List<Movie> getMovieSearchResultByName(@PathVariable String name) {
         return movieService.getMovieSearchResultByName(name);
     }
 

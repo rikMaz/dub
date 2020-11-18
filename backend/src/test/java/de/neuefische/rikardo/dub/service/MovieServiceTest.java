@@ -31,11 +31,15 @@ class MovieServiceTest {
                 new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
         )));
 
+        List<Movie> movies = new ArrayList<>(List.of(
+                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+        ));
+
         when(apiService.getMovieSearchResultByName(name)).thenReturn(movieSearchResult);
         //WHEN
-        MovieSearchResult result = movieService.getMovieSearchResultByName(name);
+        List<Movie> result = movieService.getMovieSearchResultByName(name);
         //THEN
-        assertThat(result,is(movieSearchResult));
+        assertThat(result,is(movies));
 
     }
 

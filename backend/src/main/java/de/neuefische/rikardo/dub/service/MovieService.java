@@ -6,6 +6,8 @@ import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieService {
 
@@ -15,8 +17,8 @@ public class MovieService {
         this.apiService = apiService;
     }
 
-    public MovieSearchResult getMovieSearchResultByName(String name) {
-        return apiService.getMovieSearchResultByName(name);
+    public List<Movie> getMovieSearchResultByName(String name) {
+        return apiService.getMovieSearchResultByName(name).getMovies();
     }
 
     public Movie getMovieDetailsById(String id) {
