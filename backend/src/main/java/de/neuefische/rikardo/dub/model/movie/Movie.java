@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class Movie {
 
     private String id;
-    private String title;
-    private String poster_path;
+    private String name;
+    private String image;
 }

@@ -2,6 +2,7 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,11 +26,15 @@ class ActorServiceTest {
         //GIVEN
         String name = "Daniel Craig";
 
-        List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("8784","Daniel Craig","/image.jpg")
+        List<ActorCatch> actorCatch = new ArrayList<>(List.of(
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
         ));
 
-        when(apiService.getActorSearchResultByName(name)).thenReturn(actors);
+        List<Actor> actors = new ArrayList<>(List.of(
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+        ));
+
+        when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
         //WHEN
         List<Actor> result = actorService.getActorSearchResultByName(name);
         //THEN

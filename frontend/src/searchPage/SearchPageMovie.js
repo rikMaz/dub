@@ -12,7 +12,6 @@ export default function SearchPage() {
       <div>SearchPage</div>
       <label>Movie/TVSeries<input name="name" value={name} type="text" onChange={event => setName(event.target.value)}/></label>
       <button onClick={handleSearch}>Search Movie</button>
-
       <button onClick={onCancel}>Cancel</button>
     </>
   )

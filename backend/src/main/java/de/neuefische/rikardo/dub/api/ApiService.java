@@ -1,8 +1,10 @@
 package de.neuefische.rikardo.dub.api;
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MovieCatch;
 import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,12 +23,12 @@ public class ApiService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public List<Movie> getMovieSearchResultByName(String name) {
+    public List<MovieCatch> getMovieSearchResultByName(String name) {
         ResponseEntity<MovieSearchResult> response = restTemplate.getForEntity(buildApiUrl(true,false,name,"","movie"), MovieSearchResult.class);
         return response.getBody().getMovies();
     }
 
-    public List<Actor> getActorSearchResultByName(String name) {
+    public List<ActorCatch> getActorSearchResultByName(String name) {
         ResponseEntity<ActorSearchResult> response = restTemplate.getForEntity(buildApiUrl(true,false,name,"","person"), ActorSearchResult.class);
         return response.getBody().getActors();
     }

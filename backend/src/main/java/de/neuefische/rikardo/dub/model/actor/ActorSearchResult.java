@@ -13,6 +13,6 @@ import java.util.List;
 public class ActorSearchResult {
 
     @JsonProperty("results")
-    private List<Actor> actors;
+    private List<ActorCatch> actors;
 
 }

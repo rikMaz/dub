@@ -3,6 +3,7 @@ package de.neuefische.rikardo.dub.service;
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MovieCatch;
 import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.junit.jupiter.api.DisplayName;
@@ -28,11 +29,15 @@ class MovieServiceTest {
         //GIVEN
         String name = "The Matrix";
 
+        List<MovieCatch> movieCatch = new ArrayList<>(List.of(
+                new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+        ));
+
         List<Movie> movies = new ArrayList<>(List.of(
                 new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
         ));
 
-        when(apiService.getMovieSearchResultByName(name)).thenReturn(movies);
+        when(apiService.getMovieSearchResultByName(name)).thenReturn(movieCatch);
         //WHEN
         List<Movie> result = movieService.getMovieSearchResultByName(name);
         //THEN

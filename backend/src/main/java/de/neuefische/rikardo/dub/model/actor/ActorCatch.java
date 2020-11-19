@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Actor {
+public class ActorCatch {
 
     private String id;
     private String name;
-    private String image;
+    private String profile_path;
 }
