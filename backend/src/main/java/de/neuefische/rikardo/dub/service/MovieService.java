@@ -33,7 +33,11 @@ public class MovieService {
     }
 
     public Movie getMovieDetailsById(String id) {
-        return apiService.getMovieDetailsById(id);
+        return new Movie(
+                apiService.getMovieDetailsById(id).getId(),
+                apiService.getMovieDetailsById(id).getTitle(),
+                apiService.getMovieDetailsById(id).getPoster_path(),
+                "movie");
     }
 
     public MovieCrew getMovieCrewById(String id) {

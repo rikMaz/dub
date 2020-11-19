@@ -4,15 +4,15 @@ import SearchItem from "../commons/SearchItem";
 
 
 export default function SearchList() {
-  const { searchItem } = useContext(SearchContext);
+  const { searchItems } = useContext(SearchContext);
 
   return(
     <>
-      <div>MovieList</div>
+      <div>SearchList</div>
       <ul>
-        {movies?.map((movie) =>
-          <li key={movie.id}>
-            <SearchItem movie={movie}/>
+        {searchItems?.map((searchItem) =>
+          <li key={searchItem.id}>
+            <SearchItem searchItem={searchItem}/>
           </li>
         )}
       </ul>

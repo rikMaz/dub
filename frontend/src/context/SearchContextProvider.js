@@ -6,25 +6,26 @@ import {
   getActorSearchResultByName,
   getActorDetailsById} from "../service/SearchService";
 
+
 export default function SearchContextProvider({children}) {
-  const [movie, setMovie] = useState();
-  const [searchItem, setSearchItem] = useState([]);
   const [actor, setActor] = useState();
+  const [movie, setMovie] = useState();
+  const [searchItems, setSearchItems] = useState([]);
 
   const getMoviesByName = (name) =>
-    getMovieSearchResultByName(name).then((movieSearch) => setSearchItem(movieSearch));
+    getMovieSearchResultByName(name).then((item) => setSearchItems(item));
 
   const getMovieById = (id) =>
-    getMovieDetailsById(id).then((movieSearch) => setMovie(movieSearch));
+    getMovieDetailsById(id).then((item) => setMovie(item));
 
   const getActorsByName = (name) =>
-    getActorSearchResultByName(name).then((movieSearch) => setSearchItem(movieSearch));
+    getActorSearchResultByName(name).then((item) => setSearchItems(item));
 
   const getActorById = (id) =>
-    getActorDetailsById(id).then((movieSearch) => setActor(movieSearch));
+    getActorDetailsById(id).then((item) => setActor(item));
 
   return (
-    <SearchContext.Provider value={{actor,movie,searchItem,getActorsByName,getMoviesByName,getActorById,getMovieById}}>
+    <SearchContext.Provider value={{actor,movie,searchItems,getActorsByName,getMoviesByName,getActorById,getMovieById}}>
       {children}
     </SearchContext.Provider>
   )

@@ -52,8 +52,9 @@ class MovieServiceTest {
         String id = "603";
 
         Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie");
+        MovieCatch movieCatch = new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
 
-        when(apiService.getMovieDetailsById(id)).thenReturn(movie);
+        when(apiService.getMovieDetailsById(id)).thenReturn(movieCatch);
         //WHEN
         Movie result = movieService.getMovieDetailsById(id);
         //THEN

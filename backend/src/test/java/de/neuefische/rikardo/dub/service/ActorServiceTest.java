@@ -47,7 +47,8 @@ class ActorServiceTest {
         //GIVEN
         String id = "8784";
         Actor actor = new Actor("8784","Daniel Craig","/image.jpg","Acting");
-        when(apiService.getActorDetailsById(id)).thenReturn(actor);
+        ActorCatch actorCatch = new ActorCatch("8784","Daniel Craig","/image.jpg","Acting");
+        when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
         Actor result = actorService.getActorDetailsById(id);
         //THEN

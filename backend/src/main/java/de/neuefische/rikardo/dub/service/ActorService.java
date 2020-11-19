@@ -31,11 +31,14 @@ public class ActorService {
 
         return actors.stream()
                 .filter(item -> item.getImage() != null)
-                .filter(item -> item.getType() == "Acting")
                 .collect(Collectors.toList());
     }
 
     public Actor getActorDetailsById(String id) {
-        return apiService.getActorDetailsById(id);
+        return new Actor(
+                apiService.getActorDetailsById(id).getId(),
+                apiService.getActorDetailsById(id).getName(),
+                apiService.getActorDetailsById(id).getProfile_path(),
+                apiService.getActorDetailsById(id).getKnown_for_department());
     }
 }

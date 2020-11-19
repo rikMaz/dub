@@ -4,7 +4,8 @@ import HomePage from "./homePage/HomePage";
 import SearchPage from "./searchPage/SearchPage";
 import SearchContextProvider from "./context/SearchContextProvider";
 import SearchResultPage from "./searchResultPage/SearchResultPage";
-import MovieDetailsPage from "./movieDetailsPage/MovieDetailsPage";
+import MovieDetailsPage from "./detailsPage/MovieDetailsPage";
+import ActorDetailsPage from "./detailsPage/ActorDetailsPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/searchpage" component={SearchPage}/>
         <Route path="/searchresultpage" component={SearchResultPage}/>
         <Route path="/moviedetailspage" component={MovieDetailsPage}/>
+        <Route path="/actordetailspage" component={ActorDetailsPage}/>
         <Route path="/">
           <Redirect to="/homepage"/>
         </Route>

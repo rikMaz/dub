@@ -7,7 +7,7 @@ export default function SearchItem({searchItem}){
   const [imageUrl,setImageUrl] = useState("");
   const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
-  const {getMovieById} = useContext(SearchContext);
+  const {getMovieById,getActorById} = useContext(SearchContext);
 
   useEffect(() => {
     setImageUrl(imageUrlBasis + searchItem.image);
@@ -16,7 +16,7 @@ export default function SearchItem({searchItem}){
   return(
     <>
       <div>{searchItem.name}</div>
-      <img alt="Image" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+      <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
     </>
   )
 
@@ -25,7 +25,11 @@ export default function SearchItem({searchItem}){
   }
 
   function onImageClick() {
-    getMovieById(searchItem.id).then(history.push("/moviedetailspage"));
+    if (searchItem.type === "movie") {
+      getMovieById(searchItem.id).then(history.push("/moviedetailspage"));
+    } else {
+      getActorById(searchItem.id).then(history.push("/actordetailspage"));
+    }
   }
 
 }

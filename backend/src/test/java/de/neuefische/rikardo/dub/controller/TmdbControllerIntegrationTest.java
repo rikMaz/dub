@@ -89,8 +89,9 @@ class TmdbControllerIntegrationTest {
         String id = "6384";
 
         Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
+        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
 
-        when(apiService.getActorDetailsById(id)).thenReturn(actor);
+        when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
         ResponseEntity<Actor> response = testRestTemplate.getForEntity(url + id,Actor.class);
 
@@ -106,8 +107,9 @@ class TmdbControllerIntegrationTest {
         String id = "603";
 
         Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie");
+        MovieCatch movieCatch = new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
 
-        when(apiService.getMovieDetailsById(id)).thenReturn(movie);
+        when(apiService.getMovieDetailsById(id)).thenReturn(movieCatch);
         //WHEN
         ResponseEntity<Movie> response = testRestTemplate.getForEntity(url + id,Movie.class);
 

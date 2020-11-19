@@ -33,13 +33,13 @@ public class ApiService {
         return response.getBody().getActors();
     }
 
-    public Actor getActorDetailsById(String id) {
-        ResponseEntity<Actor> response = restTemplate.getForEntity(buildApiUrl(false,false,"",id,"person"), Actor.class);
+    public ActorCatch getActorDetailsById(String id) {
+        ResponseEntity<ActorCatch> response = restTemplate.getForEntity(buildApiUrl(false,false,"",id,"person"), ActorCatch.class);
         return response.getBody();
     }
 
-    public Movie getMovieDetailsById(String id) {
-        ResponseEntity<Movie> response = restTemplate.getForEntity(buildApiUrl(false,false,"",id,"movie"), Movie.class);
+    public MovieCatch getMovieDetailsById(String id) {
+        ResponseEntity<MovieCatch> response = restTemplate.getForEntity(buildApiUrl(false,false,"",id,"movie"), MovieCatch.class);
         return response.getBody();
     }
 
