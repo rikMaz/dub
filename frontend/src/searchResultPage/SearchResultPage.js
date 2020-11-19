@@ -1,14 +1,14 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
-import MovieList from "./MovieList";
+import SearchList from "./SearchList";
 
-export default function SearchMovieResultPage() {
+export default function SearchResultPage() {
   const history = useHistory();
   return (
     <>
       <div>SearchResultPage</div>
       <button onClick={onCancel}>Cancel</button>
-      <MovieList/>
+      <SearchList/>
     </>
   )
 

@@ -3,20 +3,20 @@ import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 
 
-export default function Movie({movie}){
+export default function SearchItem({searchItem}){
   const [imageUrl,setImageUrl] = useState("");
   const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
   const {getMovieById} = useContext(SearchContext);
 
   useEffect(() => {
-    setImageUrl(imageUrlBasis + movie.poster_path);
-  },[movie]);
+    setImageUrl(imageUrlBasis + searchItem.image);
+  },[searchItem]);
 
   return(
     <>
-      <div>{movie.title}</div>
-      <img alt="MovieImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+      <div>{searchItem.name}</div>
+      <img alt="Image" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
     </>
   )
 
@@ -25,7 +25,7 @@ export default function Movie({movie}){
   }
 
   function onImageClick() {
-    getMovieById(movie.id).then(history.push("/moviedetailspage"));
+    getMovieById(searchItem.id).then(history.push("/moviedetailspage"));
   }
 
 }

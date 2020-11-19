@@ -23,7 +23,7 @@ public class MovieService {
 
         List<Movie> movies = new ArrayList<>();
         for (MovieCatch item: apiService.getMovieSearchResultByName(name)) {
-            Movie movie = new Movie(item.getId(),item.getTitle(),item.getPoster_path());
+            Movie movie = new Movie(item.getId(),item.getTitle(),item.getPoster_path(),"movie");
             movies.add(movie);
         }
 

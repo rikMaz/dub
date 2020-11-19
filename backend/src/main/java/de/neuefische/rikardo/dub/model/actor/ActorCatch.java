@@ -13,4 +13,5 @@ public class ActorCatch {
     private String id;
     private String name;
     private String profile_path;
+    private String known_for_department;
 }

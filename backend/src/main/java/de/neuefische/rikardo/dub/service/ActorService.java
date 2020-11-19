@@ -25,12 +25,13 @@ public class ActorService {
 
         List<Actor> actors = new ArrayList<>();
         for (ActorCatch item: apiService.getActorSearchResultByName(name)) {
-            Actor actor = new Actor(item.getId(),item.getName(),item.getProfile_path());
+            Actor actor = new Actor(item.getId(),item.getName(),item.getProfile_path(),item.getKnown_for_department());
             actors.add(actor);
         }
 
         return actors.stream()
                 .filter(item -> item.getImage() != null)
+                .filter(item -> item.getType() == "Acting")
                 .collect(Collectors.toList());
     }
 

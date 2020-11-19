@@ -27,11 +27,11 @@ class ActorServiceTest {
         String name = "Daniel Craig";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         ));
 
         when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
@@ -46,7 +46,7 @@ class ActorServiceTest {
     void getActorDetailsById() {
         //GIVEN
         String id = "8784";
-        Actor actor = new Actor("8784","Daniel Craig","/image.jpg");
+        Actor actor = new Actor("8784","Daniel Craig","/image.jpg","Acting");
         when(apiService.getActorDetailsById(id)).thenReturn(actor);
         //WHEN
         Actor result = actorService.getActorDetailsById(id);

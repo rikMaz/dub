@@ -8,24 +8,23 @@ import {
 
 export default function SearchContextProvider({children}) {
   const [movie, setMovie] = useState();
-  const [movies, setMovies] = useState([]);
+  const [searchItem, setSearchItem] = useState([]);
   const [actor, setActor] = useState();
-  const [actors, setActors] = useState([]);
 
   const getMoviesByName = (name) =>
-    getMovieSearchResultByName(name).then((movieSearch) => setMovies(movieSearch));
+    getMovieSearchResultByName(name).then((movieSearch) => setSearchItem(movieSearch));
 
   const getMovieById = (id) =>
     getMovieDetailsById(id).then((movieSearch) => setMovie(movieSearch));
 
   const getActorsByName = (name) =>
-    getActorSearchResultByName(name).then((movieSearch) => setActors(movieSearch));
+    getActorSearchResultByName(name).then((movieSearch) => setSearchItem(movieSearch));
 
   const getActorById = (id) =>
     getActorDetailsById(id).then((movieSearch) => setActor(movieSearch));
 
   return (
-    <SearchContext.Provider value={{actor,actors,movie,movies,getActorsByName,getMoviesByName,getActorById,getMovieById}}>
+    <SearchContext.Provider value={{actor,movie,searchItem,getActorsByName,getMoviesByName,getActorById,getMovieById}}>
       {children}
     </SearchContext.Provider>
   )

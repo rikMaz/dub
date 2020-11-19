@@ -34,7 +34,7 @@ class MovieServiceTest {
         ));
 
         List<Movie> movies = new ArrayList<>(List.of(
-                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie")
         ));
 
         when(apiService.getMovieSearchResultByName(name)).thenReturn(movieCatch);
@@ -51,7 +51,7 @@ class MovieServiceTest {
         //GIVEN
         String id = "603";
 
-        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
+        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie");
 
         when(apiService.getMovieDetailsById(id)).thenReturn(movie);
         //WHEN
@@ -67,7 +67,7 @@ class MovieServiceTest {
         String id = "603";
 
         MovieCrew movieCrew = new MovieCrew(new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         )));
 
         when(apiService.getMovieCrewById(id)).thenReturn(movieCrew);

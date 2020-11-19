@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from "./homePage/HomePage";
 import SearchPage from "./searchPage/SearchPage";
 import SearchContextProvider from "./context/SearchContextProvider";
-import SearchMovieResultPage from "./searchResultPage/SearchMovieResultPage";
+import SearchResultPage from "./searchResultPage/SearchResultPage";
 import MovieDetailsPage from "./movieDetailsPage/MovieDetailsPage";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Switch>
         <Route path="/homepage" component={HomePage}/>
         <Route path="/searchpage" component={SearchPage}/>
-        <Route path="/searchresultpage" component={SearchMovieResultPage}/>
+        <Route path="/searchresultpage" component={SearchResultPage}/>
         <Route path="/moviedetailspage" component={MovieDetailsPage}/>
         <Route path="/">
           <Redirect to="/homepage"/>

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import SearchContext from "../context/SearchContext";
-import Movie from "../commons/Movie";
+import SearchItem from "../commons/SearchItem";
 
 
-export default function MovieList() {
-  const { movies } = useContext(SearchContext);
+export default function SearchList() {
+  const { searchItem } = useContext(SearchContext);
 
   return(
     <>
@@ -12,7 +12,7 @@ export default function MovieList() {
       <ul>
         {movies?.map((movie) =>
           <li key={movie.id}>
-            <Movie movie={movie}/>
+            <SearchItem movie={movie}/>
           </li>
         )}
       </ul>

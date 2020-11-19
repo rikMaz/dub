@@ -47,7 +47,7 @@ class TmdbControllerIntegrationTest {
         ));
 
         List<Movie> movies = new ArrayList<>(List.of(
-                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie")
         ));
 
         when(apiService.getMovieSearchResultByName(name)).thenReturn(movieCatch);
@@ -66,11 +66,11 @@ class TmdbControllerIntegrationTest {
         String name = "Keanu Reeves";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         ));
 
         when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
@@ -88,7 +88,7 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/actor/";
         String id = "6384";
 
-        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg");
+        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
 
         when(apiService.getActorDetailsById(id)).thenReturn(actor);
         //WHEN
@@ -105,7 +105,7 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/movie/";
         String id = "603";
 
-        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
+        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie");
 
         when(apiService.getMovieDetailsById(id)).thenReturn(movie);
         //WHEN
@@ -123,7 +123,7 @@ class TmdbControllerIntegrationTest {
         String id = "603";
 
         MovieCrew movieCrew = new MovieCrew(new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         )));
 
         when(apiService.getMovieCrewById(id)).thenReturn(movieCrew);
