@@ -6,6 +6,7 @@ import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -17,7 +18,9 @@ public class MovieService {
     }
 
     public List<Movie> getMovieSearchResultByName(String name) {
-        return apiService.getMovieSearchResultByName(name).getMovies();
+        return apiService.getMovieSearchResultByName(name).stream()
+                .filter(item -> item.getPoster_path() != null)
+                .collect(Collectors.toList());
     }
 
     public Movie getMovieDetailsById(String id) {

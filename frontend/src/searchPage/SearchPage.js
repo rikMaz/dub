@@ -21,8 +21,7 @@ export default function SearchPage() {
   }
 
   function handleSearch() {
-    getMoviesByName(name);
-    history.push("/searchresultpage");
+    getMoviesByName(name).then(history.push("/searchresultpage"));
   }
 
 

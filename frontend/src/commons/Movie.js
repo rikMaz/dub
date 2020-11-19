@@ -5,7 +5,7 @@ import SearchContext from "../context/SearchContext";
 
 export default function Movie({movie}){
   const [imageUrl,setImageUrl] = useState("");
-  const imageUrlBasis = "https://image.tmdb.org/t/p/w154/"
+  const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
   const {getMovieById} = useContext(SearchContext);
 
@@ -16,7 +16,7 @@ export default function Movie({movie}){
   return(
     <>
       <div>{movie.title}</div>
-      <img alt="MovieImage" src={imageUrl} onClick={onImageClick} onError={noImage}/>
+      <img alt="MovieImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
     </>
   )
 
@@ -25,8 +25,7 @@ export default function Movie({movie}){
   }
 
   function onImageClick() {
-    getMovieById(movie.id);
-    history.push("/moviedetailspage");
+    getMovieById(movie.id).then(history.push("/moviedetailspage"));
   }
 
 }
