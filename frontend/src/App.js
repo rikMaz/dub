@@ -12,8 +12,8 @@ function App() {
     <SearchContextProvider>
       <Switch>
         <Route path="/homepage" component={HomePage}/>
-        <Route path="/searchpage" component={SetSearchTypePage}/>
-        <Route path="/searchresultpage" component={SearchPage}/>
+        <Route path="/setsearchtypepage" component={SetSearchTypePage}/>
+        <Route path="/searchpage" component={SearchPage}/>
         <Route path="/moviedetailspage" component={MovieDetailsPage}/>
         <Route path="/actordetailspage" component={ActorDetailsPage}/>
         <Route path="/">

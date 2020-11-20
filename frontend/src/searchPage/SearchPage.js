@@ -6,7 +6,7 @@ import SearchContext from "../context/SearchContext";
 export default function SearchPage() {
   const history = useHistory();
   const [name,setName] = useState("");
-  const {searchType,getActorsByName,getMoviesByName,setSearchItems} = useContext(SearchContext);
+  const {searchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch} = useContext(SearchContext);
   const [title,setTitle] = useState("");
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function SearchPage() {
   }
 
   function onSearch() {
+    setLastSearch(name);
     if(searchType === "movie") {
       getMoviesByName(name);
     } else {

@@ -8,7 +8,7 @@ export default function SetSearchTypePage() {
 
   return (
     <>
-      <div>SearchPage</div>
+      <div>SetSearchTypePage</div>
 
       <button onClick={handleSearchMovie}>Search Movie</button>
 
@@ -24,12 +24,12 @@ export default function SetSearchTypePage() {
 
   function handleSearchMovie() {
     setSearchType("movie")
-    history.push("/searchresultpage");
+    history.push("/searchpage");
   }
 
   function handleSearchActor() {
     setSearchType("actor")
-    history.push("/searchresultpage");
+    history.push("/searchpage");
   }
 
 

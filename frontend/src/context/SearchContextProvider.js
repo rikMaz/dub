@@ -12,6 +12,7 @@ export default function SearchContextProvider({children}) {
   const [actor, setActor] = useState();
   const [movie, setMovie] = useState();
   const [searchType, setSearchType] = useState();
+  const [lastSearch, setLastSearch] = useState("");
   const [searchItems, setSearchItems] = useState([]);
 
   const getMoviesByName = (name) =>
@@ -30,7 +31,7 @@ export default function SearchContextProvider({children}) {
     getMovieCrewById(id).then((item) => setSearchItems(item));
 
   return (
-    <SearchContext.Provider value={{actor,movie,searchItems,setSearchItems,searchType,setSearchType,getActorsByName,getMoviesByName,getActorById,getMovieById,getMovieCrewByMovieId}}>
+    <SearchContext.Provider value={{actor,movie,searchItems,setSearchItems,searchType,setSearchType,lastSearch, setLastSearch,getActorsByName,getMoviesByName,getActorById,getMovieById,getMovieCrewByMovieId}}>
       {children}
     </SearchContext.Provider>
   )
