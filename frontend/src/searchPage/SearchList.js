@@ -8,7 +8,6 @@ export default function SearchList() {
 
   return(
     <>
-      <div>SearchList</div>
       <ul>
         {searchItems?.map((searchItem) =>
           <li key={searchItem.id}>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from "./homePage/HomePage";
-import SearchPage from "./searchPage/SearchPage";
+import SetSearchTypePage from "./setSearchTypePage/SetSearchTypePage";
 import SearchContextProvider from "./context/SearchContextProvider";
-import SearchResultPage from "./searchResultPage/SearchResultPage";
+import SearchPage from "./searchPage/SearchPage";
 import MovieDetailsPage from "./detailsPage/MovieDetailsPage";
 import ActorDetailsPage from "./detailsPage/ActorDetailsPage";
 
@@ -12,8 +12,8 @@ function App() {
     <SearchContextProvider>
       <Switch>
         <Route path="/homepage" component={HomePage}/>
-        <Route path="/searchpage" component={SearchPage}/>
-        <Route path="/searchresultpage" component={SearchResultPage}/>
+        <Route path="/searchpage" component={SetSearchTypePage}/>
+        <Route path="/searchresultpage" component={SearchPage}/>
         <Route path="/moviedetailspage" component={MovieDetailsPage}/>
         <Route path="/actordetailspage" component={ActorDetailsPage}/>
         <Route path="/">
