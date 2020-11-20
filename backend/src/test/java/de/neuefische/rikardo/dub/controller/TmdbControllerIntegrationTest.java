@@ -2,8 +2,10 @@ package de.neuefische.rikardo.dub.controller;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MovieCatch;
 import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.junit.jupiter.api.Test;
@@ -40,11 +42,15 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/search/movie/";
         String name = "The Matrix";
 
-        List<Movie> movies = new ArrayList<>(List.of(
-                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+        List<MovieCatch> movieCatch = new ArrayList<>(List.of(
+                new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
         ));
 
-        when(apiService.getMovieSearchResultByName(name)).thenReturn(movies);
+        List<Movie> movies = new ArrayList<>(List.of(
+                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie")
+        ));
+
+        when(apiService.getMovieSearchResultByName(name)).thenReturn(movieCatch);
         //WHEN
         ResponseEntity<Movie[]> response = testRestTemplate.getForEntity(url + name,Movie[].class);
 
@@ -59,11 +65,15 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/search/actor/";
         String name = "Keanu Reeves";
 
-        List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+        List<ActorCatch> actorCatch = new ArrayList<>(List.of(
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         ));
 
-        when(apiService.getActorSearchResultByName(name)).thenReturn(actors);
+        List<Actor> actors = new ArrayList<>(List.of(
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
+        ));
+
+        when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
         //WHEN
         ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url + name,Actor[].class);
 
@@ -78,9 +88,10 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/actor/";
         String id = "6384";
 
-        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg");
+        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
+        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
 
-        when(apiService.getActorDetailsById(id)).thenReturn(actor);
+        when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
         ResponseEntity<Actor> response = testRestTemplate.getForEntity(url + id,Actor.class);
 
@@ -95,9 +106,10 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/movie/";
         String id = "603";
 
-        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
+        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie");
+        MovieCatch movieCatch = new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
 
-        when(apiService.getMovieDetailsById(id)).thenReturn(movie);
+        when(apiService.getMovieDetailsById(id)).thenReturn(movieCatch);
         //WHEN
         ResponseEntity<Movie> response = testRestTemplate.getForEntity(url + id,Movie.class);
 
@@ -113,7 +125,7 @@ class TmdbControllerIntegrationTest {
         String id = "603";
 
         MovieCrew movieCrew = new MovieCrew(new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
         )));
 
         when(apiService.getMovieCrewById(id)).thenReturn(movieCrew);

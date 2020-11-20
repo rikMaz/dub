@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
-import MovieList from "./MovieList";
+import SearchList from "./SearchList";
 
 export default function SearchResultPage() {
   const history = useHistory();
@@ -8,7 +8,7 @@ export default function SearchResultPage() {
     <>
       <div>SearchResultPage</div>
       <button onClick={onCancel}>Cancel</button>
-      <MovieList/>
+      <SearchList/>
     </>
   )
 

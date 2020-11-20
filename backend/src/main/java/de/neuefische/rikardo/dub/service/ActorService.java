@@ -2,9 +2,13 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
+import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MovieCatch;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +22,23 @@ public class ActorService {
     }
 
     public List<Actor> getActorSearchResultByName(String name) {
-        return apiService.getActorSearchResultByName(name).stream()
-                .filter(item -> item.getProfile_path() != null)
+
+        List<Actor> actors = new ArrayList<>();
+        for (ActorCatch item: apiService.getActorSearchResultByName(name)) {
+            Actor actor = new Actor(item.getId(),item.getName(),item.getProfile_path(),item.getKnown_for_department());
+            actors.add(actor);
+        }
+
+        return actors.stream()
+                .filter(item -> item.getImage() != null)
                 .collect(Collectors.toList());
     }
 
     public Actor getActorDetailsById(String id) {
-        return apiService.getActorDetailsById(id);
+        return new Actor(
+                apiService.getActorDetailsById(id).getId(),
+                apiService.getActorDetailsById(id).getName(),
+                apiService.getActorDetailsById(id).getProfile_path(),
+                apiService.getActorDetailsById(id).getKnown_for_department());
     }
 }

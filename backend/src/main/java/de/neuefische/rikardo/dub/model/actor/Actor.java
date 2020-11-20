@@ -12,5 +12,6 @@ public class Actor {
 
     private String id;
     private String name;
-    private String profile_path;
+    private String image;
+    private String type;
 }

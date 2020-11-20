@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActorSearchResult {
+public class ActorCatch {
 
-    @JsonProperty("results")
-    private List<ActorCatch> actors;
-
+    private String id;
+    private String name;
+    private String profile_path;
+    private String known_for_department;
 }

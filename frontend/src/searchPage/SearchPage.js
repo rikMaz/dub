@@ -3,15 +3,20 @@ import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 
 export default function SearchPage() {
-  const {getMoviesByName} = useContext(SearchContext);
-  const [name,setName] = useState("");
+  const {getMoviesByName,getActorsByName} = useContext(SearchContext);
+  const [actorName,setActorName] = useState("");
+  const [movieName,setMovieName] = useState("");
   const history = useHistory();
 
   return (
     <>
       <div>SearchPage</div>
-      <label>Movie/TVSeries<input name="name" value={name} type="text" onChange={event => setName(event.target.value)}/></label>
-      <button onClick={handleSearch}>Search</button>
+      <label>Movie/TVSeries<input name="moviename" value={movieName} type="text" onChange={event => setMovieName(event.target.value)}/></label>
+      <button onClick={handleSearchMovie}>Search Movie</button>
+
+      <label>Actor<input name="actorname" value={actorName} type="text" onChange={event => setActorName(event.target.value)}/></label>
+      <button onClick={handleSearchActor}>Search Actor</button>
+
       <button onClick={onCancel}>Cancel</button>
     </>
   )
@@ -20,8 +25,12 @@ export default function SearchPage() {
     history.goBack();
   }
 
-  function handleSearch() {
-    getMoviesByName(name).then(history.push("/searchresultpage"));
+  function handleSearchMovie() {
+    getMoviesByName(movieName).then(history.push("/searchresultpage"));
+  }
+
+  function handleSearchActor() {
+    getActorsByName(actorName).then(history.push("/searchresultpage"));
   }
 
 

@@ -13,6 +13,6 @@ import java.util.List;
 public class MovieSearchResult {
 
     @JsonProperty("results")
-    private List<Movie> movies;
+    private List<MovieCatch> movies;
 
 }
