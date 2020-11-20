@@ -5,8 +5,6 @@ import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieCatch;
-import de.neuefische.rikardo.dub.model.movie.MovieCrew;
-import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

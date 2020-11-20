@@ -3,7 +3,6 @@ package de.neuefische.rikardo.dub.service;
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.ActorCatch;
-import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

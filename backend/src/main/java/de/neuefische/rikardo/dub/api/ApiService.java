@@ -1,9 +1,7 @@
 package de.neuefische.rikardo.dub.api;
 
-import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
-import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieCatch;
 import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +18,7 @@ public class ApiService {
     @Value("${tmdb.api.key:defaultApiKeyPlaceholder}")
     private String apiKey;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public List<MovieCatch> getMovieSearchResultByName(String name) {
         ResponseEntity<MovieSearchResult> response = restTemplate.getForEntity(buildApiUrl(true,false,name,"","movie"), MovieSearchResult.class);
