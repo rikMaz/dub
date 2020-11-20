@@ -50,7 +50,7 @@ public class MovieService {
         }
 
         return actors.stream()
-                .filter(item -> item.getType() == "Acting")
+                .filter(item -> item.getImage() != null)
                 .collect(Collectors.toList());
     }
 }

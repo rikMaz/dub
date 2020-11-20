@@ -26,11 +26,11 @@ export default function SearchPage() {
   }
 
   function handleSearchMovie() {
-    getMoviesByName(movieName).then(history.push("/searchresultpage"));
+    getMoviesByName(movieName).then(() => history.push("/searchresultpage"));
   }
 
   function handleSearchActor() {
-    getActorsByName(actorName).then(history.push("/searchresultpage"));
+    getActorsByName(actorName).then(() => history.push("/searchresultpage"));
   }
 
 

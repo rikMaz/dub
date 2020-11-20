@@ -11,3 +11,6 @@ export const getActorSearchResultByName = (name) =>
 
 export const getActorDetailsById = (id) =>
   axios.get("/api/actor/" + id).then((response) => response.data);
+
+export const getMovieCrewById = (id) =>
+  axios.get("/api/movie/" + id + "/crew").then((response) => response.data);

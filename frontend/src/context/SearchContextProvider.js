@@ -4,7 +4,8 @@ import {
   getMovieSearchResultByName,
   getMovieDetailsById,
   getActorSearchResultByName,
-  getActorDetailsById} from "../service/SearchService";
+  getActorDetailsById,
+  getMovieCrewById} from "../service/SearchService";
 
 
 export default function SearchContextProvider({children}) {
@@ -24,8 +25,11 @@ export default function SearchContextProvider({children}) {
   const getActorById = (id) =>
     getActorDetailsById(id).then((item) => setActor(item));
 
+  const getMovieCrewByMovieId = (id) =>
+    getMovieCrewById(id).then((item) => setSearchItems(item));
+
   return (
-    <SearchContext.Provider value={{actor,movie,searchItems,getActorsByName,getMoviesByName,getActorById,getMovieById}}>
+    <SearchContext.Provider value={{actor,movie,searchItems,getActorsByName,getMoviesByName,getActorById,getMovieById,getMovieCrewByMovieId}}>
       {children}
     </SearchContext.Provider>
   )
