@@ -40,17 +40,17 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/search/movie/";
         String name = "The Matrix";
 
-        MovieSearchResult movieSearchResult = new MovieSearchResult(new ArrayList<>(List.of(
+        List<Movie> movies = new ArrayList<>(List.of(
                 new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
-        )));
+        ));
 
-        when(apiService.getMovieSearchResultByName(name)).thenReturn(movieSearchResult);
+        when(apiService.getMovieSearchResultByName(name)).thenReturn(movies);
         //WHEN
-        ResponseEntity<MovieSearchResult> response = testRestTemplate.getForEntity(url + name,MovieSearchResult.class);
+        ResponseEntity<Movie[]> response = testRestTemplate.getForEntity(url + name,Movie[].class);
 
         //THEN
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(movieSearchResult));
+        assertThat(response.getBody(),is(movies.toArray()));
     }
 
     @Test
@@ -59,17 +59,17 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/search/actor/";
         String name = "Keanu Reeves";
 
-        ActorSearchResult actorSearchResult = new ActorSearchResult(new ArrayList<>(List.of(
+        List<Actor> actors = new ArrayList<>(List.of(
                 new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg")
-        )));
+        ));
 
-        when(apiService.getActorSearchResultByName(name)).thenReturn(actorSearchResult);
+        when(apiService.getActorSearchResultByName(name)).thenReturn(actors);
         //WHEN
-        ResponseEntity<ActorSearchResult> response = testRestTemplate.getForEntity(url + name,ActorSearchResult.class);
+        ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url + name,Actor[].class);
 
         //THEN
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(actorSearchResult));
+        assertThat(response.getBody(),is(actors.toArray()));
     }
 
     @Test

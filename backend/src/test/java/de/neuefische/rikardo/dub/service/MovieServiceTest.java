@@ -27,15 +27,16 @@ class MovieServiceTest {
     void getMovieSearchResultByNameTest() {
         //GIVEN
         String name = "The Matrix";
-        MovieSearchResult movieSearchResult = new MovieSearchResult(new ArrayList<>(List.of(
-                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
-        )));
 
-        when(apiService.getMovieSearchResultByName(name)).thenReturn(movieSearchResult);
+        List<Movie> movies = new ArrayList<>(List.of(
+                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+        ));
+
+        when(apiService.getMovieSearchResultByName(name)).thenReturn(movies);
         //WHEN
-        MovieSearchResult result = movieService.getMovieSearchResultByName(name);
+        List<Movie> result = movieService.getMovieSearchResultByName(name);
         //THEN
-        assertThat(result,is(movieSearchResult));
+        assertThat(result,is(movies));
 
     }
 

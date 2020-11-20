@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class ApiService {
 
@@ -18,14 +20,14 @@ public class ApiService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public MovieSearchResult getMovieSearchResultByName(String name) {
+    public List<Movie> getMovieSearchResultByName(String name) {
         ResponseEntity<MovieSearchResult> response = restTemplate.getForEntity(buildApiUrl(true,false,name,"","movie"), MovieSearchResult.class);
-        return response.getBody();
+        return response.getBody().getMovies();
     }
 
-    public ActorSearchResult getActorSearchResultByName(String name) {
+    public List<Actor> getActorSearchResultByName(String name) {
         ResponseEntity<ActorSearchResult> response = restTemplate.getForEntity(buildApiUrl(true,false,name,"","person"), ActorSearchResult.class);
-        return response.getBody();
+        return response.getBody().getActors();
     }
 
     public Actor getActorDetailsById(String id) {

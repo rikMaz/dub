@@ -24,14 +24,16 @@ class ActorServiceTest {
     void getActorSearchResultByNameTest() {
         //GIVEN
         String name = "Daniel Craig";
-        ActorSearchResult actorSearchResult = new ActorSearchResult(new ArrayList<>(List.of(
-            new Actor("8784","Daniel Craig","/image.jpg")
-        )));
-        when(apiService.getActorSearchResultByName(name)).thenReturn(actorSearchResult);
+
+        List<Actor> actors = new ArrayList<>(List.of(
+                new Actor("8784","Daniel Craig","/image.jpg")
+        ));
+
+        when(apiService.getActorSearchResultByName(name)).thenReturn(actors);
         //WHEN
-        ActorSearchResult result = actorService.getActorSearchResultByName(name);
+        List<Actor> result = actorService.getActorSearchResultByName(name);
         //THEN
-        assertThat(result,is(actorSearchResult));
+        assertThat(result,is(actors));
     }
 
     @Test
