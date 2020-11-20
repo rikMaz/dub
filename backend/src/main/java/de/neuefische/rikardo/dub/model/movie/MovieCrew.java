@@ -1,7 +1,7 @@
 package de.neuefische.rikardo.dub.model.movie;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +14,5 @@ import java.util.List;
 public class MovieCrew {
 
     @JsonProperty("cast")
-    private List<Actor> movieCrew;
+    private List<ActorCatch> movieCrew;
 }

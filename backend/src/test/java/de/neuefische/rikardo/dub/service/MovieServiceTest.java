@@ -2,10 +2,9 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieCatch;
-import de.neuefische.rikardo.dub.model.movie.MovieCrew;
-import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -67,15 +66,19 @@ class MovieServiceTest {
         //GIVEN
         String id = "603";
 
-        MovieCrew movieCrew = new MovieCrew(new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
-        )));
+        List<ActorCatch> actorCatch = new ArrayList<>(List.of(
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+        ));
 
-        when(apiService.getMovieCrewById(id)).thenReturn(movieCrew);
+        List<Actor> actors = new ArrayList<>(List.of(
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+        ));
+
+        when(apiService.getMovieCrewById(id)).thenReturn(actorCatch);
         //WHEN
-        MovieCrew result = movieService.getMovieCrewById(id);
+        List<Actor> result = movieService.getMovieCrewById(id);
         //THEN
-        assertThat(result,is(movieCrew));
+        assertThat(result,is(actors));
     }
 
 }

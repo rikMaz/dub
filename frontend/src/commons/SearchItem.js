@@ -26,10 +26,11 @@ export default function SearchItem({searchItem}){
 
   function onImageClick() {
     if (searchItem.type === "movie") {
-      getMovieById(searchItem.id).then(history.push("/moviedetailspage"));
+      getMovieById(searchItem.id).then(() => history.push("/moviedetailspage"));
     } else {
-      getActorById(searchItem.id).then(history.push("/actordetailspage"));
+      getActorById(searchItem.id).then(() => history.push("/actordetailspage"));
     }
   }
+
 
 }

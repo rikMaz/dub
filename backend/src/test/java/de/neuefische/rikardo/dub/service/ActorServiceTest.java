@@ -3,7 +3,6 @@ package de.neuefische.rikardo.dub.service;
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.ActorCatch;
-import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,11 +26,11 @@ class ActorServiceTest {
         String name = "Daniel Craig";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
         ));
 
         when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
@@ -46,8 +45,8 @@ class ActorServiceTest {
     void getActorDetailsById() {
         //GIVEN
         String id = "8784";
-        Actor actor = new Actor("8784","Daniel Craig","/image.jpg","Acting");
-        ActorCatch actorCatch = new ActorCatch("8784","Daniel Craig","/image.jpg","Acting");
+        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo");
+        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo");
         when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
         Actor result = actorService.getActorDetailsById(id);

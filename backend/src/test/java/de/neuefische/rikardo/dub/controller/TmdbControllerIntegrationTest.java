@@ -3,11 +3,8 @@ package de.neuefische.rikardo.dub.controller;
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.ActorCatch;
-import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieCatch;
-import de.neuefische.rikardo.dub.model.movie.MovieCrew;
-import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,11 +63,11 @@ class TmdbControllerIntegrationTest {
         String name = "Keanu Reeves";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
         ));
 
         when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
@@ -88,8 +85,8 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/actor/";
         String id = "6384";
 
-        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
-        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting");
+        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo");
+        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo");
 
         when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
@@ -124,17 +121,21 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/movie/";
         String id = "603";
 
-        MovieCrew movieCrew = new MovieCrew(new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting")
-        )));
+        List<ActorCatch> actorCatch = new ArrayList<>(List.of(
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+        ));
 
-        when(apiService.getMovieCrewById(id)).thenReturn(movieCrew);
+        List<Actor> actors = new ArrayList<>(List.of(
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+        ));
+
+        when(apiService.getMovieCrewById(id)).thenReturn(actorCatch);
         //WHEN
-        ResponseEntity<MovieCrew> response = testRestTemplate.getForEntity(url + id + "/crew",MovieCrew.class);
+        ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url + id + "/crew",Actor[].class);
 
         //THEN
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(movieCrew));
+        assertThat(response.getBody(),is(actors.toArray()));
     }
 
 

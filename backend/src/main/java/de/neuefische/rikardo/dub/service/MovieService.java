@@ -1,9 +1,10 @@
 package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
+import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorCatch;
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MovieCatch;
-import de.neuefische.rikardo.dub.model.movie.MovieCrew;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,7 +41,16 @@ public class MovieService {
                 "movie");
     }
 
-    public MovieCrew getMovieCrewById(String id) {
-        return apiService.getMovieCrewById(id);
+    public List<Actor> getMovieCrewById(String id) {
+
+        List<Actor> actors = new ArrayList<>();
+        for (ActorCatch item: apiService.getMovieCrewById(id)){
+            Actor actor = new Actor(item.getId(),item.getName(), item.getProfile_path(), item.getKnown_for_department(),item.getCharacter());
+            actors.add(actor);
+        }
+
+        return actors.stream()
+                .filter(item -> item.getImage() != null)
+                .collect(Collectors.toList());
     }
 }

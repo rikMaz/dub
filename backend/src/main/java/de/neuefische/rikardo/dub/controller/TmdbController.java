@@ -2,10 +2,7 @@ package de.neuefische.rikardo.dub.controller;
 
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ActorSearchResult;
 import de.neuefische.rikardo.dub.model.movie.Movie;
-import de.neuefische.rikardo.dub.model.movie.MovieCrew;
-import de.neuefische.rikardo.dub.model.movie.MovieSearchResult;
 import de.neuefische.rikardo.dub.service.ActorService;
 import de.neuefische.rikardo.dub.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +44,7 @@ public class TmdbController {
     }
 
     @GetMapping("/movie/{id}/crew")
-    public MovieCrew getMovieCrewById(@PathVariable String id) {
+    public List<Actor> getMovieCrewById(@PathVariable String id) {
         return movieService.getMovieCrewById(id);
     }
 
