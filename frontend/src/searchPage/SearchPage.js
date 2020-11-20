@@ -21,7 +21,7 @@ export default function SearchPage() {
     <>
       <div>{title}</div>
       <input name="name" value={name} type="text" onChange={event => setName(event.target.value)}/>
-      <button onClick={onSearch}>Search</button>
+      <button onClick={onSearch} disabled={!name}>Search</button>
 
       <button onClick={onCancel}>Cancel</button>
       <SearchList/>

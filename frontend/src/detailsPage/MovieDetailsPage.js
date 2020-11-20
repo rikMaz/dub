@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 
 export default function MovieDetailsPage() {
   const history = useHistory();
-  const {movie,getMovieCrewByMovieId} = useContext(SearchContext);
+  const {movie,getMovieCrewByMovieId,setSearchType} = useContext(SearchContext);
 
   return (
     <>
@@ -20,6 +20,7 @@ export default function MovieDetailsPage() {
   }
 
   function getMovieCrew() {
+    setSearchType("actor")
     getMovieCrewByMovieId(movie.id).then(() => history.push("/searchresultpage"))
   }
 
