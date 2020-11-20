@@ -47,7 +47,7 @@ public class TmdbController {
     }
 
     @GetMapping("/movie/{id}/crew")
-    public MovieCrew getMovieCrewById(@PathVariable String id) {
+    public List<Actor> getMovieCrewById(@PathVariable String id) {
         return movieService.getMovieCrewById(id);
     }
 

@@ -43,9 +43,9 @@ public class ApiService {
         return response.getBody();
     }
 
-    public MovieCrew getMovieCrewById(String id) {
+    public List<ActorCatch> getMovieCrewById(String id) {
         ResponseEntity<MovieCrew> response = restTemplate.getForEntity(buildApiUrl(false,true,"",id,"movie"), MovieCrew.class);
-        return response.getBody();
+        return response.getBody().getMovieCrew();
     }
 
 
