@@ -21,8 +21,15 @@ public class ActorService {
     public List<Actor> getActorSearchResultByName(String name) {
 
         List<Actor> actors = new ArrayList<>();
-        for (ActorCatch item: apiService.getActorSearchResultByName(name)) {
-            Actor actor = new Actor(item.getId(),item.getName(),item.getProfile_path(),item.getKnown_for_department(), item.getCharacter());
+        for (ActorCatch actorCatch: apiService.getActorSearchResultByName(name)) {
+            Actor actor = new Actor(
+                    actorCatch.getId(),
+                    actorCatch.getName(),
+                    actorCatch.getProfile_path(),
+                    actorCatch.getBiography(),
+                    actorCatch.getBirthday(),
+                    actorCatch.getPlace_of_birth(),
+                    actorCatch.getKnown_for_department());
             actors.add(actor);
         }
 
@@ -32,11 +39,14 @@ public class ActorService {
     }
 
     public Actor getActorDetailsById(String id) {
+        ActorCatch actorCatch = apiService.getActorDetailsById(id);
         return new Actor(
-                apiService.getActorDetailsById(id).getId(),
-                apiService.getActorDetailsById(id).getName(),
-                apiService.getActorDetailsById(id).getProfile_path(),
-                apiService.getActorDetailsById(id).getKnown_for_department(),
-                apiService.getActorDetailsById(id).getCharacter());
+                actorCatch.getId(),
+                actorCatch.getName(),
+                actorCatch.getProfile_path(),
+                actorCatch.getBiography(),
+                actorCatch.getBirthday(),
+                actorCatch.getPlace_of_birth(),
+                actorCatch.getKnown_for_department());
     }
 }

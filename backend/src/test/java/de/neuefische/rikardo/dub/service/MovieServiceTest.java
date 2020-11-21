@@ -29,11 +29,11 @@ class MovieServiceTest {
         String name = "The Matrix";
 
         List<MovieCatch> movieCatch = new ArrayList<>(List.of(
-                new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg")
+                new MovieCatch("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0")
         ));
 
         List<Movie> movies = new ArrayList<>(List.of(
-                new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie")
+                new Movie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0","movie")
         ));
 
         when(apiService.getMovieSearchResultByName(name)).thenReturn(movieCatch);
@@ -50,8 +50,8 @@ class MovieServiceTest {
         //GIVEN
         String id = "603";
 
-        Movie movie = new Movie("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg","movie");
-        MovieCatch movieCatch = new MovieCatch("603","The Matrix", "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg");
+        MovieCatch movieCatch = new MovieCatch("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
+        Movie movie = new Movie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0","movie");
 
         when(apiService.getMovieDetailsById(id)).thenReturn(movieCatch);
         //WHEN
@@ -67,11 +67,11 @@ class MovieServiceTest {
         String id = "603";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         when(apiService.getMovieCrewById(id)).thenReturn(actorCatch);

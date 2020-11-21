@@ -12,6 +12,12 @@ export default function MovieDetailsPage() {
       <img alt="MovieImage" src={"https://image.tmdb.org/t/p/w154/"+movie?.image}/>
       <button onClick={getMovieCrew}>Crew</button>
       <button onClick={onCancel}>Cancel</button>
+      <label>Release Date<p>{movie?.releaseDate}</p></label>
+      <label>Original Language<p>{movie?.originalLanguage}</p></label>
+      <label>Runtime<p>{movie?.runtime}</p></label>
+      <label>Budget<p>{movie?.budget}</p></label>
+      <label>Revenue<p>{movie?.revenue}</p></label>
+      <label>Overview<p>{movie?.overview}</p></label>
     </>
   )
 

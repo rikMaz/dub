@@ -26,11 +26,11 @@ class ActorServiceTest {
         String name = "Daniel Craig";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo")
+                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
@@ -45,8 +45,8 @@ class ActorServiceTest {
     void getActorDetailsById() {
         //GIVEN
         String id = "8784";
-        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo");
-        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","Acting","Neo");
+        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting");
+        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting");
         when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
         Actor result = actorService.getActorDetailsById(id);

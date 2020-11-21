@@ -23,8 +23,18 @@ public class MovieService {
     public List<Movie> getMovieSearchResultByName(String name) {
 
         List<Movie> movies = new ArrayList<>();
-        for (MovieCatch item: apiService.getMovieSearchResultByName(name)) {
-            Movie movie = new Movie(item.getId(),item.getTitle(),item.getPoster_path(),"movie");
+        for (MovieCatch movieCatch: apiService.getMovieSearchResultByName(name)) {
+            Movie movie = new Movie(
+                    movieCatch.getId(),
+                    movieCatch.getTitle(),
+                    movieCatch.getPoster_path(),
+                    movieCatch.getOverview(),
+                    movieCatch.getRelease_date(),
+                    movieCatch.getRuntime(),
+                    movieCatch.getOriginal_language(),
+                    movieCatch.getBudget(),
+                    movieCatch.getRevenue(),
+                    "movie");
             movies.add(movie);
         }
 
@@ -34,18 +44,32 @@ public class MovieService {
     }
 
     public Movie getMovieDetailsById(String id) {
+        MovieCatch movieCatch = apiService.getMovieDetailsById(id);
         return new Movie(
-                apiService.getMovieDetailsById(id).getId(),
-                apiService.getMovieDetailsById(id).getTitle(),
-                apiService.getMovieDetailsById(id).getPoster_path(),
+                movieCatch.getId(),
+                movieCatch.getTitle(),
+                movieCatch.getPoster_path(),
+                movieCatch.getOverview(),
+                movieCatch.getRelease_date(),
+                movieCatch.getRuntime(),
+                movieCatch.getOriginal_language(),
+                movieCatch.getBudget(),
+                movieCatch.getRevenue(),
                 "movie");
     }
 
     public List<Actor> getMovieCrewById(String id) {
 
         List<Actor> actors = new ArrayList<>();
-        for (ActorCatch item: apiService.getMovieCrewById(id)){
-            Actor actor = new Actor(item.getId(),item.getName(), item.getProfile_path(), item.getKnown_for_department(),item.getCharacter());
+        for (ActorCatch actorCatch: apiService.getMovieCrewById(id)){
+            Actor actor = new Actor(
+                    actorCatch.getId(),
+                    actorCatch.getName(),
+                    actorCatch.getProfile_path(),
+                    actorCatch.getBiography(),
+                    actorCatch.getBirthday(),
+                    actorCatch.getPlace_of_birth(),
+                    actorCatch.getKnown_for_department());
             actors.add(actor);
         }
 
