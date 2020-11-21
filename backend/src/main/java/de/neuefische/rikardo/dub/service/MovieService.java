@@ -66,6 +66,7 @@ public class MovieService {
                     actorCatch.getId(),
                     actorCatch.getName(),
                     actorCatch.getProfile_path(),
+                    actorCatch.getCharacter(),
                     actorCatch.getBiography(),
                     actorCatch.getBirthday(),
                     actorCatch.getPlace_of_birth(),

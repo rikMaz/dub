@@ -12,6 +12,7 @@ public class Actor {
     private String id;
     private String name;
     private String image;
+    private String character;
     private String biography;
     private String birthday;
     private String placeOfBirth;

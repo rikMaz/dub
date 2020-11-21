@@ -67,11 +67,11 @@ class MovieServiceTest {
         String id = "603";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
+                new ActorCatch("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
+                new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         when(apiService.getMovieCrewById(id)).thenReturn(actorCatch);

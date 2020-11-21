@@ -63,11 +63,11 @@ class TmdbControllerIntegrationTest {
         String name = "Keanu Reeves";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
+                new ActorCatch("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
+                new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
@@ -85,8 +85,8 @@ class TmdbControllerIntegrationTest {
         String url = "http://localhost:" + port + "/api/actor/";
         String id = "6384";
 
-        Actor actor = new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting");
-        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting");
+        Actor actor = new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
+        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
 
         when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
         //WHEN
@@ -122,11 +122,11 @@ class TmdbControllerIntegrationTest {
         String id = "603";
 
         List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
+                new ActorCatch("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/rRdru6REr9i3WIHv2mntpcgxnoY.jpg","biography","1964-09-02","Beirut, Lebanon","Acting")
+                new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
         ));
 
         when(apiService.getMovieCrewById(id)).thenReturn(actorCatch);
