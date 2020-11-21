@@ -18,7 +18,7 @@ export const getMovieCrewById = (id) =>
 export function uploadImage(file) {
   const formData = new FormData();
   formData.append('image', file);
-  axios
+  return axios
     .post('/aws/image/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
