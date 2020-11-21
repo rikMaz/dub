@@ -24,7 +24,7 @@ export default function MovieDetailsPage() {
   }
 
   function getMovieCrew() {
-    setSearchType("actor")
+    setSearchType("crew")
     getMovieCrewByMovieId(movie.id).then(() => history.push("/searchpage"))
   }
 
