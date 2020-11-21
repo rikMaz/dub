@@ -1,37 +1,44 @@
-import React, {useContext, useState} from "react";
+import React, {useContext,useEffect,useState} from "react";
 import { useHistory } from 'react-router-dom';
+import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
 
 export default function SearchPage() {
-  const {getMoviesByName,getActorsByName} = useContext(SearchContext);
-  const [actorName,setActorName] = useState("");
-  const [movieName,setMovieName] = useState("");
   const history = useHistory();
+  const [name,setName] = useState("");
+  const {searchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch} = useContext(SearchContext);
+  const [title,setTitle] = useState("");
+
+  useEffect(() => {
+    if(searchType === "movie") {
+      setTitle("Movies and TV Series")
+    } else {
+      setTitle("Actors")
+    }
+  },[searchType]);
 
   return (
     <>
-      <div>SearchPage</div>
-      <label>Movie/TVSeries<input name="moviename" value={movieName} type="text" onChange={event => setMovieName(event.target.value)}/></label>
-      <button onClick={handleSearchMovie}>Search Movie</button>
-
-      <label>Actor<input name="actorname" value={actorName} type="text" onChange={event => setActorName(event.target.value)}/></label>
-      <button onClick={handleSearchActor}>Search Actor</button>
+      <div>{title}</div>
+      <input name="name" value={name} type="text" onChange={event => setName(event.target.value)}/>
+      <button onClick={onSearch} disabled={!name}>Search</button>
 
       <button onClick={onCancel}>Cancel</button>
+      <SearchList/>
     </>
   )
 
   function onCancel() {
     history.goBack();
+    setSearchItems([]);
   }
 
-  function handleSearchMovie() {
-    getMoviesByName(movieName).then(() => history.push("/searchresultpage"));
+  function onSearch() {
+    setLastSearch(name);
+    if(searchType === "movie") {
+      getMoviesByName(name);
+    } else {
+      getActorsByName(name);
+    }
   }
-
-  function handleSearchActor() {
-    getActorsByName(actorName).then(() => history.push("/searchresultpage"));
-  }
-
-
 }

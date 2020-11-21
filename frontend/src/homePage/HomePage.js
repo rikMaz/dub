@@ -11,7 +11,7 @@ export default function HomePage() {
   )
 
   function onSearch() {
-    history.push("/searchpage")
+    history.push("/setsearchtypepage")
   }
 
 }

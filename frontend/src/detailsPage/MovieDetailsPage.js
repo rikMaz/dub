@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 
 export default function MovieDetailsPage() {
   const history = useHistory();
-  const {movie,getMovieCrewByMovieId} = useContext(SearchContext);
+  const {movie,searchItems,lastSearch,getMoviesByName,getMovieCrewByMovieId,setSearchType} = useContext(SearchContext);
 
   return (
     <>
@@ -16,11 +16,16 @@ export default function MovieDetailsPage() {
   )
 
   function onCancel() {
+    if(searchItems.length === 0) {
+      getMoviesByName(lastSearch);
+    }
+    setSearchType("movie")
     history.goBack();
   }
 
   function getMovieCrew() {
-    getMovieCrewByMovieId(movie.id).then(() => history.push("/searchresultpage"))
+    setSearchType("actor")
+    getMovieCrewByMovieId(movie.id).then(() => history.push("/searchpage"))
   }
 
 }
