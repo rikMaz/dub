@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {uploadImage} from "../service/SearchService";
 
 export default function ImageUploadPage() {
 
@@ -15,6 +16,7 @@ export default function ImageUploadPage() {
   function handleImage(event) {
     const imageFile = event.target.files[0];
     setImageUrl(URL.createObjectURL(imageFile));
+    uploadImage(imageFile);
   }
 
 }
