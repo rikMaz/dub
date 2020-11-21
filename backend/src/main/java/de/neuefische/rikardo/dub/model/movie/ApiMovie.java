@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieCatch{
+public class ApiMovie {
 
     private String id;
     private String title;

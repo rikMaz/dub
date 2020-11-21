@@ -2,7 +2,7 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ActorCatch;
+import de.neuefische.rikardo.dub.model.actor.ApiActor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,34 +21,38 @@ public class ActorService {
     public List<Actor> getActorSearchResultByName(String name) {
 
         List<Actor> actors = new ArrayList<>();
-        for (ActorCatch actorCatch: apiService.getActorSearchResultByName(name)) {
+        List<ApiActor> apiActors = apiService.getActorSearchResultByName(name)
+                .stream()
+                .filter(item -> item.getProfile_path() != null)
+                .filter(item -> item.getKnown_for_department().equals("Acting"))
+                .collect(Collectors.toList());
+
+        for (ApiActor apiActor: apiActors) {
             Actor actor = new Actor(
-                    actorCatch.getId(),
-                    actorCatch.getName(),
-                    actorCatch.getProfile_path(),
-                    actorCatch.getCharacter(),
-                    actorCatch.getBiography(),
-                    actorCatch.getBirthday(),
-                    actorCatch.getPlace_of_birth(),
-                    actorCatch.getKnown_for_department());
+                    apiActor.getId(),
+                    apiActor.getName(),
+                    apiActor.getProfile_path(),
+                    apiActor.getCharacter(),
+                    apiActor.getBiography(),
+                    apiActor.getBirthday(),
+                    apiActor.getPlace_of_birth(),
+                    apiActor.getKnown_for_department());
             actors.add(actor);
         }
 
-        return actors.stream()
-                .filter(item -> item.getImage() != null)
-                .collect(Collectors.toList());
+        return actors;
     }
 
     public Actor getActorDetailsById(String id) {
-        ActorCatch actorCatch = apiService.getActorDetailsById(id);
+        ApiActor apiActor = apiService.getActorDetailsById(id);
         return new Actor(
-                actorCatch.getId(),
-                actorCatch.getName(),
-                actorCatch.getProfile_path(),
-                actorCatch.getCharacter(),
-                actorCatch.getBiography(),
-                actorCatch.getBirthday(),
-                actorCatch.getPlace_of_birth(),
-                actorCatch.getKnown_for_department());
+                apiActor.getId(),
+                apiActor.getName(),
+                apiActor.getProfile_path(),
+                apiActor.getCharacter(),
+                apiActor.getBiography(),
+                apiActor.getBirthday(),
+                apiActor.getPlace_of_birth(),
+                apiActor.getKnown_for_department());
     }
 }

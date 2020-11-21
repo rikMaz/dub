@@ -2,7 +2,7 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ActorCatch;
+import de.neuefische.rikardo.dub.model.actor.ApiActor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,21 +19,18 @@ class ActorServiceTest {
 
     final ActorService actorService = new ActorService(apiService);
 
+    ApiActor apiActor = new ApiActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
+    List<ApiActor> apiActors = new ArrayList<>(List.of(apiActor));
+
+    Actor actor = new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
+    List<Actor> actors = new ArrayList<>(List.of(actor));
+
     @Test
     @DisplayName("The method should return a valid URL to search for a actor by name")
     void getActorSearchResultByNameTest() {
         //GIVEN
         String name = "Daniel Craig";
-
-        List<ActorCatch> actorCatch = new ArrayList<>(List.of(
-                new ActorCatch("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
-        ));
-
-        List<Actor> actors = new ArrayList<>(List.of(
-                new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
-        ));
-
-        when(apiService.getActorSearchResultByName(name)).thenReturn(actorCatch);
+        when(apiService.getActorSearchResultByName(name)).thenReturn(apiActors);
         //WHEN
         List<Actor> result = actorService.getActorSearchResultByName(name);
         //THEN
@@ -45,9 +42,7 @@ class ActorServiceTest {
     void getActorDetailsById() {
         //GIVEN
         String id = "8784";
-        Actor actor = new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
-        ActorCatch actorCatch = new ActorCatch("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
-        when(apiService.getActorDetailsById(id)).thenReturn(actorCatch);
+        when(apiService.getActorDetailsById(id)).thenReturn(apiActor);
         //WHEN
         Actor result = actorService.getActorDetailsById(id);
         //THEN

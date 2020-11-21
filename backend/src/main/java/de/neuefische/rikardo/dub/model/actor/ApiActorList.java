@@ -1,4 +1,4 @@
-package de.neuefische.rikardo.dub.model.movie;
+package de.neuefische.rikardo.dub.model.actor;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieSearchResult {
+public class ApiActorList {
 
     @JsonProperty("results")
-    private List<MovieCatch> movies;
+    private List<ApiActor> actors;
 
 }
