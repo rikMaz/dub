@@ -7,11 +7,21 @@ export default function SearchItem({searchItem}){
   const [imageUrl,setImageUrl] = useState("");
   const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
-  const {getMovieById,getActorById} = useContext(SearchContext);
+  const {getMovieById,getActorById,searchType} = useContext(SearchContext);
 
   useEffect(() => {
     setImageUrl(imageUrlBasis + searchItem.image);
   },[searchItem]);
+
+  if(searchType === "crew"){
+    return(
+      <>
+        <div>{searchItem.name}</div>
+        <div>{searchItem.character}</div>
+        <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+      </>
+    )
+  }
 
   return(
     <>
@@ -19,6 +29,7 @@ export default function SearchItem({searchItem}){
       <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
     </>
   )
+
 
   function noImage(event){
     event.target.src = "/imageerror.png";

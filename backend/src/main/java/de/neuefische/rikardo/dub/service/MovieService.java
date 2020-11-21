@@ -2,9 +2,9 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ActorCatch;
+import de.neuefische.rikardo.dub.model.actor.ApiActor;
 import de.neuefische.rikardo.dub.model.movie.Movie;
-import de.neuefische.rikardo.dub.model.movie.MovieCatch;
+import de.neuefische.rikardo.dub.model.movie.ApiMovie;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,8 +23,18 @@ public class MovieService {
     public List<Movie> getMovieSearchResultByName(String name) {
 
         List<Movie> movies = new ArrayList<>();
-        for (MovieCatch item: apiService.getMovieSearchResultByName(name)) {
-            Movie movie = new Movie(item.getId(),item.getTitle(),item.getPoster_path(),"movie");
+        for (ApiMovie apiMovie : apiService.getMovieSearchResultByName(name)) {
+            Movie movie = new Movie(
+                    apiMovie.getId(),
+                    apiMovie.getTitle(),
+                    apiMovie.getPoster_path(),
+                    apiMovie.getOverview(),
+                    apiMovie.getRelease_date(),
+                    apiMovie.getRuntime(),
+                    apiMovie.getOriginal_language(),
+                    apiMovie.getBudget(),
+                    apiMovie.getRevenue(),
+                    "movie");
             movies.add(movie);
         }
 
@@ -34,23 +44,42 @@ public class MovieService {
     }
 
     public Movie getMovieDetailsById(String id) {
+        ApiMovie apiMovie = apiService.getMovieDetailsById(id);
         return new Movie(
-                apiService.getMovieDetailsById(id).getId(),
-                apiService.getMovieDetailsById(id).getTitle(),
-                apiService.getMovieDetailsById(id).getPoster_path(),
+                apiMovie.getId(),
+                apiMovie.getTitle(),
+                apiMovie.getPoster_path(),
+                apiMovie.getOverview(),
+                apiMovie.getRelease_date(),
+                apiMovie.getRuntime(),
+                apiMovie.getOriginal_language(),
+                apiMovie.getBudget(),
+                apiMovie.getRevenue(),
                 "movie");
     }
 
     public List<Actor> getMovieCrewById(String id) {
 
         List<Actor> actors = new ArrayList<>();
-        for (ActorCatch item: apiService.getMovieCrewById(id)){
-            Actor actor = new Actor(item.getId(),item.getName(), item.getProfile_path(), item.getKnown_for_department(),item.getCharacter());
+        List<ApiActor> apiActors = apiService.getMovieCrewById(id)
+                .stream()
+                .filter(item -> item.getProfile_path() != null)
+                .filter(item -> item.getKnown_for_department().equals("Acting"))
+                .collect(Collectors.toList());
+
+        for (ApiActor apiActor: apiActors) {
+            Actor actor = new Actor(
+                    apiActor.getId(),
+                    apiActor.getName(),
+                    apiActor.getProfile_path(),
+                    apiActor.getCharacter(),
+                    apiActor.getBiography(),
+                    apiActor.getBirthday(),
+                    apiActor.getPlace_of_birth(),
+                    apiActor.getKnown_for_department());
             actors.add(actor);
         }
 
-        return actors.stream()
-                .filter(item -> item.getImage() != null)
-                .collect(Collectors.toList());
+        return actors;
     }
 }

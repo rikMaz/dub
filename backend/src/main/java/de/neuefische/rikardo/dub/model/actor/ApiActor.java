@@ -7,11 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActorCatch {
+public class ApiActor {
 
     private String id;
     private String name;
     private String profile_path;
-    private String known_for_department;
     private String character;
+    private String biography;
+    private String birthday;
+    private String place_of_birth;
+    private String known_for_department;
+
 }
