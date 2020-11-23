@@ -23,8 +23,6 @@ import java.util.List;
 @Service
 public class AwsService {
 
-    private static final int IMG_WIDTH = 150;
-    private static final int IMG_HEIGHT = 300;
 
     public String upload(MultipartFile file) throws IOException {
 
@@ -56,7 +54,7 @@ public class AwsService {
         List<Celebrity> celebs=result.getCelebrityFaces();
 
         if (celebs.isEmpty()) {
-            return "celebrity(s) were recognized";
+            return "0 celebrity(s) were recognized";
         }
         if (celebs.size() > 1) {
             return "there are too many celebrity(s) in the image";
