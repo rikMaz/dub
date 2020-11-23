@@ -22,6 +22,9 @@ public class AwsController {
 
     @PostMapping("/image")
     public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException, InterruptedException {
+        System.out.println("File Size: " + file.getSize());
+        System.out.println("Content Type: " + file.getContentType());
+        System.out.println("Original Filename: " + file.getOriginalFilename());
         return awsService.upload(file);
     }
 }
