@@ -7,11 +7,16 @@ export default function HomePage() {
     <>
       <div>Homepage</div>
       <button onClick={onSearch}>Direct Search</button>
+      <button onClick={onImageUpload}>Image Upload</button>
     </>
   )
 
   function onSearch() {
     history.push("/setsearchtypepage")
+  }
+
+  function onImageUpload() {
+    history.push("/imageuploadpage")
   }
 
 }

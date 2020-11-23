@@ -5,7 +5,8 @@ import {
   getMovieDetailsById,
   getActorSearchResultByName,
   getActorDetailsById,
-  getMovieCrewById} from "../service/SearchService";
+  getMovieCrewById,
+  uploadImage} from "../service/SearchService";
 
 
 export default function SearchContextProvider({children}) {
@@ -14,6 +15,7 @@ export default function SearchContextProvider({children}) {
   const [searchType, setSearchType] = useState();
   const [lastSearch, setLastSearch] = useState("");
   const [searchItems, setSearchItems] = useState([]);
+  const [awsResult,setAwsResult] = useState();
 
   const getMoviesByName = (name) =>
     getMovieSearchResultByName(name).then((item) => setSearchItems(item));
@@ -30,8 +32,26 @@ export default function SearchContextProvider({children}) {
   const getMovieCrewByMovieId = (id) =>
     getMovieCrewById(id).then((item) => setSearchItems(item));
 
+  const awsRecognizeCelebrity = (file) =>
+    uploadImage(file).then((item) => setAwsResult(item));
+
   return (
-    <SearchContext.Provider value={{actor,movie,searchItems,setSearchItems,searchType,setSearchType,lastSearch, setLastSearch,getActorsByName,getMoviesByName,getActorById,getMovieById,getMovieCrewByMovieId}}>
+    <SearchContext.Provider value={{
+      actor,
+      movie,
+      searchItems,
+      setSearchItems,
+      searchType,
+      setSearchType,
+      lastSearch,
+      setLastSearch,
+      awsResult,
+      awsRecognizeCelebrity,
+      getActorsByName,
+      getMoviesByName,
+      getActorById,
+      getMovieById,
+      getMovieCrewByMovieId}}>
       {children}
     </SearchContext.Provider>
   )

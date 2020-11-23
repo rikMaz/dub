@@ -14,3 +14,15 @@ export const getActorDetailsById = (id) =>
 
 export const getMovieCrewById = (id) =>
   axios.get("/api/movie/" + id + "/crew").then((response) => response.data);
+
+export function uploadImage(file) {
+  const formData = new FormData();
+  formData.append('image', file);
+  return axios
+    .post('/aws/image/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => response.data);
+}
