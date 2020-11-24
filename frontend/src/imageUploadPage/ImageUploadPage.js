@@ -1,53 +1,40 @@
-import React, {useState,useContext} from "react";
+import React, {useState,useEffect,useContext} from "react";
 import SearchContext from "../context/SearchContext";
-//import Resizer from 'react-image-file-resizer';
+import {useHistory} from "react-router-dom";
 
 export default function ImageUploadPage() {
-  const {awsResult,awsRecognizeCelebrity} = useContext(SearchContext);
-  const [imageUrl,setImageUrl] = useState("/imageerror.png");
+  const {awsResult,awsRecognizeCelebrity,getActorsByName,inputImageUrl,setInputImageUrl,inputImage,setInputImage} = useContext(SearchContext);
+  const history = useHistory();
 
 
   return (
     <>
       <div>Image Upload Page</div>
-      <input type="file" accept="image/*" onChange={handleImage}/>
-      <img src={imageUrl} alt="upload" height="50%" width="50%"/>
-      <div>{awsResult}</div>
+      <input type="file" accept="image/*" onChange={(event) => setInputImage(event.target.files[0])}/>
+      <div>Input Image:</div>
+      <input type="file" accept="image/*" onChange={handleChange} />
 
-      {/*<input type="file" accept="image/*" onChange={resize}/>
-      <img src={imageUrl} id="output" alt="blabla"/>*/}
+      <img src={inputImageUrl} alt="upload" height="50%" width="50%"/>
+      <button onClick={recognizeCelebrity}>Recognize Celebrity</button>
+      <div>{awsResult}</div>
 
       </>
   )
 
-  function handleImage(event) {
-    const imageFile = event.target.files[0];
-    setImageUrl(URL.createObjectURL(imageFile));
-    awsRecognizeCelebrity(imageFile);
+  function handleChange(event) {
+    setInputImage(event.target.files[0]);
+    history.push("/previewpage");
   }
 
-/*
-  const resizeFile = (file) => new Promise(resolve => {
-    Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
-      uri => {
-        resolve(uri);
-      },
-      'base64'
-    );
-  });
 
-  async function resize(event) {
-    const resizeFile = (file) => new Promise(resolve => {
-      Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
-        uri => {
-          resolve(uri);
-        },
-        'base64'
-      );
-    });
+  function recognizeCelebrity() {
+    console.log(inputImage);
+    setInputImageUrl(URL.createObjectURL(inputImage))
+    /*const imageFile = event.target.files[0];
+    setInputImageUrl(URL.createObjectURL(imageFile));
+    awsRecognizeCelebrity(imageFile);*/
+  }
 
-    const file = event.target.files[0];
-    const image = await resizeFile(file).then(() => console.log(image));
-  }*/
+
 
 }
