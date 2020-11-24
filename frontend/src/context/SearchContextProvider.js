@@ -20,6 +20,8 @@ export default function SearchContextProvider({children}) {
   const [searchItems, setSearchItems] = useState([]);
   const [inputImageUrl,setInputImageUrl] = useState("/imageerror.png");
   const [inputImage,setInputImage] = useState(null);
+  const voiceActorActors = [];
+  const [actors,setActors] = useState([]);
 
   const getMoviesByName = (name) =>
     getMovieSearchResultByName(name).then((item) => setSearchItems(item));
@@ -45,8 +47,14 @@ export default function SearchContextProvider({children}) {
   const getVoiceActorById = (name) =>
     getVoiceActorDetailsById(name).then((item) => setVoiceActor(item));
 
+  const getVoiceActorActorList = (id) =>
+    getActorDetailsById(id).then(item => setActors([...actors,item]));
+    //getActorDetailsById(id).then(item => voiceActorActors.push(item))
   return (
     <SearchContext.Provider value={{
+      actors,
+      setActors,
+      voiceActorActors,
       voiceActor,
       setVoiceActor,
       inputImage,
@@ -61,6 +69,7 @@ export default function SearchContextProvider({children}) {
       setSearchType,
       lastSearch,
       setLastSearch,
+      getVoiceActorActorList,
       getVoiceActorByName,
       getVoiceActorById,
       awsRecognizeCelebrity,
