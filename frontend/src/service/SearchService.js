@@ -28,7 +28,7 @@ export function uploadImage(file) {
 }
 
 export const getVoiceActorSearchResultByName = (name) =>
-  axios.get("/api/database/voiceactor/name/" + name).then((response) => response.data);
+  axios.get("/database/voiceactor/name/" + name).then((response) => response.data);
 
 export const getVoiceActorDetailsById = (id) =>
-  axios.get("/api/database/voiceactor/id/" + id).then((response) => response.data);
+  axios.get("/database/voiceactor/id/" + id).then((response) => response.data);
