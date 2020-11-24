@@ -30,4 +30,9 @@ public class DbController {
     public List<VoiceActor> getVoiceActorsByName(@PathVariable String name) {
         return dbService.getVoiceActorsByName(name);
     }
+
+    @GetMapping("/voiceactor/id/{id}")
+    public VoiceActor getVoiceActorsById (@PathVariable String id) {
+        return dbService.getVoiceActorsById(id);
+    }
 }

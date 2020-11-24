@@ -22,4 +22,8 @@ public class DbService {
     public List<VoiceActor> getAllActors() {
         return voiceActorMongoDb.findAll();
     }
+
+    public VoiceActor getVoiceActorsById(String id) {
+        return voiceActorMongoDb.findAllById(id);
+    }
 }

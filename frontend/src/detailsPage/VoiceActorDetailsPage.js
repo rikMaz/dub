@@ -9,7 +9,8 @@ export default function VoiceActorDetailsPage() {
   return (
     <>
       <div>{voiceActor?.name}</div>
-      <img alt="ActorImage" src={voiceActor?.image}/>
+      <img alt="ActorImage" src={voiceActor?.image} height="231px" width="154px"/>
+      <label>Birthday<p>{voiceActor?.birthday}</p></label>
       <button onClick={onCancel}>Cancel</button>
     </>
   )
