@@ -1,6 +1,5 @@
 package de.neuefische.rikardo.dub.controller;
 
-import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
 import de.neuefische.rikardo.dub.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,11 @@ public class DbController {
     @Autowired
     public DbController(DbService dbService) {
         this.dbService = dbService;
+    }
+
+    @GetMapping("/voiceactor")
+    public List<VoiceActor> getVoiceActorsByName() {
+        return dbService.getAllActors();
     }
 
     @GetMapping("/voiceactor/name/{name}")

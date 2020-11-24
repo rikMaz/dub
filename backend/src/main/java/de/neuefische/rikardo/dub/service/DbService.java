@@ -18,4 +18,8 @@ public class DbService {
     public List<VoiceActor> getVoiceActorsByName(String name) {
         return voiceActorMongoDb.findAllByName(name);
     }
+
+    public List<VoiceActor> getAllActors() {
+        return voiceActorMongoDb.findAll();
+    }
 }

@@ -15,6 +15,5 @@ public class VoiceActor {
     private String id;
     private String name;
     private String image;
-    private String birthday;
     private String type;
 }

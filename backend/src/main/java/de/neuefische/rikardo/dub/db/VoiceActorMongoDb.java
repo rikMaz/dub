@@ -9,4 +9,6 @@ public interface VoiceActorMongoDb extends PagingAndSortingRepository<VoiceActor
 
     List<VoiceActor> findAllByName(String name);
 
+    List<VoiceActor> findAll();
+
 }

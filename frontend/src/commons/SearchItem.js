@@ -47,7 +47,7 @@ export default function SearchItem({searchItem}){
         getActorById(searchItem.id).then(() => history.push("/actordetailspage"));
         break;
 
-      case "voiceActor":
+      case "VoiceActor":
         getVoiceActorById(searchItem.id).then(() => history.push("/voiceactordetailspage"));
         break;
 
