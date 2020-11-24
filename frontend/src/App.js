@@ -7,6 +7,7 @@ import SearchPage from "./searchPage/SearchPage";
 import MovieDetailsPage from "./detailsPage/MovieDetailsPage";
 import ActorDetailsPage from "./detailsPage/ActorDetailsPage";
 import PreviewPage from "./previewPage/PreviewPage";
+import VoiceActorDetailsPage from "./detailsPage/VoiceActorDetailsPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/searchpage" component={SearchPage}/>
         <Route path="/moviedetailspage" component={MovieDetailsPage}/>
         <Route path="/actordetailspage" component={ActorDetailsPage}/>
+        <Route path="/voiceactordetailspage" component={VoiceActorDetailsPage}/>
         <Route path="/previewpage" component={PreviewPage}/>
         <Route path="/">
           <Redirect to="/homepage"/>

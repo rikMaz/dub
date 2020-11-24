@@ -14,6 +14,8 @@ export default function SetSearchTypePage() {
 
       <button onClick={handleSearchActor}>Search Actor</button>
 
+      <button onClick={handleSearchVoiceActor}>Search Voice Actor</button>
+
       <button onClick={onCancel}>Cancel</button>
     </>
   )
@@ -23,12 +25,17 @@ export default function SetSearchTypePage() {
   }
 
   function handleSearchMovie() {
-    setSearchType("movie")
+    setSearchType("Movies and TV Series")
     history.push("/searchpage");
   }
 
   function handleSearchActor() {
-    setSearchType("actor")
+    setSearchType("Actors")
+    history.push("/searchpage");
+  }
+
+  function handleSearchVoiceActor() {
+    setSearchType("Voice Actors")
     history.push("/searchpage");
   }
 

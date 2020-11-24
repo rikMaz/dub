@@ -1,4 +1,4 @@
-import React, {useContext,useEffect,useState} from "react";
+import React, {useContext,useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
@@ -6,23 +6,13 @@ import SearchContext from "../context/SearchContext";
 export default function SearchPage() {
   const history = useHistory();
   const [name,setName] = useState("");
-  const {movie,searchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch} = useContext(SearchContext);
-  const [title,setTitle] = useState("");
+  const {movie,searchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch,getVoiceActorByName} = useContext(SearchContext);
 
-  useEffect(() => {
-    if(searchType === "movie") {
-      setTitle("Movies and TV Series")
-    } else {
-      setTitle("Actors")
-    }
-  },[searchType]);
-
-
-  if(searchType === "crew") {
+  if(searchType === "Crew") {
     return (
       <>
         <div>{movie.name}</div>
-        <div>Crew</div>
+        <div>{searchType}</div>
         <button onClick={onCancel}>Cancel</button>
         <SearchList/>
       </> )
@@ -31,7 +21,7 @@ export default function SearchPage() {
   return (
 
     <>
-      <div>{title}</div>
+      <div>{searchType}</div>
       <input name="name" value={name} type="text" onChange={event => setName(event.target.value)}/>
       <button onClick={onSearch} disabled={!name}>Search</button>
       <button onClick={onCancel}>Cancel</button>
@@ -47,10 +37,24 @@ export default function SearchPage() {
 
   function onSearch() {
     setLastSearch(name);
-    if(searchType === "movie") {
-      getMoviesByName(name);
-    } else {
-      getActorsByName(name);
+
+    switch (searchType) {
+
+      case "Movies and TV Series":
+        getMoviesByName(name);
+        break;
+
+      case "Actors":
+        getActorsByName(name);
+        break;
+
+      case "Voice Actors":
+        getVoiceActorByName(name);
+        break;
+
+      default:
+        history.goBack();
+        break;
     }
   }
 }

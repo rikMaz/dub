@@ -6,12 +6,15 @@ import {
   getActorSearchResultByName,
   getActorDetailsById,
   getMovieCrewById,
-  uploadImage} from "../service/SearchService";
+  uploadImage,
+  getVoiceActorSearchResultByName,
+  getVoiceActorDetailsById} from "../service/SearchService";
 
 
 export default function SearchContextProvider({children}) {
   const [actor, setActor] = useState();
   const [movie, setMovie] = useState();
+  const [voiceActor, setVoiceActor] = useState();
   const [searchType, setSearchType] = useState();
   const [lastSearch, setLastSearch] = useState("");
   const [searchItems, setSearchItems] = useState([]);
@@ -36,8 +39,16 @@ export default function SearchContextProvider({children}) {
   const awsRecognizeCelebrity = (file) =>
     uploadImage(file).then((item) => getActorsByName(item));
 
+  const getVoiceActorByName = (name) =>
+    getVoiceActorSearchResultByName(name).then((item) => setSearchItems(item));
+
+  const getVoiceActorById = (name) =>
+    getVoiceActorDetailsById(name).then((item) => setVoiceActor(item));
+
   return (
     <SearchContext.Provider value={{
+      voiceActor,
+      setVoiceActor,
       inputImage,
       setInputImage,
       inputImageUrl,
@@ -50,6 +61,8 @@ export default function SearchContextProvider({children}) {
       setSearchType,
       lastSearch,
       setLastSearch,
+      getVoiceActorByName,
+      getVoiceActorById,
       awsRecognizeCelebrity,
       getActorsByName,
       getMoviesByName,
