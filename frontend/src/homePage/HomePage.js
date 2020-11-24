@@ -4,7 +4,7 @@ import SearchContext from "../context/SearchContext";
 
 export default function HomePage() {
   const history = useHistory();
-  const {setInputImage,setInputImageUrl,inputImage} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl} = useContext(SearchContext);
 
   return (
     <>
