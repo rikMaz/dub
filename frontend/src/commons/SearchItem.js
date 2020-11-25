@@ -7,11 +7,15 @@ export default function SearchItem({searchItem}){
   const [imageUrl,setImageUrl] = useState("");
   const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
-  const {getMovieById,getActorById,searchType} = useContext(SearchContext);
+  const {getMovieById,getActorById,getVoiceActorById,searchType} = useContext(SearchContext);
 
   useEffect(() => {
-    setImageUrl(imageUrlBasis + searchItem.image);
-  },[searchItem]);
+    if (searchType === "voiceActor") {
+      setImageUrl(searchItem.image);
+    } else {
+      setImageUrl(imageUrlBasis + searchItem.image);
+    }
+  },[searchItem,searchType]);
 
   if(searchType === "crew"){
     return(
@@ -36,11 +40,25 @@ export default function SearchItem({searchItem}){
   }
 
   function onImageClick() {
-    if (searchItem.type === "movie") {
-      getMovieById(searchItem.id).then(() => history.push("/moviedetailspage"));
-    } else {
-      getActorById(searchItem.id).then(() => history.push("/actordetailspage"));
+
+    switch (searchItem.type) {
+
+      case "movie":
+        getMovieById(searchItem.id).then(() => history.push("/moviedetailspage"));
+        break;
+
+      case "Acting":
+        getActorById(searchItem.id).then(() => history.push("/actordetailspage"));
+        break;
+
+      case "VoiceActor":
+        getVoiceActorById(searchItem.id).then(() => history.push(`/voiceactordetailspage/${searchItem.id}`));
+        break;
+
+      default:
+        break;
     }
+
   }
 
 

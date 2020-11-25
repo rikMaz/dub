@@ -22,7 +22,7 @@ export default function HomePage() {
   }
 
   function onSearch() {
-    history.push("/setsearchtypepage")
+    history.push("/search")
   }
 
 

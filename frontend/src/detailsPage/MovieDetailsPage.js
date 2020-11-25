@@ -25,12 +25,12 @@ export default function MovieDetailsPage() {
     if(searchItems.length === 0) {
       getMoviesByName(lastSearch);
     }
-    setSearchType("movie")
+    setSearchType("Movies and TV Series")
     history.goBack();
   }
 
   function getMovieCrew() {
-    setSearchType("crew")
+    setSearchType("Crew")
     getMovieCrewByMovieId(movie.id).then(() => history.push("/searchpage"))
   }
 

@@ -26,3 +26,9 @@ export function uploadImage(file) {
     })
     .then((response) => response.data);
 }
+
+export const getVoiceActorSearchResultByName = (name) =>
+  axios.get("/database/voiceactor/name/" + name).then((response) => response.data);
+
+export const getVoiceActorDetailsById = (id) =>
+  axios.get("/database/voiceactor/id/" + id).then((response) => response.data);

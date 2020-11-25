@@ -6,17 +6,23 @@ import {
   getActorSearchResultByName,
   getActorDetailsById,
   getMovieCrewById,
-  uploadImage} from "../service/SearchService";
+  uploadImage,
+  getVoiceActorSearchResultByName,
+  getVoiceActorDetailsById} from "../service/SearchService";
 
 
 export default function SearchContextProvider({children}) {
   const [actor, setActor] = useState();
   const [movie, setMovie] = useState();
+  const [voiceActor, setVoiceActor] = useState();
   const [searchType, setSearchType] = useState();
   const [lastSearch, setLastSearch] = useState("");
   const [searchItems, setSearchItems] = useState([]);
   const [inputImageUrl,setInputImageUrl] = useState("/imageerror.png");
   const [inputImage,setInputImage] = useState(null);
+  const voiceActorActors = [];
+  const [actors,setActors] = useState([]);
+
 
   const getMoviesByName = (name) =>
     getMovieSearchResultByName(name).then((item) => setSearchItems(item));
@@ -36,8 +42,22 @@ export default function SearchContextProvider({children}) {
   const awsRecognizeCelebrity = (file) =>
     uploadImage(file).then((item) => getActorsByName(item));
 
+  const getVoiceActorByName = (name) =>
+    getVoiceActorSearchResultByName(name).then((item) => setSearchItems(item));
+
+  const getVoiceActorById = (name) =>
+    getVoiceActorDetailsById(name).then((item) => setVoiceActor(item));
+
+  const getVoiceActorActorList = (id) =>
+    getActorDetailsById(id).then(item => setActors([...actors,item]));
+    //getActorDetailsById(id).then(item => voiceActorActors.push(item))
   return (
     <SearchContext.Provider value={{
+      actors,
+      setActors,
+      voiceActorActors,
+      voiceActor,
+      setVoiceActor,
       inputImage,
       setInputImage,
       inputImageUrl,
@@ -50,6 +70,9 @@ export default function SearchContextProvider({children}) {
       setSearchType,
       lastSearch,
       setLastSearch,
+      getVoiceActorActorList,
+      getVoiceActorByName,
+      getVoiceActorById,
       awsRecognizeCelebrity,
       getActorsByName,
       getMoviesByName,

@@ -24,7 +24,7 @@ export default function PreviewPage() {
   function recognizeCelebrity() {
     console.log(inputImage);
     awsRecognizeCelebrity(inputImage);
-    setSearchType("actor");
+    setSearchType("Actors");
     history.push("/searchpage");
   }
 
