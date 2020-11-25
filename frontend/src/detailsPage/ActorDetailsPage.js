@@ -9,7 +9,7 @@ export default function ActorDetailsPage() {
   return (
     <>
       <div>{actor?.name}</div>
-      <img alt="ActorImage" src={"https://image.tmdb.org/t/p/w154/"+actor?.image}/>
+      <img alt="ActorImage" src={actor?.image}/>
       <button onClick={onCancel}>Cancel</button>
       <label>Birthday<p>{actor?.birthday}</p></label>
       <label>Place of Birth<p>{actor?.placeOfBirth}</p></label>

@@ -10,6 +10,7 @@ export default function SearchPage() {
   const [name,setName] = useState("");
   const {movie,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch,getVoiceActorByName} = useContext(SearchContext);
 
+
   useEffect(() => {
     onRefresh();
   },[])
@@ -32,7 +33,7 @@ export default function SearchPage() {
       <DropdownButton id="searchtype" title="SearchType">
         <Dropdown.Item onClick={() => setSearchType("movie")}>Movie</Dropdown.Item>
         <Dropdown.Item onClick={() => setSearchType("actor")}>Actor</Dropdown.Item>
-        <Dropdown.Item onClick={() => setSearchType("voiceActor")}>Voice Actor</Dropdown.Item>
+        <Dropdown.Item onClick={() => setSearchType("voiceactor")}>Voice Actor</Dropdown.Item>
       </DropdownButton>
 
       <input name="name" disabled={!searchType} value={name} type="text" onChange={event => setName(event.target.value)}/>
@@ -60,7 +61,7 @@ export default function SearchPage() {
         getActorsByName(name).then(() => history.push(`/search/${searchType}/${name}`));;
         break;
 
-      case "voiceActor":
+      case "voiceactor":
         getVoiceActorByName(name).then(() => history.push(`/search/${searchType}/${name}`));;
         break;
 
@@ -72,13 +73,12 @@ export default function SearchPage() {
   function onRefresh() {
 
     let currentPath = window.location.pathname.split("/")
-    console.log(currentPath);
 
-    if (window.performance) {
+    /*if (window.performance) {
       console.info("window.performance works fine on this browser");
-    }
+    }*/
 
-    if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       console.info("This page is reloaded");
       const previousName = currentPath[3].replace("%20", " ");
       const previousSearchType = currentPath[2];
@@ -93,7 +93,7 @@ export default function SearchPage() {
           getActorsByName(previousName);
           break;
 
-        case "voiceActor":
+        case "voiceactor":
           getVoiceActorByName(previousName);
           break;
 

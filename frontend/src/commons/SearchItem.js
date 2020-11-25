@@ -4,25 +4,16 @@ import SearchContext from "../context/SearchContext";
 
 
 export default function SearchItem({searchItem}){
-  const [imageUrl,setImageUrl] = useState("");
-  const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
   const {getMovieById,getActorById,getVoiceActorById,searchType} = useContext(SearchContext);
 
-  useEffect(() => {
-    if (searchType === "voiceActor") {
-      setImageUrl(searchItem.image);
-    } else {
-      setImageUrl(imageUrlBasis + searchItem.image);
-    }
-  },[searchItem,searchType]);
 
   if(searchType === "crew"){
     return(
       <>
         <div>{searchItem.name}</div>
         <div>{searchItem.character}</div>
-        <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+        <img alt="SearchItemImage" src={searchItem.image} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
       </>
     )
   }
@@ -30,7 +21,7 @@ export default function SearchItem({searchItem}){
   return(
     <>
       <div>{searchItem.name}</div>
-      <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+      <img alt="SearchItemImage" src={searchItem.image} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
     </>
   )
 
@@ -44,19 +35,52 @@ export default function SearchItem({searchItem}){
     switch (searchItem.type) {
 
       case "movie":
-        getMovieById(searchItem.id).then(() => history.push("/moviedetailspage"));
+        getMovieById(searchItem.id).then(() => history.push(`/${searchItem.type}/${searchItem.id}`));
         break;
 
-      case "Acting":
-        getActorById(searchItem.id).then(() => history.push("/actordetailspage"));
+      case "actor":
+        getActorById(searchItem.id).then(() => history.push(`/${searchItem.type}/${searchItem.id}`));
         break;
 
-      case "VoiceActor":
-        getVoiceActorById(searchItem.id).then(() => history.push(`/voiceactordetailspage/${searchItem.id}`));
+      case "voiceactor":
+        getVoiceActorById(searchItem.id).then(() => history.push(`/${searchItem.type}/${searchItem.id}`));
         break;
 
       default:
         break;
+    }
+
+  }
+
+  function onRefresh() {
+
+    let currentPath = window.location.pathname.split("/")
+
+    /*if (window.performance) {
+      console.info("window.performance works fine on this browser");
+    }*/
+
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      console.info("This page is reloaded");
+      const previousId = currentPath[2];
+      const previousSearchType = currentPath[1]
+      switch (previousSearchType) {
+
+        case "movie":
+          getMovieById(previousId);
+          break;
+
+        case "Acting":
+          getActorById(previousId);
+          break;
+
+        case "VoiceActor":
+          getVoiceActorById(previousId);
+          break;
+
+        default:
+          break;
+      }
     }
 
   }

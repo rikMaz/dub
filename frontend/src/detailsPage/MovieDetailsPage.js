@@ -9,7 +9,7 @@ export default function MovieDetailsPage() {
   return (
     <>
       <div>{movie?.name}</div>
-      <img alt="MovieImage" src={"https://image.tmdb.org/t/p/w154/"+movie?.image}/>
+      <img alt="MovieImage" src={movie?.image}/>
       <button onClick={getMovieCrew}>Crew</button>
       <button onClick={onCancel}>Cancel</button>
       <label>Release Date<p>{movie?.releaseDate}</p></label>

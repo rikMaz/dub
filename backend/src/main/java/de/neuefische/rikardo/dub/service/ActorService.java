@@ -14,6 +14,8 @@ public class ActorService {
 
     private final ApiService apiService;
 
+    private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w154";
+
     public ActorService(ApiService apiService) {
         this.apiService = apiService;
     }
@@ -31,12 +33,12 @@ public class ActorService {
             Actor actor = new Actor(
                     apiActor.getId(),
                     apiActor.getName(),
-                    apiActor.getProfile_path(),
+                    tmdbUrlPath + apiActor.getProfile_path(),
                     apiActor.getCharacter(),
                     apiActor.getBiography(),
                     apiActor.getBirthday(),
                     apiActor.getPlace_of_birth(),
-                    apiActor.getKnown_for_department());
+                    "actor");
             actors.add(actor);
         }
 
@@ -48,11 +50,11 @@ public class ActorService {
         return new Actor(
                 apiActor.getId(),
                 apiActor.getName(),
-                apiActor.getProfile_path(),
+                tmdbUrlPath + apiActor.getProfile_path(),
                 apiActor.getCharacter(),
                 apiActor.getBiography(),
                 apiActor.getBirthday(),
                 apiActor.getPlace_of_birth(),
-                apiActor.getKnown_for_department());
+                "actor");
     }
 }

@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
-import VoiceActorActorList from "../voiceActorActorList/VoiceActorActorList";
 
 export default function VoiceActorDetailsPage() {
   const history = useHistory();
