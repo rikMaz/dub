@@ -23,6 +23,7 @@ export default function SearchContextProvider({children}) {
   const voiceActorActors = [];
   const [actors,setActors] = useState([]);
 
+
   const getMoviesByName = (name) =>
     getMovieSearchResultByName(name).then((item) => setSearchItems(item));
 

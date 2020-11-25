@@ -52,7 +52,7 @@ export default function SearchItem({searchItem}){
         break;
 
       case "VoiceActor":
-        getVoiceActorById(searchItem.id).then(() => history.push("/voiceactordetailspage"));
+        getVoiceActorById(searchItem.id).then(() => history.push(`/voiceactordetailspage/${searchItem.id}`));
         break;
 
       default:
