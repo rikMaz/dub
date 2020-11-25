@@ -7,19 +7,17 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default function SearchPage() {
   const history = useHistory();
-  const [name,setName] = useState("");
-  const {movie,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch,getVoiceActorByName} = useContext(SearchContext);
-
+  const {name,setName,movie,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch,getVoiceActorByName,getMovieCrewByMovieId} = useContext(SearchContext);
 
   useEffect(() => {
     onRefresh();
   },[])
 
 
-  if(searchType === "Crew") {
+  if(searchType === "crew") {
     return (
       <>
-        <div>{movie.name}</div>
+        <div>{name}</div>
         <div>{searchType}</div>
         <button onClick={onCancel}>Cancel</button>
         <SearchList/>
@@ -58,11 +56,11 @@ export default function SearchPage() {
         break;
 
       case "actor":
-        getActorsByName(name).then(() => history.push(`/search/${searchType}/${name}`));;
+        getActorsByName(name).then(() => history.push(`/search/${searchType}/${name}`));
         break;
 
       case "voiceactor":
-        getVoiceActorByName(name).then(() => history.push(`/search/${searchType}/${name}`));;
+        getVoiceActorByName(name).then(() => history.push(`/search/${searchType}/${name}`));
         break;
 
       default:
@@ -72,18 +70,12 @@ export default function SearchPage() {
 
   function onRefresh() {
 
-    let currentPath = window.location.pathname.split("/")
-
-    /*if (window.performance) {
-      console.info("window.performance works fine on this browser");
-    }*/
-
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       console.info("This page is reloaded");
+      let currentPath = window.location.pathname.split("/")
       const previousName = currentPath[3].replace("%20", " ");
-      const previousSearchType = currentPath[2];
       setSearchType(currentPath[2]);
-      switch (previousSearchType) {
+      switch (currentPath[2]) {
 
         case "movie":
           getMoviesByName(previousName);
@@ -95,6 +87,11 @@ export default function SearchPage() {
 
         case "voiceactor":
           getVoiceActorByName(previousName);
+          break;
+
+        case "crew":
+          setName(previousName);
+          getMovieCrewByMovieId(currentPath[4]);
           break;
 
         default:

@@ -1,10 +1,14 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 
 export default function VoiceActorDetailsPage() {
   const history = useHistory();
-  const {voiceActor,getVoiceActorActorList,voiceActorActors,setSearchType,actors,setActors} = useContext(SearchContext);
+  const {voiceActor,getVoiceActorActorList,voiceActorActors,setSearchType,actors,setActors,getVoiceActorById} = useContext(SearchContext);
+
+  useEffect(() => {
+    onRefresh();
+  },[])
 
   return (
     <>
@@ -20,14 +24,14 @@ export default function VoiceActorDetailsPage() {
   function showActors() {
     //voiceActor?.actors.forEach((item) => getVoiceActorActorList(item.id));
 
-    for (let i = 0; i < voiceActor?.actors.length; i++) {
+    /*for (let i = 0; i < voiceActor?.actors.length; i++) {
       getVoiceActorActorList(voiceActor?.actors[i].id);
-    }
+    }*/
 
 
-    setSearchType("Movies and TV Series");
+    /*setSearchType("Movies and TV Series");
     setActors(voiceActorActors);
-    history.push("/voiceactoractorlistpage");
+    history.push("/voiceactoractorlistpage");*/
   }
 
   function showActorList() {
@@ -35,8 +39,15 @@ export default function VoiceActorDetailsPage() {
     console.log(actors);
   }
 
-
   function onCancel() {
     history.goBack();
+  }
+
+  function onRefresh() {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      console.info("This page is reloaded");
+      let currentPath = window.location.pathname.split("/")
+      getVoiceActorById(currentPath[2]);
+    }
   }
 }

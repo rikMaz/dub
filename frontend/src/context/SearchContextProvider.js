@@ -12,6 +12,7 @@ import {
 
 
 export default function SearchContextProvider({children}) {
+  const [name,setName] = useState("");
   const [actor, setActor] = useState();
   const [movie, setMovie] = useState();
   const [voiceActor, setVoiceActor] = useState();
@@ -53,6 +54,8 @@ export default function SearchContextProvider({children}) {
     //getActorDetailsById(id).then(item => voiceActorActors.push(item))
   return (
     <SearchContext.Provider value={{
+      name,
+      setName,
       actors,
       setActors,
       voiceActorActors,

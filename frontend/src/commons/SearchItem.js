@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 
@@ -6,7 +6,6 @@ import SearchContext from "../context/SearchContext";
 export default function SearchItem({searchItem}){
   const history = useHistory();
   const {getMovieById,getActorById,getVoiceActorById,searchType} = useContext(SearchContext);
-
 
   if(searchType === "crew"){
     return(
@@ -52,38 +51,6 @@ export default function SearchItem({searchItem}){
 
   }
 
-  function onRefresh() {
-
-    let currentPath = window.location.pathname.split("/")
-
-    /*if (window.performance) {
-      console.info("window.performance works fine on this browser");
-    }*/
-
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      console.info("This page is reloaded");
-      const previousId = currentPath[2];
-      const previousSearchType = currentPath[1]
-      switch (previousSearchType) {
-
-        case "movie":
-          getMovieById(previousId);
-          break;
-
-        case "Acting":
-          getActorById(previousId);
-          break;
-
-        case "VoiceActor":
-          getVoiceActorById(previousId);
-          break;
-
-        default:
-          break;
-      }
-    }
-
-  }
 
 
 }
