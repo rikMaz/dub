@@ -15,7 +15,8 @@ export default function SearchContextProvider({children}) {
   const [searchType, setSearchType] = useState();
   const [lastSearch, setLastSearch] = useState("");
   const [searchItems, setSearchItems] = useState([]);
-  const [awsResult,setAwsResult] = useState();
+  const [inputImageUrl,setInputImageUrl] = useState("/imageerror.png");
+  const [inputImage,setInputImage] = useState(null);
 
   const getMoviesByName = (name) =>
     getMovieSearchResultByName(name).then((item) => setSearchItems(item));
@@ -33,10 +34,14 @@ export default function SearchContextProvider({children}) {
     getMovieCrewById(id).then((item) => setSearchItems(item));
 
   const awsRecognizeCelebrity = (file) =>
-    uploadImage(file).then((item) => setAwsResult(item));
+    uploadImage(file).then((item) => getActorsByName(item));
 
   return (
     <SearchContext.Provider value={{
+      inputImage,
+      setInputImage,
+      inputImageUrl,
+      setInputImageUrl,
       actor,
       movie,
       searchItems,
@@ -45,7 +50,6 @@ export default function SearchContextProvider({children}) {
       setSearchType,
       lastSearch,
       setLastSearch,
-      awsResult,
       awsRecognizeCelebrity,
       getActorsByName,
       getMoviesByName,
