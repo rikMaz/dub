@@ -25,7 +25,7 @@ class MovieServiceTest {
     ApiMovie apiMovie = new ApiMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
     List<ApiMovie> apiMovies = new ArrayList<>(List.of(apiMovie));
 
-    Movie movie = new Movie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0","movie");
+    Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
     List<Movie> movies = new ArrayList<>(List.of(movie));
 
     List<ApiActor> apiActors = new ArrayList<>(List.of(
@@ -33,7 +33,7 @@ class MovieServiceTest {
     ));
 
     List<Actor> actors = new ArrayList<>(List.of(
-            new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
+            new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor")
     ));
 
     @Test
