@@ -1,4 +1,4 @@
-import React, {useContext,useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
@@ -9,6 +9,11 @@ export default function SearchPage() {
   const history = useHistory();
   const [name,setName] = useState("");
   const {movie,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch,getVoiceActorByName} = useContext(SearchContext);
+
+  useEffect(() => {
+    onRefresh();
+  },[])
+
 
   if(searchType === "Crew") {
     return (
@@ -30,7 +35,7 @@ export default function SearchPage() {
         <Dropdown.Item onClick={() => setSearchType("voiceActor")}>Voice Actor</Dropdown.Item>
       </DropdownButton>
 
-      <input name="name" value={name} type="text" onChange={event => setName(event.target.value)}/>
+      <input name="name" disabled={!searchType} value={name} type="text" onChange={event => setName(event.target.value)}/>
       <button onClick={onSearch} disabled={!name}>Search</button>
       <button onClick={onCancel}>Cancel</button>
       <SearchList/>
@@ -48,20 +53,55 @@ export default function SearchPage() {
     switch (searchType) {
 
       case "movie":
-        getMoviesByName(name);
+        getMoviesByName(name).then(() => history.push(`/search/${searchType}/${name}`));
         break;
 
       case "actor":
-        getActorsByName(name);
+        getActorsByName(name).then(() => history.push(`/search/${searchType}/${name}`));;
         break;
 
       case "voiceActor":
-        getVoiceActorByName(name);
+        getVoiceActorByName(name).then(() => history.push(`/search/${searchType}/${name}`));;
         break;
 
       default:
-        history.goBack();
         break;
     }
   }
+
+  function onRefresh() {
+
+    let currentPath = window.location.pathname.split("/")
+    console.log(currentPath);
+
+    if (window.performance) {
+      console.info("window.performance works fine on this browser");
+    }
+
+    if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+      console.info("This page is reloaded");
+      const previousName = currentPath[3].replace("%20", " ");
+      const previousSearchType = currentPath[2];
+      setSearchType(currentPath[2]);
+      switch (previousSearchType) {
+
+        case "movie":
+          getMoviesByName(previousName);
+          break;
+
+        case "actor":
+          getActorsByName(previousName);
+          break;
+
+        case "voiceActor":
+          getVoiceActorByName(previousName);
+          break;
+
+        default:
+          break;
+      }
+    }
+
+  }
+
 }

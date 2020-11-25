@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from "./homePage/HomePage";
-import SetSearchTypePage from "./setSearchTypePage/SetSearchTypePage";
 import SearchContextProvider from "./context/SearchContextProvider";
 import SearchPage from "./searchPage/SearchPage";
 import MovieDetailsPage from "./detailsPage/MovieDetailsPage";

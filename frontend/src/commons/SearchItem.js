@@ -10,14 +10,14 @@ export default function SearchItem({searchItem}){
   const {getMovieById,getActorById,getVoiceActorById,searchType} = useContext(SearchContext);
 
   useEffect(() => {
-    if (searchType === "Voice Actors") {
+    if (searchType === "voiceActor") {
       setImageUrl(searchItem.image);
     } else {
       setImageUrl(imageUrlBasis + searchItem.image);
     }
   },[searchItem,searchType]);
 
-  if(searchType === "Crew"){
+  if(searchType === "crew"){
     return(
       <>
         <div>{searchItem.name}</div>
