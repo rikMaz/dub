@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
@@ -7,11 +7,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default function SearchPage() {
   const history = useHistory();
-  const {name,setName,movie,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems, setLastSearch,getVoiceActorByName,getMovieCrewByMovieId} = useContext(SearchContext);
-
-  useEffect(() => {
-    onRefresh();
-  },[])
+  const {name,setName,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems,getVoiceActorByName} = useContext(SearchContext);
 
 
   if(searchType === "crew") {
@@ -47,7 +43,6 @@ export default function SearchPage() {
   }
 
   function onSearch() {
-    setLastSearch(name);
 
     switch (searchType) {
 
@@ -67,38 +62,4 @@ export default function SearchPage() {
         break;
     }
   }
-
-  function onRefresh() {
-
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      console.info("This page is reloaded");
-      let currentPath = window.location.pathname.split("/")
-      const previousName = currentPath[3].replace("%20", " ");
-      setSearchType(currentPath[2]);
-      switch (currentPath[2]) {
-
-        case "movie":
-          getMoviesByName(previousName);
-          break;
-
-        case "actor":
-          getActorsByName(previousName);
-          break;
-
-        case "voiceactor":
-          getVoiceActorByName(previousName);
-          break;
-
-        case "crew":
-          setName(previousName);
-          getMovieCrewByMovieId(currentPath[4]);
-          break;
-
-        default:
-          break;
-      }
-    }
-
-  }
-
 }

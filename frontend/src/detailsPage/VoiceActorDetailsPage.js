@@ -1,14 +1,11 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 
 export default function VoiceActorDetailsPage() {
   const history = useHistory();
-  const {voiceActor,getVoiceActorActorList,voiceActorActors,setSearchType,actors,setActors,getVoiceActorById} = useContext(SearchContext);
+  const {voiceActor,voiceActorActors,actors,searchItems,getVoiceActorByName} = useContext(SearchContext);
 
-  useEffect(() => {
-    onRefresh();
-  },[])
 
   return (
     <>
@@ -40,14 +37,10 @@ export default function VoiceActorDetailsPage() {
   }
 
   function onCancel() {
+    if(searchItems.length === 0) {
+      getVoiceActorByName(voiceActor.name);
+    }
     history.goBack();
   }
 
-  function onRefresh() {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      console.info("This page is reloaded");
-      let currentPath = window.location.pathname.split("/")
-      getVoiceActorById(currentPath[2]);
-    }
-  }
 }

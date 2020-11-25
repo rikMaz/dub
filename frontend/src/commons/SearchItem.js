@@ -34,15 +34,15 @@ export default function SearchItem({searchItem}){
     switch (searchItem.type) {
 
       case "movie":
-        getMovieById(searchItem.id).then(() => history.push(`/${searchItem.type}/${searchItem.id}`));
+        getMovieById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
         break;
 
       case "actor":
-        getActorById(searchItem.id).then(() => history.push(`/${searchItem.type}/${searchItem.id}`));
+        getActorById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
         break;
 
       case "voiceactor":
-        getVoiceActorById(searchItem.id).then(() => history.push(`/${searchItem.type}/${searchItem.id}`));
+        getVoiceActorById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
         break;
 
       default:

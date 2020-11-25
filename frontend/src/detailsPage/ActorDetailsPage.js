@@ -1,15 +1,11 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext } from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 
 export default function ActorDetailsPage() {
   const history = useHistory();
-  const {actor,getActorById} = useContext(SearchContext);
-
-  useEffect(() => {
-    onRefresh();
-  },[])
-
+  const {actor,searchItems,getActorsByName} = useContext(SearchContext);
+  //window.location.reload(false);
   return (
     <>
       <div>{actor?.name}</div>
@@ -22,14 +18,10 @@ export default function ActorDetailsPage() {
   )
 
   function onCancel() {
+    if(searchItems.length === 0) {
+      getActorsByName(actor.name);
+    }
     history.goBack();
   }
 
-  function onRefresh() {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      console.info("This page is reloaded");
-      let currentPath = window.location.pathname.split("/")
-      getActorById(currentPath[2]);
-    }
-  }
 }
