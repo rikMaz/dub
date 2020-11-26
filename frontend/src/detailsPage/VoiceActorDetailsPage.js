@@ -1,10 +1,15 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 
 export default function VoiceActorDetailsPage() {
   const history = useHistory();
-  const {voiceActor,voiceActorActors,actors,searchItems,setReloadStatus} = useContext(SearchContext);
+  const {voiceActor,voiceActorActors,actors,searchItems,setReloadStatus,getVoiceActorById} = useContext(SearchContext);
+
+  useEffect(() => {
+    onRefresh();
+    // eslint-disable-next-line
+  },[])
 
   return (
     <>
@@ -40,6 +45,12 @@ export default function VoiceActorDetailsPage() {
       setReloadStatus(true);
     }
     history.goBack();
+  }
+
+  function onRefresh() {
+    let currentPath = window.location.pathname.split("/");
+    const previousSearch = currentPath[3].replace("%20", " ");
+    getVoiceActorById(previousSearch);
   }
 
 }

@@ -5,7 +5,7 @@ import SearchContext from "../context/SearchContext";
 
 export default function SearchItem({searchItem}){
   const history = useHistory();
-  const {getMovieById,getActorById,getVoiceActorById,searchType} = useContext(SearchContext);
+  const {searchType} = useContext(SearchContext);
 
   if(searchType === "crew"){
     return(
@@ -34,15 +34,15 @@ export default function SearchItem({searchItem}){
     switch (searchItem.type) {
 
       case "movie":
-        getMovieById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
+        history.push(`/details/${searchItem.type}/${searchItem.id}`);
         break;
 
       case "actor":
-        getActorById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
+        history.push(`/details/${searchItem.type}/${searchItem.id}`);
         break;
 
       case "voiceactor":
-        getVoiceActorById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
+        history.push(`/details/${searchItem.type}/${searchItem.id}`);
         break;
 
       default:
