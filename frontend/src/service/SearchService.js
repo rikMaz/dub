@@ -32,3 +32,6 @@ export const getVoiceActorSearchResultByName = (name) =>
 
 export const getVoiceActorDetailsById = (id) =>
   axios.get("/database/voiceactor/id/" + id).then((response) => response.data);
+
+export const getVoiceActorActorListById = (id) =>
+  axios.get("/database/voiceactor/actors/id" + id).then((response) => response.data);

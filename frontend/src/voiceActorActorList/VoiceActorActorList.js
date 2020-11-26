@@ -3,15 +3,13 @@ import SearchContext from "../context/SearchContext";
 import SearchItem from "../commons/SearchItem";
 
 
-export default function VoiceActorActorList() {
-  const { actors } = useContext(SearchContext);
+export default function VoiceActorActorList({voiceActor}) {
 
   return(
     <>
-      <button onClick={showActorList}>ShowActorsinConsole</button>
       <div>Voice Actor Actors Liste: </div>
       <ul>
-        {actors.map((listItem) =>
+        {voiceActor?.actors.map((listItem) =>
           <li key={listItem.id}>
             <SearchItem searchItem={listItem}/>
           </li>
@@ -19,10 +17,6 @@ export default function VoiceActorActorList() {
       </ul>
     </>
   )
-
-  function showActorList() {
-    console.log(actors);
-  }
 
 }
 
