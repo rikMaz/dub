@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getActorDetailsById} from "../service/SearchService";
+import {getActorById} from "../service/SearchService";
 
 
 export default function useActor() {
@@ -13,7 +13,7 @@ export default function useActor() {
   function onRefresh() {
     const currentPath = window.location.pathname.split("/");
     const previousSearch = currentPath[3].replace("%20", " ");
-    getActorDetailsById(previousSearch).then((item) => setActor(item));
+    getActorById(previousSearch).then((item) => setActor(item));
   }
 
   return [actor];

@@ -3,10 +3,10 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from "./homePage/HomePage";
 import SearchContextProvider from "./context/SearchContextProvider";
 import SearchPage from "./searchPage/SearchPage";
-import MovieDetailsPage from "./detailsPage/MovieDetailsPage";
-import ActorDetailsPage from "./detailsPage/ActorDetailsPage";
+import MoviePage from "./detailsPage/MoviePage";
+import ActorPage from "./detailsPage/ActorPage";
 import PreviewPage from "./previewPage/PreviewPage";
-import VoiceActorDetailsPage from "./detailsPage/VoiceActorDetailsPage";
+import VoiceActorPage from "./detailsPage/VoiceActorPage";
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
       <Switch>
         <Route path="/home" component={HomePage}/>
         <Route path="/search" component={SearchPage}/>
-        <Route path="/details/movie" component={MovieDetailsPage}/>
-        <Route path="/details/actor" component={ActorDetailsPage}/>
-        <Route path="/details/voiceactor" component={VoiceActorDetailsPage}/>
+        <Route path="/details/movie" component={MoviePage}/>
+        <Route path="/details/actor" component={ActorPage}/>
+        <Route path="/details/voiceactor" component={VoiceActorPage}/>
         <Route path="/previewpage" component={PreviewPage}/>
         <Route path="/">
           <Redirect to="/home"/>

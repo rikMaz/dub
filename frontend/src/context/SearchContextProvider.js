@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 import SearchContext from "./SearchContext";
 import {
-  getMovieSearchResultByName,
-  getMovieDetailsById,
-  getActorSearchResultByName,
-  getActorDetailsById,
+  getMoviesByName,
+  getMovieById,
+  getActorsByName,
+  getActorById,
   getMovieCrewById,
   uploadImage,
-  getVoiceActorSearchResultByName,
-  getVoiceActorDetailsById} from "../service/SearchService";
+  getVoiceActorsByName,
+  getVoiceActorById} from "../service/SearchService";
+import {useHistory} from "react-router-dom";
 
 
 export default function SearchContextProvider({children}) {
+  const history = useHistory();
   const [name,setName] = useState("");
   const [actor, setActor] = useState([]);
   const [movie, setMovie] = useState([]);
@@ -25,29 +27,29 @@ export default function SearchContextProvider({children}) {
   const [actors,setActors] = useState([]);
 
 
-  const getMoviesByName = (name) =>
-    getMovieSearchResultByName(name).then((item) => setSearchItems(item));
+  const getMovies = (name) =>
+    getMoviesByName(name).then((item) => setSearchItems(item));
 
-  const getMovieById = (id) =>
-    getMovieDetailsById(id).then((item) => setMovie(item));
+  const getMovie = (id) =>
+    getMovieById(id).then((item) => setMovie(item));
 
-  const getActorsByName = (name) =>
-    getActorSearchResultByName(name).then((item) => setSearchItems(item));
+  const getActors = (name) =>
+    getActorsByName(name).then((item) => setSearchItems(item));
 
-  const getActorById = (id) =>
-    getActorDetailsById(id).then((item) => setActor(item));
+  const getActor = (id) =>
+    getActorById(id).then((item) => setActor(item));
 
-  const getMovieCrewByMovieId = (id) =>
+  const getMovieCrew = (id) =>
     getMovieCrewById(id).then((item) => setSearchItems(item));
 
-  const awsRecognizeCelebrity = (file) =>
-    uploadImage(file).then((item) => getActorsByName(item));
+  const recognizeCelebrity = (file) =>
+    uploadImage(file).then((item) => history.push("/search/actor/" + item));
 
-  const getVoiceActorByName = (name) =>
-    getVoiceActorSearchResultByName(name).then((item) => setSearchItems(item));
+  const getVoiceActors = (name) =>
+    getVoiceActorsByName(name).then((item) => setSearchItems(item));
 
-  const getVoiceActorById = (name) =>
-    getVoiceActorDetailsById(name).then((item) => setVoiceActor(item));
+  const getVoiceActor = (name) =>
+    getVoiceActorById(name).then((item) => setVoiceActor(item));
 
 
   return (
@@ -71,14 +73,14 @@ export default function SearchContextProvider({children}) {
       setSearchItems,
       searchType,
       setSearchType,
-      getVoiceActorByName,
-      getVoiceActorById,
-      awsRecognizeCelebrity,
-      getActorsByName,
-      getMoviesByName,
-      getActorById,
-      getMovieById,
-      getMovieCrewByMovieId}}>
+      getVoiceActor,
+      getVoiceActors,
+      getActors,
+      getMovies,
+      getActor,
+      getMovie,
+      getMovieCrew,
+      recognizeCelebrity}}>
       {children}
     </SearchContext.Provider>
   )
