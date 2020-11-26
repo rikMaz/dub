@@ -2,7 +2,6 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.db.VoiceActorMongoDb;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ApiActor;
 import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
 import org.springframework.stereotype.Service;
 

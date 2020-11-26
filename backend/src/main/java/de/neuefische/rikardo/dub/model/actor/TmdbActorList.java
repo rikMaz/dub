@@ -10,9 +10,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiActorList {
+public class TmdbActorList {
 
     @JsonProperty("results")
-    private List<ApiActor> actors;
+    private List<TmdbActor> actors;
 
 }

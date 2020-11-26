@@ -1,14 +1,15 @@
 package de.neuefische.rikardo.dub.api;
 
+import de.neuefische.rikardo.dub.service.TmdbService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-class ApiServiceTest {
+class TmdbServiceTest {
 
-    final ApiService apiService = new ApiService();
+    final TmdbService tmdbService = new TmdbService();
 
     final String urlBasis = "https://api.themoviedb.org/3/";
 
@@ -18,7 +19,7 @@ class ApiServiceTest {
         //GIVEN
         String name = "The Matrix";
         //WHEN
-        String result = apiService.buildApiUrl(true,false,name,"","movie");
+        String result = tmdbService.buildApiUrl(true,false,name,"","movie");
         //THEN
         assertThat(result,is(urlBasis + "search/movie?api_key=" + null + "&query=the matrix"));
     }
@@ -29,7 +30,7 @@ class ApiServiceTest {
         //GIVEN
         String name = "Daniel Craig";
         //WHEN
-        String result = apiService.buildApiUrl(true,false,name,"","person");
+        String result = tmdbService.buildApiUrl(true,false,name,"","person");
         //THEN
         assertThat(result,is(urlBasis + "search/person?api_key=" + null + "&query=daniel craig"));
     }
@@ -40,7 +41,7 @@ class ApiServiceTest {
         //GIVEN
         String id = "8784";
         //WHEN
-        String result = apiService.buildApiUrl(false,false,"",id,"person");
+        String result = tmdbService.buildApiUrl(false,false,"",id,"person");
         //THEN
         assertThat(result,is(urlBasis + "person/8784?api_key=" + null));
     }
@@ -51,7 +52,7 @@ class ApiServiceTest {
         //GIVEN
         String id = "550";
         //WHEN
-        String result = apiService.buildApiUrl(false,false,"",id,"movie");
+        String result = tmdbService.buildApiUrl(false,false,"",id,"movie");
         //THEN
         assertThat(result,is(urlBasis + "movie/550?api_key=" + null));
     }
@@ -62,7 +63,7 @@ class ApiServiceTest {
         //GIVEN
         String id = "550";
         //WHEN
-        String result = apiService.buildApiUrl(false,true,"",id,"movie");
+        String result = tmdbService.buildApiUrl(false,true,"",id,"movie");
         //THEN
         assertThat(result,is(urlBasis + "movie/550/credits?api_key=" + null));
     }
