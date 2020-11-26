@@ -7,7 +7,6 @@ import MovieDetailsPage from "./detailsPage/MovieDetailsPage";
 import ActorDetailsPage from "./detailsPage/ActorDetailsPage";
 import PreviewPage from "./previewPage/PreviewPage";
 import VoiceActorDetailsPage from "./detailsPage/VoiceActorDetailsPage";
-import VoiceActorActorListPage from "./voiceActorActorList/VoiceActorActorListPage";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route path="/details/movie" component={MovieDetailsPage}/>
         <Route path="/details/actor" component={ActorDetailsPage}/>
         <Route path="/details/voiceactor" component={VoiceActorDetailsPage}/>
-        <Route path="/voiceactoractorlistpage/:id" component={VoiceActorActorListPage}/>
         <Route path="/previewpage" component={PreviewPage}/>
         <Route path="/">
           <Redirect to="/home"/>
