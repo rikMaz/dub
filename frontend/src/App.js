@@ -15,9 +15,9 @@ function App() {
       <Switch>
         <Route path="/home" component={HomePage}/>
         <Route path="/search" component={SearchPage}/>
-        <Route path="/moviedetailspage" component={MovieDetailsPage}/>
-        <Route path="/actordetailspage" component={ActorDetailsPage}/>
-        <Route path="/voiceactordetailspage" component={VoiceActorDetailsPage}/>
+        <Route path="/details/movie" component={MovieDetailsPage}/>
+        <Route path="/details/actor" component={ActorDetailsPage}/>
+        <Route path="/details/voiceactor" component={VoiceActorDetailsPage}/>
         <Route path="/voiceactoractorlistpage/:id" component={VoiceActorActorListPage}/>
         <Route path="/previewpage" component={PreviewPage}/>
         <Route path="/">

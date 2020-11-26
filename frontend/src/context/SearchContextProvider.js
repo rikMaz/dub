@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchContext from "./SearchContext";
 import {
   getMovieSearchResultByName,
@@ -12,17 +12,67 @@ import {
 
 
 export default function SearchContextProvider({children}) {
-  const [actor, setActor] = useState();
-  const [movie, setMovie] = useState();
-  const [voiceActor, setVoiceActor] = useState();
+  const [name,setName] = useState("");
+  const [actor, setActor] = useState([]);
+  const [movie, setMovie] = useState([]);
+  const [reloadStatus,setReloadStatus] = useState(false);
+  const [voiceActor, setVoiceActor] = useState([]);
   const [searchType, setSearchType] = useState();
-  const [lastSearch, setLastSearch] = useState("");
   const [searchItems, setSearchItems] = useState([]);
   const [inputImageUrl,setInputImageUrl] = useState("/imageerror.png");
   const [inputImage,setInputImage] = useState(null);
   const voiceActorActors = [];
   const [actors,setActors] = useState([]);
 
+  useEffect(() => {
+      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        console.info("This page is reloaded");
+        let currentPath = window.location.pathname.split("/");
+        console.log(window.location.pathname);
+        console.log(currentPath);
+        if (currentPath[1] !== "home") {
+          const previousSearch = currentPath[3].replace("%20", " ");
+          setSearchType(currentPath[2]);
+          switch (currentPath[2]) {
+
+            case "movie":
+              if (currentPath[1] === "search") {
+                console.log(currentPath[1]);
+                getMoviesByName(previousSearch);
+              } else {
+                console.log(currentPath[1]);
+                getMovieById(previousSearch);
+              }
+              break;
+
+            case "actor":
+              if (currentPath[1] === "search") {
+                getActorsByName(previousSearch);
+              } else {
+                getActorById(previousSearch);
+              }
+              break;
+
+            case "voiceactor":
+              if (currentPath[1] === "search") {
+                getVoiceActorByName(previousSearch);
+              } else {
+                getVoiceActorById(previousSearch);
+              }
+              break;
+
+            case "crew":
+              setName(previousSearch);
+              getMovieCrewByMovieId(currentPath[4]);
+              break;
+
+            default:
+              break;
+
+          }
+        }
+      }
+    },[])
 
   const getMoviesByName = (name) =>
     getMovieSearchResultByName(name).then((item) => setSearchItems(item));
@@ -50,9 +100,13 @@ export default function SearchContextProvider({children}) {
 
   const getVoiceActorActorList = (id) =>
     getActorDetailsById(id).then(item => setActors([...actors,item]));
-    //getActorDetailsById(id).then(item => voiceActorActors.push(item))
+
   return (
     <SearchContext.Provider value={{
+      reloadStatus,
+      setReloadStatus,
+      name,
+      setName,
       actors,
       setActors,
       voiceActorActors,
@@ -68,8 +122,6 @@ export default function SearchContextProvider({children}) {
       setSearchItems,
       searchType,
       setSearchType,
-      lastSearch,
-      setLastSearch,
       getVoiceActorActorList,
       getVoiceActorByName,
       getVoiceActorById,

@@ -16,6 +16,8 @@ public class MovieService {
 
     private final ApiService apiService;
 
+    private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w154";
+
     public MovieService(ApiService apiService) {
         this.apiService = apiService;
     }
@@ -23,11 +25,16 @@ public class MovieService {
     public List<Movie> getMovieSearchResultByName(String name) {
 
         List<Movie> movies = new ArrayList<>();
-        for (ApiMovie apiMovie : apiService.getMovieSearchResultByName(name)) {
+        List<ApiMovie> apiMovies = apiService.getMovieSearchResultByName(name)
+                .stream()
+                .filter(item -> item.getPoster_path() != null)
+                .collect(Collectors.toList());
+
+        for (ApiMovie apiMovie : apiMovies) {
             Movie movie = new Movie(
                     apiMovie.getId(),
                     apiMovie.getTitle(),
-                    apiMovie.getPoster_path(),
+                    tmdbUrlPath + apiMovie.getPoster_path(),
                     apiMovie.getOverview(),
                     apiMovie.getRelease_date(),
                     apiMovie.getRuntime(),
@@ -38,9 +45,7 @@ public class MovieService {
             movies.add(movie);
         }
 
-        return movies.stream()
-                .filter(item -> item.getImage() != null)
-                .collect(Collectors.toList());
+        return movies;
     }
 
     public Movie getMovieDetailsById(String id) {
@@ -48,7 +53,7 @@ public class MovieService {
         return new Movie(
                 apiMovie.getId(),
                 apiMovie.getTitle(),
-                apiMovie.getPoster_path(),
+                tmdbUrlPath + apiMovie.getPoster_path(),
                 apiMovie.getOverview(),
                 apiMovie.getRelease_date(),
                 apiMovie.getRuntime(),
@@ -71,12 +76,12 @@ public class MovieService {
             Actor actor = new Actor(
                     apiActor.getId(),
                     apiActor.getName(),
-                    apiActor.getProfile_path(),
+                    tmdbUrlPath + apiActor.getProfile_path(),
                     apiActor.getCharacter(),
                     apiActor.getBiography(),
                     apiActor.getBirthday(),
                     apiActor.getPlace_of_birth(),
-                    apiActor.getKnown_for_department());
+                    "actor");
             actors.add(actor);
         }
 

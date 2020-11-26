@@ -1,11 +1,10 @@
 import React, {useContext} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
-import VoiceActorActorList from "../voiceActorActorList/VoiceActorActorList";
 
 export default function VoiceActorDetailsPage() {
   const history = useHistory();
-  const {voiceActor,getVoiceActorActorList,voiceActorActors,setSearchType,actors,setActors} = useContext(SearchContext);
+  const {voiceActor,voiceActorActors,actors,searchItems,setReloadStatus} = useContext(SearchContext);
 
   return (
     <>
@@ -21,14 +20,14 @@ export default function VoiceActorDetailsPage() {
   function showActors() {
     //voiceActor?.actors.forEach((item) => getVoiceActorActorList(item.id));
 
-    for (let i = 0; i < voiceActor?.actors.length; i++) {
+    /*for (let i = 0; i < voiceActor?.actors.length; i++) {
       getVoiceActorActorList(voiceActor?.actors[i].id);
-    }
+    }*/
 
 
-    setSearchType("Movies and TV Series");
+    /*setSearchType("Movies and TV Series");
     setActors(voiceActorActors);
-    history.push("/voiceactoractorlistpage");
+    history.push("/voiceactoractorlistpage");*/
   }
 
   function showActorList() {
@@ -36,8 +35,11 @@ export default function VoiceActorDetailsPage() {
     console.log(actors);
   }
 
-
   function onCancel() {
+    if(searchItems.length === 0) {
+      setReloadStatus(true);
+    }
     history.goBack();
   }
+
 }

@@ -4,12 +4,13 @@ import {useHistory} from "react-router-dom";
 
 export default function MovieDetailsPage() {
   const history = useHistory();
-  const {movie,searchItems,lastSearch,getMoviesByName,getMovieCrewByMovieId,setSearchType} = useContext(SearchContext);
+  const {setName,movie,searchItems,getMovieCrewByMovieId,setSearchType,setReloadStatus} = useContext(SearchContext);
+
 
   return (
     <>
       <div>{movie?.name}</div>
-      <img alt="MovieImage" src={"https://image.tmdb.org/t/p/w154/"+movie?.image}/>
+      <img alt="MovieImage" src={movie?.image}/>
       <button onClick={getMovieCrew}>Crew</button>
       <button onClick={onCancel}>Cancel</button>
       <label>Release Date<p>{movie?.releaseDate}</p></label>
@@ -23,15 +24,17 @@ export default function MovieDetailsPage() {
 
   function onCancel() {
     if(searchItems.length === 0) {
-      getMoviesByName(lastSearch);
+      setReloadStatus(true);
     }
-    setSearchType("Movies and TV Series")
+    setSearchType("movie")
     history.goBack();
   }
 
   function getMovieCrew() {
-    setSearchType("Crew")
-    getMovieCrewByMovieId(movie.id).then(() => history.push("/searchpage"))
+    setSearchType("crew")
+    setName(movie.name)
+    getMovieCrewByMovieId(movie.id).then(() => history.push(`/search/crew/${movie.name}/${movie.id}`))
   }
+
 
 }

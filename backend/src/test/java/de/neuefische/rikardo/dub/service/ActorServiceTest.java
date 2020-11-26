@@ -22,7 +22,7 @@ class ActorServiceTest {
     ApiActor apiActor = new ApiActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<ApiActor> apiActors = new ArrayList<>(List.of(apiActor));
 
-    Actor actor = new Actor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
+    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor");
     List<Actor> actors = new ArrayList<>(List.of(actor));
 
     @Test

@@ -1,15 +1,15 @@
-import React, {useContext} from 'react';
+import React, {useContext } from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 
 export default function ActorDetailsPage() {
   const history = useHistory();
-  const {actor} = useContext(SearchContext);
+  const {actor,searchItems,setReloadStatus} = useContext(SearchContext);
 
   return (
     <>
       <div>{actor?.name}</div>
-      <img alt="ActorImage" src={"https://image.tmdb.org/t/p/w154/"+actor?.image}/>
+      <img alt="ActorImage" src={actor?.image}/>
       <button onClick={onCancel}>Cancel</button>
       <label>Birthday<p>{actor?.birthday}</p></label>
       <label>Place of Birth<p>{actor?.placeOfBirth}</p></label>
@@ -18,6 +18,10 @@ export default function ActorDetailsPage() {
   )
 
   function onCancel() {
+    if(searchItems.length === 0) {
+      setReloadStatus(true);
+    }
     history.goBack();
   }
+
 }

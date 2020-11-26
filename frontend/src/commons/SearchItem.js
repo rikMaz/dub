@@ -1,28 +1,18 @@
-import React, { useState,useEffect,useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 
 
 export default function SearchItem({searchItem}){
-  const [imageUrl,setImageUrl] = useState("");
-  const imageUrlBasis = "https://image.tmdb.org/t/p/w154/";
   const history = useHistory();
   const {getMovieById,getActorById,getVoiceActorById,searchType} = useContext(SearchContext);
-
-  useEffect(() => {
-    if (searchType === "voiceActor") {
-      setImageUrl(searchItem.image);
-    } else {
-      setImageUrl(imageUrlBasis + searchItem.image);
-    }
-  },[searchItem,searchType]);
 
   if(searchType === "crew"){
     return(
       <>
         <div>{searchItem.name}</div>
         <div>{searchItem.character}</div>
-        <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+        <img alt="SearchItemImage" src={searchItem.image} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
       </>
     )
   }
@@ -30,7 +20,7 @@ export default function SearchItem({searchItem}){
   return(
     <>
       <div>{searchItem.name}</div>
-      <img alt="SearchItemImage" src={imageUrl} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
+      <img alt="SearchItemImage" src={searchItem.image} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
     </>
   )
 
@@ -44,15 +34,15 @@ export default function SearchItem({searchItem}){
     switch (searchItem.type) {
 
       case "movie":
-        getMovieById(searchItem.id).then(() => history.push("/moviedetailspage"));
+        getMovieById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
         break;
 
-      case "Acting":
-        getActorById(searchItem.id).then(() => history.push("/actordetailspage"));
+      case "actor":
+        getActorById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
         break;
 
-      case "VoiceActor":
-        getVoiceActorById(searchItem.id).then(() => history.push(`/voiceactordetailspage/${searchItem.id}`));
+      case "voiceactor":
+        getVoiceActorById(searchItem.id).then(() => history.push(`/details/${searchItem.type}/${searchItem.id}`));
         break;
 
       default:
@@ -60,6 +50,7 @@ export default function SearchItem({searchItem}){
     }
 
   }
+
 
 
 }
