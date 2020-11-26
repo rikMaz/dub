@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 
 export default function MovieDetailsPage() {
   const history = useHistory();
-  const {setName,movie,searchItems,getMoviesByName,getMovieCrewByMovieId,setSearchType} = useContext(SearchContext);
+  const {setName,movie,searchItems,getMovieCrewByMovieId,setSearchType,setReloadStatus} = useContext(SearchContext);
 
 
   return (
@@ -24,7 +24,7 @@ export default function MovieDetailsPage() {
 
   function onCancel() {
     if(searchItems.length === 0) {
-      getMoviesByName(movie.name);
+      setReloadStatus(true);
     }
     setSearchType("movie")
     history.goBack();

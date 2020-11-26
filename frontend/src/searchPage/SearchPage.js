@@ -7,8 +7,12 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default function SearchPage() {
   const history = useHistory();
-  const {name,setName,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems,getVoiceActorByName} = useContext(SearchContext);
+  const {searchItems,name,setName,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems,getVoiceActorByName,reloadStatus,setReloadStatus} = useContext(SearchContext);
 
+  if(searchItems.length === 0 && reloadStatus === true) {
+    setReloadStatus(false);
+    window.location.reload();
+  }
 
   if(searchType === "crew") {
     return (
@@ -18,6 +22,7 @@ export default function SearchPage() {
         <button onClick={onCancel}>Cancel</button>
         <SearchList/>
       </> )
+
   }
 
   return (

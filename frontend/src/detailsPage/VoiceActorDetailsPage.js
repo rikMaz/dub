@@ -4,8 +4,7 @@ import {useHistory} from "react-router-dom";
 
 export default function VoiceActorDetailsPage() {
   const history = useHistory();
-  const {voiceActor,voiceActorActors,actors,searchItems,getVoiceActorByName} = useContext(SearchContext);
-
+  const {voiceActor,voiceActorActors,actors,searchItems,setReloadStatus} = useContext(SearchContext);
 
   return (
     <>
@@ -38,7 +37,7 @@ export default function VoiceActorDetailsPage() {
 
   function onCancel() {
     if(searchItems.length === 0) {
-      getVoiceActorByName(voiceActor.name);
+      setReloadStatus(true);
     }
     history.goBack();
   }

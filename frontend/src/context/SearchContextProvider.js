@@ -13,9 +13,10 @@ import {
 
 export default function SearchContextProvider({children}) {
   const [name,setName] = useState("");
-  const [actor, setActor] = useState();
-  const [movie, setMovie] = useState();
-  const [voiceActor, setVoiceActor] = useState();
+  const [actor, setActor] = useState([]);
+  const [movie, setMovie] = useState([]);
+  const [reloadStatus,setReloadStatus] = useState(false);
+  const [voiceActor, setVoiceActor] = useState([]);
   const [searchType, setSearchType] = useState();
   const [searchItems, setSearchItems] = useState([]);
   const [inputImageUrl,setInputImageUrl] = useState("/imageerror.png");
@@ -99,9 +100,11 @@ export default function SearchContextProvider({children}) {
 
   const getVoiceActorActorList = (id) =>
     getActorDetailsById(id).then(item => setActors([...actors,item]));
-    //getActorDetailsById(id).then(item => voiceActorActors.push(item))
+
   return (
     <SearchContext.Provider value={{
+      reloadStatus,
+      setReloadStatus,
       name,
       setName,
       actors,

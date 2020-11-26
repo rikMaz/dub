@@ -4,8 +4,8 @@ import {useHistory} from "react-router-dom";
 
 export default function ActorDetailsPage() {
   const history = useHistory();
-  const {actor,searchItems,getActorsByName} = useContext(SearchContext);
-  //window.location.reload(false);
+  const {actor,searchItems,setReloadStatus} = useContext(SearchContext);
+
   return (
     <>
       <div>{actor?.name}</div>
@@ -19,7 +19,7 @@ export default function ActorDetailsPage() {
 
   function onCancel() {
     if(searchItems.length === 0) {
-      getActorsByName(actor.name);
+      setReloadStatus(true);
     }
     history.goBack();
   }
