@@ -1,15 +1,12 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
+import useMovie from "../hooks/useMovie";
 
 export default function MovieDetailsPage() {
   const history = useHistory();
-  const {setName,movie,getMovieCrewByMovieId,setSearchType,getMovieById} = useContext(SearchContext);
-
-  useEffect(() => {
-    onRefresh();
-    // eslint-disable-next-line
-  },[])
+  const [movie] = useMovie();
+  const {setName,getMovieCrewByMovieId,setSearchType} = useContext(SearchContext);
 
   return (
     <>
@@ -27,7 +24,6 @@ export default function MovieDetailsPage() {
   )
 
   function onCancel() {
-    setSearchType("movie")
     history.goBack();
   }
 
@@ -37,10 +33,5 @@ export default function MovieDetailsPage() {
     getMovieCrewByMovieId(movie.id).then(() => history.push(`/search/crew/${movie.name}/${movie.id}`))
   }
 
-  function onRefresh() {
-    let currentPath = window.location.pathname.split("/");
-    const previousSearch = currentPath[3].replace("%20", " ");
-    getMovieById(previousSearch);
-    }
 
 }

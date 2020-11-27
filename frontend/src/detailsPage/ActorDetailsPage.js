@@ -1,15 +1,10 @@
-import React, {useContext, useEffect} from 'react';
-import SearchContext from "../context/SearchContext";
+import React from 'react';
 import {useHistory} from "react-router-dom";
+import useActor from "../hooks/useActor";
 
 export default function ActorDetailsPage() {
   const history = useHistory();
-  const {actor,searchItems,setReloadStatus,getActorById} = useContext(SearchContext);
-
-  useEffect(() => {
-    onRefresh();
-    // eslint-disable-next-line
-  },[])
+  const [actor] = useActor();
 
   return (
     <>
@@ -23,16 +18,7 @@ export default function ActorDetailsPage() {
   )
 
   function onCancel() {
-    if(searchItems.length === 0) {
-      setReloadStatus(true);
-    }
     history.goBack();
-  }
-
-  function onRefresh() {
-    let currentPath = window.location.pathname.split("/");
-    const previousSearch = currentPath[3].replace("%20", " ");
-    getActorById(previousSearch);
   }
 
 }

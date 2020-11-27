@@ -49,8 +49,6 @@ export default function SearchContextProvider({children}) {
   const getVoiceActorById = (name) =>
     getVoiceActorDetailsById(name).then((item) => setVoiceActor(item));
 
-  const getVoiceActorActorList = (id) =>
-    getActorDetailsById(id).then(item => setActors([...actors,item]));
 
   return (
     <SearchContext.Provider value={{
@@ -73,7 +71,6 @@ export default function SearchContextProvider({children}) {
       setSearchItems,
       searchType,
       setSearchType,
-      getVoiceActorActorList,
       getVoiceActorByName,
       getVoiceActorById,
       awsRecognizeCelebrity,
