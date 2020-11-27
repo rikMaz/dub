@@ -1,10 +1,9 @@
 package de.neuefische.rikardo.dub.service;
 
-import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ApiActor;
+import de.neuefische.rikardo.dub.model.actor.TmdbActor;
 import de.neuefische.rikardo.dub.model.movie.Movie;
-import de.neuefische.rikardo.dub.model.movie.ApiMovie;
+import de.neuefische.rikardo.dub.model.movie.TmdbMovie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,18 +17,18 @@ import static org.mockito.Mockito.*;
 
 class MovieServiceTest {
 
-    final ApiService apiService = mock(ApiService.class);
+    final TmdbService tmdbService = mock(TmdbService.class);
 
-    final MovieService movieService = new MovieService(apiService);
+    final MovieService movieService = new MovieService(tmdbService);
 
-    ApiMovie apiMovie = new ApiMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
-    List<ApiMovie> apiMovies = new ArrayList<>(List.of(apiMovie));
+    TmdbMovie tmdbMovie = new TmdbMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
+    List<TmdbMovie> tmdbMovies = new ArrayList<>(List.of(tmdbMovie));
 
     Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
     List<Movie> movies = new ArrayList<>(List.of(movie));
 
-    List<ApiActor> apiActors = new ArrayList<>(List.of(
-            new ApiActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
+    List<TmdbActor> tmdbActors = new ArrayList<>(List.of(
+            new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
     ));
 
     List<Actor> actors = new ArrayList<>(List.of(
@@ -41,7 +40,7 @@ class MovieServiceTest {
     void getMovieSearchResultByNameTest() {
         //GIVEN
         String name = "The Matrix";
-        when(apiService.getMovieSearchResultByName(name)).thenReturn(apiMovies);
+        when(tmdbService.getMovieSearchResultByName(name)).thenReturn(tmdbMovies);
         //WHEN
         List<Movie> result = movieService.getMovieSearchResultByName(name);
         //THEN
@@ -53,7 +52,7 @@ class MovieServiceTest {
     void getMovieDetailsByIdTest() {
         //GIVEN
         String id = "603";
-        when(apiService.getMovieDetailsById(id)).thenReturn(apiMovie);
+        when(tmdbService.getMovieDetailsById(id)).thenReturn(tmdbMovie);
         //WHEN
         Movie result = movieService.getMovieDetailsById(id);
         //THEN
@@ -65,7 +64,7 @@ class MovieServiceTest {
     void getMovieCrewByIdTest() {
         //GIVEN
         String id = "603";
-        when(apiService.getMovieCrewById(id)).thenReturn(apiActors);
+        when(tmdbService.getMovieCrewById(id)).thenReturn(tmdbActors);
         //WHEN
         List<Actor> result = movieService.getMovieCrewById(id);
         //THEN

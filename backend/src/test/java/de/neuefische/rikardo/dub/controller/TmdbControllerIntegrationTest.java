@@ -1,10 +1,10 @@
 package de.neuefische.rikardo.dub.controller;
 
-import de.neuefische.rikardo.dub.api.ApiService;
+import de.neuefische.rikardo.dub.service.TmdbService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ApiActor;
+import de.neuefische.rikardo.dub.model.actor.TmdbActor;
 import de.neuefische.rikardo.dub.model.movie.Movie;
-import de.neuefische.rikardo.dub.model.movie.ApiMovie;
+import de.neuefische.rikardo.dub.model.movie.TmdbMovie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ApiControllerIntegrationTest {
+class TmdbControllerIntegrationTest {
 
     @LocalServerPort
     private int port;
@@ -31,16 +31,16 @@ class ApiControllerIntegrationTest {
     private TestRestTemplate testRestTemplate;
 
     @MockBean
-    private ApiService apiService;
+    private TmdbService tmdbService;
 
-    ApiMovie apiMovie = new ApiMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
-    List<ApiMovie> apiMovies = new ArrayList<>(List.of(apiMovie));
+    TmdbMovie tmdbMovie = new TmdbMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
+    List<TmdbMovie> tmdbMovies = new ArrayList<>(List.of(tmdbMovie));
 
     Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
     List<Movie> movies = new ArrayList<>(List.of(movie));
 
-    ApiActor apiActor = new ApiActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
-    List<ApiActor> apiActors = new ArrayList<>(List.of(apiActor));
+    TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
+    List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
 
     Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor");
     List<Actor> actors = new ArrayList<>(List.of(actor));
@@ -51,7 +51,7 @@ class ApiControllerIntegrationTest {
         //GIVEN
         String name = "The Matrix";
         String url = "http://localhost:" + port + "/api/search/movie/" + name;
-        when(apiService.getMovieSearchResultByName(name)).thenReturn(apiMovies);
+        when(tmdbService.getMovieSearchResultByName(name)).thenReturn(tmdbMovies);
         //WHEN
         ResponseEntity<Movie[]> response = testRestTemplate.getForEntity(url,Movie[].class);
         //THEN
@@ -64,7 +64,7 @@ class ApiControllerIntegrationTest {
         //GIVEN
         String name = "Keanu Reeves";
         String url = "http://localhost:" + port + "/api/search/actor/" + name;
-        when(apiService.getActorSearchResultByName(name)).thenReturn(apiActors);
+        when(tmdbService.getActorSearchResultByName(name)).thenReturn(tmdbActors);
         //WHEN
         ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url,Actor[].class);
         //THEN
@@ -77,7 +77,7 @@ class ApiControllerIntegrationTest {
         //GIVEN
         String id = "6384";
         String url = "http://localhost:" + port + "/api/actor/" + id;
-        when(apiService.getActorDetailsById(id)).thenReturn(apiActor);
+        when(tmdbService.getActorDetailsById(id)).thenReturn(tmdbActor);
         //WHEN
         ResponseEntity<Actor> response = testRestTemplate.getForEntity(url,Actor.class);
         //THEN
@@ -90,7 +90,7 @@ class ApiControllerIntegrationTest {
         //GIVEN
         String id = "603";
         String url = "http://localhost:" + port + "/api/movie/" + id;
-        when(apiService.getMovieDetailsById(id)).thenReturn(apiMovie);
+        when(tmdbService.getMovieDetailsById(id)).thenReturn(tmdbMovie);
         //WHEN
         ResponseEntity<Movie> response = testRestTemplate.getForEntity(url,Movie.class);
 
@@ -104,7 +104,7 @@ class ApiControllerIntegrationTest {
         //GIVEN
         String id = "603";
         String url = "http://localhost:" + port + "/api/movie/" + id + "/crew";
-        when(apiService.getMovieCrewById(id)).thenReturn(apiActors);
+        when(tmdbService.getMovieCrewById(id)).thenReturn(tmdbActors);
         //WHEN
         ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url,Actor[].class);
         //THEN

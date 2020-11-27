@@ -12,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
-public class ApiController {
+public class TmdbController {
 
     private final MovieService movieService;
     private final ActorService actorService;
 
     @Autowired
-    public ApiController(MovieService movieService, ActorService actorService) {
+    public TmdbController(MovieService movieService, ActorService actorService) {
         this.movieService = movieService;
         this.actorService = actorService;
     }

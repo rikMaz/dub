@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getVoiceActorDetailsById} from "../service/SearchService";
+import {getVoiceActorById} from "../service/SearchService";
 
 
 export default function useVoiceActor() {
@@ -13,7 +13,7 @@ export default function useVoiceActor() {
   function onRefresh() {
     const currentPath = window.location.pathname.split("/");
     const previousSearch = currentPath[3].replace("%20", " ");
-    getVoiceActorDetailsById(previousSearch).then((item) => setVoiceActor(item));
+    getVoiceActorById(previousSearch).then((item) => setVoiceActor(item));
   }
 
  return [voiceActor];

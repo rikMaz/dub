@@ -1,6 +1,7 @@
 package de.neuefische.rikardo.dub.model.movie;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.neuefische.rikardo.dub.model.actor.TmdbActor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiMovieList {
+public class TmdbMovieCrew {
 
-    @JsonProperty("results")
-    private List<ApiMovie> movies;
-
+    @JsonProperty("cast")
+    private List<TmdbActor> movieCrew;
 }

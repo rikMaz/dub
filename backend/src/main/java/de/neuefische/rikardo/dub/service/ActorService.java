@@ -1,8 +1,7 @@
 package de.neuefische.rikardo.dub.service;
 
-import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ApiActor;
+import de.neuefische.rikardo.dub.model.actor.TmdbActor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,32 +11,32 @@ import java.util.stream.Collectors;
 @Service
 public class ActorService {
 
-    private final ApiService apiService;
+    private final TmdbService tmdbService;
 
     private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w154";
 
-    public ActorService(ApiService apiService) {
-        this.apiService = apiService;
+    public ActorService(TmdbService tmdbService) {
+        this.tmdbService = tmdbService;
     }
 
     public List<Actor> getActorSearchResultByName(String name) {
 
         List<Actor> actors = new ArrayList<>();
-        List<ApiActor> apiActors = apiService.getActorSearchResultByName(name)
+        List<TmdbActor> tmdbActors = tmdbService.getActorSearchResultByName(name)
                 .stream()
                 .filter(item -> item.getProfile_path() != null)
                 .filter(item -> item.getKnown_for_department().equals("Acting"))
                 .collect(Collectors.toList());
 
-        for (ApiActor apiActor: apiActors) {
+        for (TmdbActor tmdbActor : tmdbActors) {
             Actor actor = new Actor(
-                    apiActor.getId(),
-                    apiActor.getName(),
-                    tmdbUrlPath + apiActor.getProfile_path(),
-                    apiActor.getCharacter(),
-                    apiActor.getBiography(),
-                    apiActor.getBirthday(),
-                    apiActor.getPlace_of_birth(),
+                    tmdbActor.getId(),
+                    tmdbActor.getName(),
+                    tmdbUrlPath + tmdbActor.getProfile_path(),
+                    tmdbActor.getCharacter(),
+                    tmdbActor.getBiography(),
+                    tmdbActor.getBirthday(),
+                    tmdbActor.getPlace_of_birth(),
                     "actor");
             actors.add(actor);
         }
@@ -46,15 +45,15 @@ public class ActorService {
     }
 
     public Actor getActorDetailsById(String id) {
-        ApiActor apiActor = apiService.getActorDetailsById(id);
+        TmdbActor tmdbActor = tmdbService.getActorDetailsById(id);
         return new Actor(
-                apiActor.getId(),
-                apiActor.getName(),
-                tmdbUrlPath + apiActor.getProfile_path(),
-                apiActor.getCharacter(),
-                apiActor.getBiography(),
-                apiActor.getBirthday(),
-                apiActor.getPlace_of_birth(),
+                tmdbActor.getId(),
+                tmdbActor.getName(),
+                tmdbUrlPath + tmdbActor.getProfile_path(),
+                tmdbActor.getCharacter(),
+                tmdbActor.getBiography(),
+                tmdbActor.getBirthday(),
+                tmdbActor.getPlace_of_birth(),
                 "actor");
     }
 }

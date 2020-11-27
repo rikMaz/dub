@@ -1,9 +1,9 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
-import SearchItem from "../commons/SearchItem";
+import SearchItem from "../searchPage/SearchItem";
 import useVoiceActor from "../hooks/useVoiceActor";
 
-export default function VoiceActorDetailsPage() {
+export default function VoiceActorPage() {
   const history = useHistory();
   const [voiceActor] = useVoiceActor();
 

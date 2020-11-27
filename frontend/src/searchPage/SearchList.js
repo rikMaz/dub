@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import SearchContext from "../context/SearchContext";
-import SearchItem from "../commons/SearchItem";
+import SearchItem from "./SearchItem";
 
 
 export default function SearchList() {

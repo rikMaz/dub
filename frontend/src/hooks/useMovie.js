@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getMovieDetailsById} from "../service/SearchService";
+import {getMovieById} from "../service/SearchService";
 
 
 export default function useMovie() {
@@ -13,7 +13,7 @@ export default function useMovie() {
   function onRefresh() {
     const currentPath = window.location.pathname.split("/");
     const previousSearch = currentPath[3].replace("%20", " ");
-    getMovieDetailsById(previousSearch).then((item) => setMovie(item));
+    getMovieById(previousSearch).then((item) => setMovie(item));
   }
 
   return [movie];

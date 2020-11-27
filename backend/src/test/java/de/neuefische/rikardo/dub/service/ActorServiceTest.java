@@ -1,8 +1,7 @@
 package de.neuefische.rikardo.dub.service;
 
-import de.neuefische.rikardo.dub.api.ApiService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
-import de.neuefische.rikardo.dub.model.actor.ApiActor;
+import de.neuefische.rikardo.dub.model.actor.TmdbActor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +14,12 @@ import static org.mockito.Mockito.*;
 
 class ActorServiceTest {
 
-    final ApiService apiService = mock(ApiService.class);
+    final TmdbService tmdbService = mock(TmdbService.class);
 
-    final ActorService actorService = new ActorService(apiService);
+    final ActorService actorService = new ActorService(tmdbService);
 
-    ApiActor apiActor = new ApiActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
-    List<ApiActor> apiActors = new ArrayList<>(List.of(apiActor));
+    TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
+    List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
 
     Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor");
     List<Actor> actors = new ArrayList<>(List.of(actor));
@@ -30,7 +29,7 @@ class ActorServiceTest {
     void getActorSearchResultByNameTest() {
         //GIVEN
         String name = "Daniel Craig";
-        when(apiService.getActorSearchResultByName(name)).thenReturn(apiActors);
+        when(tmdbService.getActorSearchResultByName(name)).thenReturn(tmdbActors);
         //WHEN
         List<Actor> result = actorService.getActorSearchResultByName(name);
         //THEN
@@ -42,7 +41,7 @@ class ActorServiceTest {
     void getActorDetailsById() {
         //GIVEN
         String id = "8784";
-        when(apiService.getActorDetailsById(id)).thenReturn(apiActor);
+        when(tmdbService.getActorDetailsById(id)).thenReturn(tmdbActor);
         //WHEN
         Actor result = actorService.getActorDetailsById(id);
         //THEN

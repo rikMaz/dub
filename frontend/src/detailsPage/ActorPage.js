@@ -2,7 +2,7 @@ import React from 'react';
 import {useHistory} from "react-router-dom";
 import useActor from "../hooks/useActor";
 
-export default function ActorDetailsPage() {
+export default function ActorPage() {
   const history = useHistory();
   const [actor] = useActor();
 

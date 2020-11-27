@@ -7,7 +7,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 export default function SearchPage() {
   const history = useHistory();
-  const {name,setName,searchType,setSearchType,getActorsByName,getMoviesByName,setSearchItems,getVoiceActorByName,getMovieCrewByMovieId} = useContext(SearchContext);
+  const {name,setName,searchType,setSearchType,getActors,getMovies,setSearchItems,getVoiceActors,getMovieCrew} = useContext(SearchContext);
 
   useEffect(() => {
     onRefresh();
@@ -59,15 +59,15 @@ export default function SearchPage() {
     switch (searchType) {
 
       case "movie":
-        getMoviesByName(name).then(() => history.push(`/search/${searchType}/${name}`));
+        getMovies(name).then(() => history.push(`/search/${searchType}/${name}`));
         break;
 
       case "actor":
-        getActorsByName(name).then(() => history.push(`/search/${searchType}/${name}`));
+        getActors(name).then(() => history.push(`/search/${searchType}/${name}`));
         break;
 
       case "voiceactor":
-        getVoiceActorByName(name).then(() => history.push(`/search/${searchType}/${name}`));
+        getVoiceActors(name).then(() => history.push(`/search/${searchType}/${name}`));
         break;
 
       default:
@@ -84,20 +84,20 @@ export default function SearchPage() {
       switch (currentPath[2]) {
 
         case "movie":
-          getMoviesByName(previousSearch);
+          getMovies(previousSearch);
           break;
 
         case "actor":
-          getActorsByName(previousSearch);
+          getActors(previousSearch);
           break;
 
         case "voiceactor":
-          getVoiceActorByName(previousSearch);
+          getVoiceActors(previousSearch);
           break;
 
         case "crew":
           setName(previousSearch);
-          getMovieCrewByMovieId(currentPath[4]);
+          getMovieCrew(currentPath[4]);
           break;
 
         default:
