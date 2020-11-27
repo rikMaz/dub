@@ -10,6 +10,7 @@ export default function HomePage() {
     <>
       <div>Homepage</div>
       <button onClick={onSearch}>Direct Search</button>
+      <button onClick={onCamera}>Camera</button>
       <input type="file" accept="image/*" onChange={onImageUpload}/>
     </>
   )
@@ -23,6 +24,10 @@ export default function HomePage() {
 
   function onSearch() {
     history.push("/search")
+  }
+
+  function onCamera() {
+    history.push("/camera")
   }
 
 

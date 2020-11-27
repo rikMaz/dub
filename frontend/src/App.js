@@ -7,6 +7,7 @@ import MoviePage from "./detailsPage/MoviePage";
 import ActorPage from "./detailsPage/ActorPage";
 import PreviewPage from "./previewPage/PreviewPage";
 import VoiceActorPage from "./detailsPage/VoiceActorPage";
+import Camera from "./camera/Camera";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/details/actor" component={ActorPage}/>
         <Route path="/details/voiceactor" component={VoiceActorPage}/>
         <Route path="/previewpage" component={PreviewPage}/>
+        <Route path="/camera" component={Camera}/>
         <Route path="/">
           <Redirect to="/home"/>
         </Route>
