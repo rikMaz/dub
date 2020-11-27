@@ -1,8 +1,10 @@
 package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorPreview;
 import de.neuefische.rikardo.dub.model.actor.TmdbActor;
 import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MoviePreview;
 import de.neuefische.rikardo.dub.model.movie.TmdbMovie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,36 +27,38 @@ class MovieServiceTest {
     List<TmdbMovie> tmdbMovies = new ArrayList<>(List.of(tmdbMovie));
 
     Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
-    List<Movie> movies = new ArrayList<>(List.of(movie));
+
+    MoviePreview moviePreview = new MoviePreview("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","movie");
+    List<MoviePreview> moviePreviews = new ArrayList<>(List.of(moviePreview));
 
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(
             new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting")
     ));
 
-    List<Actor> actors = new ArrayList<>(List.of(
-            new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",null)
+    List<ActorPreview> actorPreviews = new ArrayList<>(List.of(
+            new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor")
     ));
 
     @Test
     @DisplayName("The method should return the MovieSearchResult by name")
-    void getMovieSearchResultByNameTest() {
+    void getMoviePreviewsByNameTest() {
         //GIVEN
         String name = "The Matrix";
-        when(tmdbService.getMovieSearchResultByName(name)).thenReturn(tmdbMovies);
+        when(tmdbService.getTmdbMoviesByName(name)).thenReturn(tmdbMovies);
         //WHEN
-        List<Movie> result = movieService.getMovieSearchResultByName(name);
+        List<MoviePreview> result = movieService.getMoviePreviewsByName(name);
         //THEN
-        assertThat(result,is(movies));
+        assertThat(result,is(moviePreviews));
     }
 
     @Test
     @DisplayName("The method should return the movie details by id")
-    void getMovieDetailsByIdTest() {
+    void getMovieByIdTest() {
         //GIVEN
         String id = "603";
-        when(tmdbService.getMovieDetailsById(id)).thenReturn(tmdbMovie);
+        when(tmdbService.getTmdbMovieById(id)).thenReturn(tmdbMovie);
         //WHEN
-        Movie result = movieService.getMovieDetailsById(id);
+        Movie result = movieService.getMovieById(id);
         //THEN
         assertThat(result,is(movie));
     }
@@ -64,11 +68,11 @@ class MovieServiceTest {
     void getMovieCrewByIdTest() {
         //GIVEN
         String id = "603";
-        when(tmdbService.getMovieCrewById(id)).thenReturn(tmdbActors);
+        when(tmdbService.getTmdbMovieCrewById(id)).thenReturn(tmdbActors);
         //WHEN
-        List<Actor> result = movieService.getMovieCrewById(id);
+        List<ActorPreview> result = movieService.getMovieCrewById(id);
         //THEN
-        assertThat(result,is(actors));
+        assertThat(result,is(actorPreviews));
     }
 
 }

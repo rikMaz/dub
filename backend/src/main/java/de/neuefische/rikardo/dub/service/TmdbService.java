@@ -21,32 +21,32 @@ public class TmdbService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public List<TmdbMovie> getMovieSearchResultByName(String name) {
+    public List<TmdbMovie> getTmdbMoviesByName(String name) {
         ResponseEntity<TmdbMovieList> response = restTemplate.getForEntity(buildApiUrl(true,false,false,name,"","movie"), TmdbMovieList.class);
         return response.getBody().getMovies();
     }
 
-    public List<TmdbActor> getActorSearchResultByName(String name) {
+    public List<TmdbActor> getTmdbActorsByName(String name) {
         ResponseEntity<TmdbActorList> response = restTemplate.getForEntity(buildApiUrl(true,false,false,name,"","person"), TmdbActorList.class);
         return response.getBody().getActors();
     }
 
-    public TmdbActor getActorDetailsById(String id) {
+    public TmdbActor getTmdbActorById(String id) {
         ResponseEntity<TmdbActor> response = restTemplate.getForEntity(buildApiUrl(false,false,false,"",id,"person"), TmdbActor.class);
         return response.getBody();
     }
 
-    public List<TmdbMovie> getActorMovieCreditsById(String id) {
+    public List<TmdbMovie> getTmdbActorMovieCreditsById(String id) {
         ResponseEntity<TmdbActorMovieCredits> response = restTemplate.getForEntity(buildApiUrl(false,false,true,"",id,"person"), TmdbActorMovieCredits.class);
         return response.getBody().getMovieList();
     }
 
-    public TmdbMovie getMovieDetailsById(String id) {
+    public TmdbMovie getTmdbMovieById(String id) {
         ResponseEntity<TmdbMovie> response = restTemplate.getForEntity(buildApiUrl(false,false,false,"",id,"movie"), TmdbMovie.class);
         return response.getBody();
     }
 
-    public List<TmdbActor> getMovieCrewById(String id) {
+    public List<TmdbActor> getTmdbMovieCrewById(String id) {
         ResponseEntity<TmdbMovieCrew> response = restTemplate.getForEntity(buildApiUrl(false,true,false,"",id,"movie"), TmdbMovieCrew.class);
         return response.getBody().getMovieCrew();
     }

@@ -2,6 +2,7 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.db.VoiceActorMongoDb;
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorPreview;
 import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +24,14 @@ public class DbService {
         return voiceActorMongoDb.findAllByName(name);
     }
 
-    public List<VoiceActor> getAllActors() {
-        return voiceActorMongoDb.findAll();
-    }
 
-    public VoiceActor getVoiceActorsById(String id) {
+    public VoiceActor getVoiceActorById(String id) {
         VoiceActor voiceActor = voiceActorMongoDb.findAllById(id);
-        List<Actor> actorList = new ArrayList<>();
-        for (Actor actor: voiceActor.getActors()) {
-            actorList.add(actorService.getActorDetailsById(actor.getId()));
+        List<ActorPreview> actorPreviews = new ArrayList<>();
+        for (ActorPreview actorPreview: voiceActor.getActors()) {
+            actorPreviews.add(actorService.getActorPreviewById(actorPreview.getId()));
         }
-        voiceActor.setActors(actorList);
+        voiceActor.setActors(actorPreviews);
         return voiceActor;
     }
 }
