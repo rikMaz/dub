@@ -1,8 +1,12 @@
 package de.neuefische.rikardo.dub.model.actor;
 
+import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MoviePreview;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,4 +21,5 @@ public class Actor {
     private String birthday;
     private String placeOfBirth;
     private String type;
+    private List<MoviePreview> movies;
 }

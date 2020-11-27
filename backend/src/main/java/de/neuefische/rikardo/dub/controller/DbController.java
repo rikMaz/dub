@@ -21,11 +21,6 @@ public class DbController {
         this.dbService = dbService;
     }
 
-    @GetMapping("/voiceactor")
-    public List<VoiceActor> getVoiceActorsByName() {
-        return dbService.getAllActors();
-    }
-
     @GetMapping("/voiceactor/name/{name}")
     public List<VoiceActor> getVoiceActorsByName(@PathVariable String name) {
         return dbService.getVoiceActorsByName(name);
@@ -33,6 +28,6 @@ public class DbController {
 
     @GetMapping("/voiceactor/id/{id}")
     public VoiceActor getVoiceActorsById (@PathVariable String id) {
-        return dbService.getVoiceActorsById(id);
+        return dbService.getVoiceActorById(id);
     }
 }

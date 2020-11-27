@@ -1,5 +1,7 @@
 package de.neuefische.rikardo.dub.controller;
 
+import de.neuefische.rikardo.dub.model.actor.ActorPreview;
+import de.neuefische.rikardo.dub.model.movie.MoviePreview;
 import de.neuefische.rikardo.dub.service.TmdbService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.TmdbActor;
@@ -42,42 +44,49 @@ class TmdbControllerIntegrationTest {
     TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
 
-    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor");
+    MoviePreview moviePreview = new MoviePreview("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","movie");
+    List<MoviePreview> moviePreviews = new ArrayList<>(List.of(moviePreview));
+
+    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",moviePreviews);
     List<Actor> actors = new ArrayList<>(List.of(actor));
+
+    ActorPreview actorPreview = new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor");
+    List<ActorPreview> actorPreviews = new ArrayList<>(List.of(actorPreview));
 
 
     @Test
-    public void getMovieSearchResultByNameTest() {
+    public void getMoviePreviewsByNameTest() {
         //GIVEN
         String name = "The Matrix";
         String url = "http://localhost:" + port + "/api/search/movie/" + name;
-        when(tmdbService.getMovieSearchResultByName(name)).thenReturn(tmdbMovies);
+        when(tmdbService.getTmdbMoviesByName(name)).thenReturn(tmdbMovies);
         //WHEN
-        ResponseEntity<Movie[]> response = testRestTemplate.getForEntity(url,Movie[].class);
+        ResponseEntity<MoviePreview[]> response = testRestTemplate.getForEntity(url,MoviePreview[].class);
         //THEN
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(movies.toArray()));
+        assertThat(response.getBody(),is(moviePreviews.toArray()));
     }
 
     @Test
-    public void getActorSearchResultByNameTest() {
+    public void getActorPreviewsByNameTest() {
         //GIVEN
         String name = "Keanu Reeves";
         String url = "http://localhost:" + port + "/api/search/actor/" + name;
-        when(tmdbService.getActorSearchResultByName(name)).thenReturn(tmdbActors);
+        when(tmdbService.getTmdbActorsByName(name)).thenReturn(tmdbActors);
         //WHEN
-        ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url,Actor[].class);
+        ResponseEntity<ActorPreview[]> response = testRestTemplate.getForEntity(url,ActorPreview[].class);
         //THEN
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(actors.toArray()));
+        assertThat(response.getBody(),is(actorPreviews.toArray()));
     }
 
     @Test
-    public void getActorDetailsByIdTest() {
+    public void getActorByIdTest() {
         //GIVEN
         String id = "6384";
         String url = "http://localhost:" + port + "/api/actor/" + id;
-        when(tmdbService.getActorDetailsById(id)).thenReturn(tmdbActor);
+        when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
+        when(tmdbService.getTmdbActorMovieCreditsById(id)).thenReturn(tmdbMovies);
         //WHEN
         ResponseEntity<Actor> response = testRestTemplate.getForEntity(url,Actor.class);
         //THEN
@@ -86,11 +95,11 @@ class TmdbControllerIntegrationTest {
     }
 
     @Test
-    public void getMovieDetailsByIdTest() {
+    public void getMovieByIdTest() {
         //GIVEN
         String id = "603";
         String url = "http://localhost:" + port + "/api/movie/" + id;
-        when(tmdbService.getMovieDetailsById(id)).thenReturn(tmdbMovie);
+        when(tmdbService.getTmdbMovieById(id)).thenReturn(tmdbMovie);
         //WHEN
         ResponseEntity<Movie> response = testRestTemplate.getForEntity(url,Movie.class);
 
@@ -104,12 +113,12 @@ class TmdbControllerIntegrationTest {
         //GIVEN
         String id = "603";
         String url = "http://localhost:" + port + "/api/movie/" + id + "/crew";
-        when(tmdbService.getMovieCrewById(id)).thenReturn(tmdbActors);
+        when(tmdbService.getTmdbMovieCrewById(id)).thenReturn(tmdbActors);
         //WHEN
-        ResponseEntity<Actor[]> response = testRestTemplate.getForEntity(url,Actor[].class);
+        ResponseEntity<ActorPreview[]> response = testRestTemplate.getForEntity(url,ActorPreview[].class);
         //THEN
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(actors.toArray()));
+        assertThat(response.getBody(),is(actorPreviews.toArray()));
     }
 
 

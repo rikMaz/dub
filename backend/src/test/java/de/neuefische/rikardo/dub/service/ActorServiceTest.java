@@ -1,7 +1,10 @@
 package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorPreview;
 import de.neuefische.rikardo.dub.model.actor.TmdbActor;
+import de.neuefische.rikardo.dub.model.movie.MoviePreview;
+import de.neuefische.rikardo.dub.model.movie.TmdbMovie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,30 +24,54 @@ class ActorServiceTest {
     TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
 
-    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor");
-    List<Actor> actors = new ArrayList<>(List.of(actor));
+    TmdbMovie tmdbMovie = new TmdbMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
+    List<TmdbMovie> tmdbMovies = new ArrayList<>(List.of(tmdbMovie));
+
+    MoviePreview moviePreview = new MoviePreview("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","movie");
+    List<MoviePreview> moviePreviews = new ArrayList<>(List.of(moviePreview));
+
+    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",moviePreviews);
+
+    ActorPreview actorPreview = new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor");
+    List<ActorPreview> actorPreviews = new ArrayList<>(List.of(actorPreview));
+
 
     @Test
     @DisplayName("The method should return a valid URL to search for a actor by name")
-    void getActorSearchResultByNameTest() {
+    void getActorPreviewsByNameTest() {
         //GIVEN
         String name = "Daniel Craig";
-        when(tmdbService.getActorSearchResultByName(name)).thenReturn(tmdbActors);
+        when(tmdbService.getTmdbActorsByName(name)).thenReturn(tmdbActors);
         //WHEN
-        List<Actor> result = actorService.getActorSearchResultByName(name);
+        List<ActorPreview> result = actorService.getActorPreviewsByName(name);
         //THEN
-        assertThat(result,is(actors));
+        assertThat(result,is(actorPreviews));
     }
 
     @Test
     @DisplayName("The method should return a valid URL to get actor details by id")
-    void getActorDetailsById() {
+    void getActorById() {
         //GIVEN
         String id = "8784";
-        when(tmdbService.getActorDetailsById(id)).thenReturn(tmdbActor);
+        when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
+        when(tmdbService.getTmdbActorMovieCreditsById(id)).thenReturn(tmdbMovies);
         //WHEN
-        Actor result = actorService.getActorDetailsById(id);
+        Actor result = actorService.getActorById(id);
         //THEN
         assertThat(result,is(actor));
     }
+
+    @Test
+    @DisplayName("The method should return a valid URL to get actorpreview by id")
+    void getActorPreviewById() {
+        //GIVEN
+        String id = "8784";
+        when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
+        //WHEN
+        ActorPreview result = actorService.getActorPreviewById(id);
+        //THEN
+        assertThat(result,is(actorPreview));
+    }
+
+
 }

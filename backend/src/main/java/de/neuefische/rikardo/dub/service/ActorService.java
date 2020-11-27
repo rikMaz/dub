@@ -1,7 +1,11 @@
 package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorPreview;
 import de.neuefische.rikardo.dub.model.actor.TmdbActor;
+import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.MoviePreview;
+import de.neuefische.rikardo.dub.model.movie.TmdbMovie;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,33 +23,57 @@ public class ActorService {
         this.tmdbService = tmdbService;
     }
 
-    public List<Actor> getActorSearchResultByName(String name) {
+    public List<ActorPreview> getActorPreviewsByName(String name) {
 
-        List<Actor> actors = new ArrayList<>();
-        List<TmdbActor> tmdbActors = tmdbService.getActorSearchResultByName(name)
+        List<ActorPreview> actors = new ArrayList<>();
+        List<TmdbActor> tmdbActors = tmdbService.getTmdbActorsByName(name)
                 .stream()
                 .filter(item -> item.getProfile_path() != null)
                 .filter(item -> item.getKnown_for_department().equals("Acting"))
                 .collect(Collectors.toList());
 
         for (TmdbActor tmdbActor : tmdbActors) {
-            Actor actor = new Actor(
+            ActorPreview actorPreview = new ActorPreview(
                     tmdbActor.getId(),
                     tmdbActor.getName(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
-                    tmdbActor.getCharacter(),
-                    tmdbActor.getBiography(),
-                    tmdbActor.getBirthday(),
-                    tmdbActor.getPlace_of_birth(),
                     "actor");
-            actors.add(actor);
+            actors.add(actorPreview);
         }
 
         return actors;
     }
 
-    public Actor getActorDetailsById(String id) {
-        TmdbActor tmdbActor = tmdbService.getActorDetailsById(id);
+
+    public ActorPreview getActorPreviewById(String id) {
+
+        TmdbActor tmdbActor = tmdbService.getTmdbActorById(id);
+        return new ActorPreview(
+                        tmdbActor.getId(),
+                        tmdbActor.getName(),
+                    tmdbUrlPath + tmdbActor.getProfile_path(),
+                    "actor");
+    }
+
+    public Actor getActorById(String id) {
+        TmdbActor tmdbActor = tmdbService.getTmdbActorById(id);
+
+        List<MoviePreview> moviePreviews = new ArrayList<>();
+        List<TmdbMovie> tmdbMovies = tmdbService.getTmdbActorMovieCreditsById(id)
+                .stream()
+                .filter(item -> item.getPoster_path() != null)
+                .collect(Collectors.toList());
+
+        for (TmdbMovie tmdbMovie : tmdbMovies) {
+            MoviePreview moviePreview = new MoviePreview(
+                    tmdbMovie.getId(),
+                    tmdbMovie.getTitle(),
+                    tmdbUrlPath + tmdbMovie.getPoster_path(),
+                    "movie");
+            moviePreviews.add(moviePreview);
+        }
+
+
         return new Actor(
                 tmdbActor.getId(),
                 tmdbActor.getName(),
@@ -54,6 +82,7 @@ public class ActorService {
                 tmdbActor.getBiography(),
                 tmdbActor.getBirthday(),
                 tmdbActor.getPlace_of_birth(),
-                "actor");
+                "actor",
+                moviePreviews);
     }
 }

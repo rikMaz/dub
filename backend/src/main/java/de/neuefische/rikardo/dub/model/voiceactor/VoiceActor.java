@@ -1,6 +1,7 @@
 package de.neuefische.rikardo.dub.model.voiceactor;
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
+import de.neuefische.rikardo.dub.model.actor.ActorPreview;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,6 @@ public class VoiceActor {
     private String name;
     private String image;
     private String birthday;
-    private List<Actor> actors;
+    private List<ActorPreview> actors;
     private String type;
 }

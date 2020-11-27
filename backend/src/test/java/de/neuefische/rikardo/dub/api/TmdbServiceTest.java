@@ -19,7 +19,7 @@ class TmdbServiceTest {
         //GIVEN
         String name = "The Matrix";
         //WHEN
-        String result = tmdbService.buildApiUrl(true,false,name,"","movie");
+        String result = tmdbService.buildApiUrl(true,false,false,name,"","movie");
         //THEN
         assertThat(result,is(urlBasis + "search/movie?api_key=" + null + "&query=the matrix"));
     }
@@ -30,7 +30,7 @@ class TmdbServiceTest {
         //GIVEN
         String name = "Daniel Craig";
         //WHEN
-        String result = tmdbService.buildApiUrl(true,false,name,"","person");
+        String result = tmdbService.buildApiUrl(true,false,false,name,"","person");
         //THEN
         assertThat(result,is(urlBasis + "search/person?api_key=" + null + "&query=daniel craig"));
     }
@@ -41,7 +41,7 @@ class TmdbServiceTest {
         //GIVEN
         String id = "8784";
         //WHEN
-        String result = tmdbService.buildApiUrl(false,false,"",id,"person");
+        String result = tmdbService.buildApiUrl(false,false,false,"",id,"person");
         //THEN
         assertThat(result,is(urlBasis + "person/8784?api_key=" + null));
     }
@@ -52,7 +52,7 @@ class TmdbServiceTest {
         //GIVEN
         String id = "550";
         //WHEN
-        String result = tmdbService.buildApiUrl(false,false,"",id,"movie");
+        String result = tmdbService.buildApiUrl(false,false,false,"",id,"movie");
         //THEN
         assertThat(result,is(urlBasis + "movie/550?api_key=" + null));
     }
@@ -63,9 +63,20 @@ class TmdbServiceTest {
         //GIVEN
         String id = "550";
         //WHEN
-        String result = tmdbService.buildApiUrl(false,true,"",id,"movie");
+        String result = tmdbService.buildApiUrl(false,true,false,"",id,"movie");
         //THEN
         assertThat(result,is(urlBasis + "movie/550/credits?api_key=" + null));
+    }
+
+    @Test
+    @DisplayName("The method should return a valid URL to get the movie credits of actor by id")
+    void buildApiUrlToGetActorMovieCreditsByIdTest() {
+        //GIVEN
+        String id = "8784";
+        //WHEN
+        String result = tmdbService.buildApiUrl(false,false,true,"",id,"person");
+        //THEN
+        assertThat(result,is(urlBasis + "person/8784/movie_credits?api_key=" + null));
     }
 
 }
