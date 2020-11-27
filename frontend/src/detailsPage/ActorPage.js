@@ -7,10 +7,19 @@ export default function ActorPage() {
   const history = useHistory();
   const [actor] = useActor();
 
+
   return (
     <>
       <div>{actor?.name}</div>
       <img alt="ActorImage" src={actor?.image}/>
+
+      {actor?.voiceActors.length > 0 &&
+        <>
+      <div>{actor?.voiceActors[0].name}</div>
+      <img alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="231px" width="154px"/>
+      </>
+      }
+
       <button onClick={onCancel}>Cancel</button>
       <label>Birthday<p>{actor?.birthday}</p></label>
       <label>Place of Birth<p>{actor?.placeOfBirth}</p></label>
@@ -29,6 +38,10 @@ export default function ActorPage() {
 
   function onCancel() {
     history.goBack();
+  }
+
+  function onImageClick() {
+    history.push(`/details/voiceactor/${actor?.voiceActors[0].id}`);
   }
 
 }

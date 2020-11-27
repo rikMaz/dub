@@ -103,7 +103,7 @@ public class ActorService {
 
             for (ActorPreview actorPreview: voiceActor.getActors()) {
 
-                if(actorPreview.getId() == id) {
+                if(actorPreview.getId().equals(id)) {
                     VoiceActorPreview voiceActorPreview = new VoiceActorPreview(
                             voiceActor.getId(),
                             voiceActor.getName(),

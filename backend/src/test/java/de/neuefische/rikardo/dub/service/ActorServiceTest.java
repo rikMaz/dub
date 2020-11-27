@@ -35,15 +35,38 @@ class ActorServiceTest {
     List<MoviePreview> moviePreviews = new ArrayList<>(List.of(moviePreview));
 
     ActorPreview actorPreview = new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor");
-    List<ActorPreview> actorPreviews = new ArrayList<>(List.of(actorPreview));
 
-    VoiceActor voiceActor = new VoiceActor("1","Dietmar Wunder","/dietmar_wunder.jpeg","1965-12-05",actorPreviews,"voiceactor");
-    List<VoiceActor> voiceActors = new ArrayList<>(List.of(voiceActor));
+    List<ActorPreview> actorPreviews = new ArrayList<>(List.of(
+            new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+    ));
 
-    VoiceActorPreview voiceActorPreview = new VoiceActorPreview("1","Dietmar Wunder","/dietmar_wunder.jpeg","voiceactor");
-    List<VoiceActorPreview> voiceActorPreviews = new ArrayList<>(List.of(voiceActorPreview));
+    List<ActorPreview> actorPreviewsWunder = new ArrayList<>(List.of(
+            new ActorPreview("19292","Adam Sandler","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("9777","Cuba Gooding Jr.","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("8784","Daniel Craig","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+    ));
 
-    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",moviePreviews,voiceActorPreviews);
+    List<ActorPreview> actorPreviewsVoelz = new ArrayList<>(List.of(
+            new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("12640","David Duchovny","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("13548","James Spader","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+            ));
+
+    List<VoiceActor> voiceActors = new ArrayList<>(List.of(
+            new VoiceActor("1","Dietmar Wunder","/dietmar_wunder.jpeg","1965-12-05",actorPreviewsWunder,"voiceactor"),
+            new VoiceActor("2","Benjamin Völz","/benjamin_voelz.jpeg","1960-05-13",actorPreviewsVoelz,"voiceactor")
+    ));
+
+
+    List<VoiceActorPreview> voiceActorPreviewVoelz = new ArrayList<>(List.of(
+            new VoiceActorPreview("2","Benjamin Völz","/benjamin_voelz.jpeg","voiceactor")
+    ));
+
+    List<VoiceActorPreview> voiceActorPreviewWunder  = new ArrayList<>(List.of(
+            new VoiceActorPreview("1","Dietmar Wunder","/dietmar_wunder.jpeg","voiceactor")
+    ));
+
+    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",moviePreviews,voiceActorPreviewVoelz);
 
 
 
@@ -51,7 +74,7 @@ class ActorServiceTest {
     @DisplayName("The method should return an actorpreview by name")
     void getActorPreviewsByNameTest() {
         //GIVEN
-        String name = "Daniel Craig";
+        String name = "Keanu Reeves";
         when(tmdbService.getTmdbActorsByName(name)).thenReturn(tmdbActors);
         //WHEN
         List<ActorPreview> result = actorService.getActorPreviewsByName(name);
@@ -63,7 +86,7 @@ class ActorServiceTest {
     @DisplayName("The method should return an actor by id")
     void getActorById() {
         //GIVEN
-        String id = "8784";
+        String id = "6384";
         when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
         when(tmdbService.getTmdbActorMovieCreditsById(id)).thenReturn(tmdbMovies);
         when(voiceActorMongoDb.findAll()).thenReturn(voiceActors);
@@ -77,7 +100,7 @@ class ActorServiceTest {
     @DisplayName("The method should return an actorpreview by id")
     void getActorPreviewById() {
         //GIVEN
-        String id = "8784";
+        String id = "6384";
         when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
         //WHEN
         ActorPreview result = actorService.getActorPreviewById(id);
@@ -87,14 +110,27 @@ class ActorServiceTest {
 
     @Test
     @DisplayName("The method should return a list of voice actor preview by the id of actor")
-    void getVoiceActorPreviewsByIdOfActor() {
+    void getVoiceActorPreviewsByIdOfActorKeanuReeves() {
+        //GIVEN
+        String id = "6384";
+        when(voiceActorMongoDb.findAll()).thenReturn(voiceActors);
+        //WHEN
+        List<VoiceActorPreview> result = actorService.getVoiceActorPreviewsByIdOfActor(id);
+        //THEN
+        assertThat(result,is(voiceActorPreviewVoelz));
+
+    }
+
+    @Test
+    @DisplayName("The method should return a list of voice actor preview by the id of actor")
+    void getVoiceActorPreviewsByIdOfActorDanielCraig() {
         //GIVEN
         String id = "8784";
         when(voiceActorMongoDb.findAll()).thenReturn(voiceActors);
         //WHEN
         List<VoiceActorPreview> result = actorService.getVoiceActorPreviewsByIdOfActor(id);
         //THEN
-        assertThat(result,is(voiceActorPreviews));
+        assertThat(result,is(voiceActorPreviewWunder));
 
     }
 
