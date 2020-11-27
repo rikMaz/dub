@@ -2,6 +2,8 @@ package de.neuefische.rikardo.dub.service;
 
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.TmdbActor;
+import de.neuefische.rikardo.dub.model.movie.Movie;
+import de.neuefische.rikardo.dub.model.movie.TmdbMovie;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,11 +14,13 @@ import java.util.stream.Collectors;
 public class ActorService {
 
     private final TmdbService tmdbService;
+    private final MovieService movieService;
 
     private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w154";
 
-    public ActorService(TmdbService tmdbService) {
+    public ActorService(TmdbService tmdbService, MovieService movieService) {
         this.tmdbService = tmdbService;
+        this.movieService = movieService;
     }
 
     public List<Actor> getActorSearchResultByName(String name) {
@@ -37,7 +41,8 @@ public class ActorService {
                     tmdbActor.getBiography(),
                     tmdbActor.getBirthday(),
                     tmdbActor.getPlace_of_birth(),
-                    "actor");
+                    "actor",
+                    null);
             actors.add(actor);
         }
 
@@ -46,6 +51,29 @@ public class ActorService {
 
     public Actor getActorDetailsById(String id) {
         TmdbActor tmdbActor = tmdbService.getActorDetailsById(id);
+
+        List<Movie> movies = new ArrayList<>();
+        List<TmdbMovie> tmdbMovies = tmdbService.getActorMovieCreditsById(id)
+                .stream()
+                .filter(item -> item.getPoster_path() != null)
+                .collect(Collectors.toList());
+
+        for (TmdbMovie tmdbMovie : tmdbMovies) {
+            Movie movie = new Movie(
+                    tmdbMovie.getId(),
+                    tmdbMovie.getTitle(),
+                    tmdbUrlPath + tmdbMovie.getPoster_path(),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    "movie");
+            movies.add(movie);
+        }
+
+
         return new Actor(
                 tmdbActor.getId(),
                 tmdbActor.getName(),
@@ -54,6 +82,7 @@ public class ActorService {
                 tmdbActor.getBiography(),
                 tmdbActor.getBirthday(),
                 tmdbActor.getPlace_of_birth(),
-                "actor");
+                "actor",
+                movies);
     }
 }

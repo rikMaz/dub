@@ -15,13 +15,13 @@ import static org.mockito.Mockito.*;
 class ActorServiceTest {
 
     final TmdbService tmdbService = mock(TmdbService.class);
-
-    final ActorService actorService = new ActorService(tmdbService);
+    final MovieService movieService = mock(MovieService.class);
+    final ActorService actorService = new ActorService(tmdbService, movieService);
 
     TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
 
-    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor");
+    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",null);
     List<Actor> actors = new ArrayList<>(List.of(actor));
 
     @Test

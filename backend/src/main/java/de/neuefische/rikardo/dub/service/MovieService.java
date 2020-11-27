@@ -80,7 +80,8 @@ public class MovieService {
                     tmdbActor.getBiography(),
                     tmdbActor.getBirthday(),
                     tmdbActor.getPlace_of_birth(),
-                    "actor");
+                    "actor",
+                    null);
             actors.add(actor);
         }
 

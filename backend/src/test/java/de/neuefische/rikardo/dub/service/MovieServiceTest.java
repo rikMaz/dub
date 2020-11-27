@@ -32,7 +32,7 @@ class MovieServiceTest {
     ));
 
     List<Actor> actors = new ArrayList<>(List.of(
-            new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor")
+            new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",null)
     ));
 
     @Test
