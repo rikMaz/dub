@@ -2,6 +2,8 @@ package de.neuefische.rikardo.dub.controller;
 
 import de.neuefische.rikardo.dub.model.actor.ActorPreview;
 import de.neuefische.rikardo.dub.model.movie.MoviePreview;
+import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
+import de.neuefische.rikardo.dub.model.voiceactor.VoiceActorPreview;
 import de.neuefische.rikardo.dub.service.TmdbService;
 import de.neuefische.rikardo.dub.model.actor.Actor;
 import de.neuefische.rikardo.dub.model.actor.TmdbActor;
@@ -38,20 +40,23 @@ class TmdbControllerIntegrationTest {
     TmdbMovie tmdbMovie = new TmdbMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
     List<TmdbMovie> tmdbMovies = new ArrayList<>(List.of(tmdbMovie));
 
-    Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
-    List<Movie> movies = new ArrayList<>(List.of(movie));
-
     TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
 
     MoviePreview moviePreview = new MoviePreview("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","movie");
     List<MoviePreview> moviePreviews = new ArrayList<>(List.of(moviePreview));
 
-    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",moviePreviews);
-    List<Actor> actors = new ArrayList<>(List.of(actor));
+    Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
 
     ActorPreview actorPreview = new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor");
     List<ActorPreview> actorPreviews = new ArrayList<>(List.of(actorPreview));
+
+    VoiceActorPreview voiceActorPreview = new VoiceActorPreview("1","Dietmar Wunder","/dietmar_wunder.jpeg","voiceactor");
+    List<VoiceActorPreview> voiceActorPreviews = new ArrayList<>(List.of(voiceActorPreview));
+
+    VoiceActor voiceActor = new VoiceActor("1","Dietmar Wunder","/dietmar_wunder.jpeg","1965-12-05",actorPreviews,"voiceactor");
+
+    Actor actor = new Actor("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","actor",moviePreviews,voiceActorPreviews);
 
 
     @Test

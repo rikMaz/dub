@@ -2,6 +2,8 @@ package de.neuefische.rikardo.dub.model.actor;
 
 import de.neuefische.rikardo.dub.model.movie.Movie;
 import de.neuefische.rikardo.dub.model.movie.MoviePreview;
+import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
+import de.neuefische.rikardo.dub.model.voiceactor.VoiceActorPreview;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,5 @@ public class Actor {
     private String placeOfBirth;
     private String type;
     private List<MoviePreview> movies;
+    private List<VoiceActorPreview> voiceActors;
 }
