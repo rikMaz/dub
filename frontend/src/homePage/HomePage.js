@@ -1,10 +1,20 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 
 export default function HomePage() {
   const history = useHistory();
-  const {setInputImage,setInputImageUrl} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl,setDevices} = useContext(SearchContext);
+
+  const handleDevices = React.useCallback(
+    mediaDevices =>
+      setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+    [setDevices]
+  );
+
+  useEffect(() => {
+    navigator.mediaDevices.enumerateDevices().then(handleDevices)
+  },[handleDevices])
 
   return (
     <>

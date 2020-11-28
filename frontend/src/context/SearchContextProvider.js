@@ -25,6 +25,7 @@ export default function SearchContextProvider({children}) {
   const [inputImage,setInputImage] = useState(null);
   const voiceActorActors = [];
   const [actors,setActors] = useState([]);
+  const [devices, setDevices] = useState([]);
 
 
   const getMovies = (name) =>
@@ -54,6 +55,7 @@ export default function SearchContextProvider({children}) {
 
   return (
     <SearchContext.Provider value={{
+      devices, setDevices,
       reloadStatus,
       setReloadStatus,
       name,
