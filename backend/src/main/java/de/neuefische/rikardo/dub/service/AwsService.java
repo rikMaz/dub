@@ -26,8 +26,8 @@ public class AwsService {
 
     public String upload(MultipartFile file) throws IOException {
 
-        InputStream resizeImageInputStream = new ByteArrayInputStream(resizeImage(file).toByteArray());
-
+        //InputStream resizeImageInputStream = new ByteArrayInputStream(resizeImage(file).toByteArray());
+        InputStream resizeImageInputStream = file.getInputStream();
         String photo = file.getOriginalFilename();
 
         AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
@@ -54,11 +54,14 @@ public class AwsService {
         List<Celebrity> celebs=result.getCelebrityFaces();
 
         if (celebs.isEmpty()) {
+            System.out.println("0 celebrity(s) were recognized");
             return "0 celebrity(s) were recognized";
         }
         if (celebs.size() > 1) {
+            System.out.println("there are too many celebrity(s) in the image");
             return "there are too many celebrity(s) in the image";
         }
+        System.out.println("Found " + celebs.get(0).getName() + " in image " + photo + "\n");
         return celebs.get(0).getName();
     }
 
