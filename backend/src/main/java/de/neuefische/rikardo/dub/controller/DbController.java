@@ -1,6 +1,7 @@
 package de.neuefische.rikardo.dub.controller;
 
 import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
+import de.neuefische.rikardo.dub.model.voiceactor.VoiceActorPreview;
 import de.neuefische.rikardo.dub.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,8 @@ public class DbController {
     }
 
     @GetMapping("/voiceactor/name/{name}")
-    public List<VoiceActor> getVoiceActorsByName(@PathVariable String name) {
-        return dbService.getVoiceActorsByName(name);
+    public List<VoiceActorPreview> getVoiceActorPreviewsByName(@PathVariable String name) {
+        return dbService.getVoiceActorPreviewsByName(name);
     }
 
     @GetMapping("/voiceactor/id/{id}")
