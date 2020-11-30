@@ -8,6 +8,7 @@ import ActorPage from "./detailsPage/ActorPage";
 import PreviewPage from "./previewPage/PreviewPage";
 import VoiceActorPage from "./detailsPage/VoiceActorPage";
 import Camera from "./camera/Camera";
+import Micro from "./micro/Micro";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/details/voiceactor" component={VoiceActorPage}/>
         <Route path="/previewpage" component={PreviewPage}/>
         <Route path="/camera" component={Camera}/>
+        <Route path="/micro" component={Micro}/>
         <Route path="/">
           <Redirect to="/home"/>
         </Route>

@@ -51,7 +51,6 @@ public class TmdbService {
         return response.getBody().getMovieCrew();
     }
 
-
     public String buildApiUrl(Boolean doSearchByName, Boolean lookingForCrew, Boolean lookingForMovieCredits, String name, String id,String type) {
         String apiUrl = "https://api.themoviedb.org/3/";
         String apiKeyQuery = "?api_key=";
