@@ -1,10 +1,13 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
+import { ReactMic } from 'react-mic';
 
 export default function HomePage() {
   const history = useHistory();
-  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl,setAudioBlob} = useContext(SearchContext);
+  const [recordStatus,setRecordStatus] = useState(false);
+
 
   const handleDevices = React.useCallback(
     mediaDevices =>
@@ -16,6 +19,7 @@ export default function HomePage() {
     navigator.mediaDevices.enumerateDevices().then(handleDevices)
   },[handleDevices])
 
+
   return (
     <>
       <div>Homepage</div>
@@ -24,8 +28,33 @@ export default function HomePage() {
       <button onClick={onMicro}>Micro</button>
       <input type="file" accept="image/*" onChange={onImageUpload}/>
       <input type="file" accept="audio/*" onChange={onAudioUpload}/>
+
+      <div>
+        <ReactMic
+          record={recordStatus}
+          className="sound-wave"
+          onStop={(recordedBlob) => setInputAudio(recordedBlob)}
+          onData={(recordedBlob) => setInputAudio(recordedBlob)}
+          strokeColor="#000000"
+          backgroundColor="#FF4081" />
+        <button onClick={() => setRecordStatus(true)} type="button">Start</button>
+        <button onClick={onStopRecording} type="button">Stop</button>
+      </div>
     </>
   )
+
+
+
+  function onRecord(audioData) {
+    const file = new File([audioData],"recorded_audio", {type : "audio/wav"})
+    setInputAudio(file);
+    setInputAudioUrl(URL.createObjectURL(file));
+  }
+
+  function onStopRecording() {
+    setRecordStatus(false)
+    history.push("/micro");
+  }
 
 
   function onImageUpload(event) {

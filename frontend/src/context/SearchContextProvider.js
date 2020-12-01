@@ -29,6 +29,7 @@ export default function SearchContextProvider({children}) {
   const [devices, setDevices] = useState([]);
   const [inputAudio,setInputAudio] = useState();
   const [inputAudioUrl,setInputAudioUrl] = useState();
+  const [audioBlob,setAudioBlob] = useState();
 
   const getMovies = (name) =>
     getMoviesByName(name).then((item) => setSearchItems(item));
@@ -60,6 +61,7 @@ export default function SearchContextProvider({children}) {
 
   return (
     <SearchContext.Provider value={{
+      audioBlob,setAudioBlob,
       inputAudioUrl,setInputAudioUrl,
       inputAudio,setInputAudio,
       devices, setDevices,

@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class AzureService {
@@ -53,6 +52,12 @@ public class AzureService {
         IdentifiedProfile identifiedProfile = requestAzureRestApi(file);
 
         VoiceActor voiceActor = dbService.getVoiceActorById(identifiedProfile.getProfileId());
+
+        if (voiceActor == null) {
+
+            return "Couldn't identify VoiceActor";
+
+        }
 
         return voiceActor.getId();
     }
