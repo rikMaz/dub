@@ -1,15 +1,26 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 
 export default function HomePage() {
   const history = useHistory();
-  const {setInputImage,setInputImageUrl} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl,setDevices} = useContext(SearchContext);
+
+  const handleDevices = React.useCallback(
+    mediaDevices =>
+      setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+    [setDevices]
+  );
+
+  useEffect(() => {
+    navigator.mediaDevices.enumerateDevices().then(handleDevices)
+  },[handleDevices])
 
   return (
     <>
       <div>Homepage</div>
       <button onClick={onSearch}>Direct Search</button>
+      <button onClick={onCamera}>Camera</button>
       <input type="file" accept="image/*" onChange={onImageUpload}/>
     </>
   )
@@ -23,6 +34,10 @@ export default function HomePage() {
 
   function onSearch() {
     history.push("/search")
+  }
+
+  function onCamera() {
+    history.push("/camera")
   }
 
 
