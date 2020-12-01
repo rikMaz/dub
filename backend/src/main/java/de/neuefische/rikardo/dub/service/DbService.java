@@ -59,4 +59,8 @@ public class DbService {
         return voiceActor;
     }
 
+    public List<VoiceActor> getAllVoiceActors() {
+        return voiceActorMongoDb.findAll();
+    }
+
 }

@@ -1,12 +1,10 @@
-import React, {useContext, useState} from "react";
-import {uploadAudio} from "../service/SearchService";
+import React, {useContext} from "react";
 import SearchContext from "../context/SearchContext";
 import ReactAudioPlayer from "react-audio-player";
 
 
 export default function Micro() {
-  const [recVoice,setRecVoice] = useState();
-  const {inputAudio,inputAudioUrl} = useContext(SearchContext);
+  const {inputAudio,inputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
 
   return (
     <>
@@ -14,13 +12,12 @@ export default function Micro() {
 
       <button onClick={onUploadAudio}>Upload Audio</button>
       <button onClick={onShowAudio}>Show Audio File</button>
-      <div>{recVoice}</div>
 
-      {/*<ReactAudioPlayer
+      <ReactAudioPlayer
         src={inputAudioUrl}
-        autoPlay
+        autoPlay={false}
         controls
-        />*/}
+        />
 
       </>
   )
@@ -31,7 +28,7 @@ export default function Micro() {
 
   function onUploadAudio() {
 
-    uploadAudio(inputAudio).then(item => setRecVoice(item));
+    identifyVoiceActor(inputAudio);
 
   }
 

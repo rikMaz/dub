@@ -2,6 +2,7 @@ package de.neuefische.rikardo.dub.controller;
 
 
 import de.neuefische.rikardo.dub.model.azure.AzureResult;
+import de.neuefische.rikardo.dub.model.voiceactor.VoiceActor;
 import de.neuefische.rikardo.dub.service.AzureService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

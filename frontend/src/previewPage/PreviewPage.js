@@ -11,7 +11,7 @@ export default function PreviewPage() {
     <>
       <div>PreviewPage</div>
       <img src={inputImageUrl} alt="upload" height="50%" width="50%"/>
-      <div>Wollten Sie dies Person fotografieren?</div>
+      <div>Sind Sie mit dem Foto zufrieden?</div>
       <button onClick={recognize}>Ja</button>
       <button onClick={onCancel}>Nein</button>
       </>
