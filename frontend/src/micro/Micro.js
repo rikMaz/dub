@@ -1,7 +1,6 @@
 import React, {useContext} from "react";
 import SearchContext from "../context/SearchContext";
 import ReactAudioPlayer from "react-audio-player";
-import ReactPlayer from 'react-player'
 
 export default function Micro() {
   const {inputAudio,inputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
@@ -13,26 +12,22 @@ export default function Micro() {
       <button onClick={onUploadAudio}>Upload Audio</button>
       <button onClick={onShowAudio}>Show Audio File</button>
 
-      <ReactPlayer url={inputAudioUrl} playing={true}/>
-
-
- {/*     <ReactAudioPlayer
+     <ReactAudioPlayer
         src={inputAudioUrl}
         autoPlay={false}
         controls
-        />*/}
+        />
 
       </>
   )
 
   function onShowAudio() {
     console.log(inputAudio)
+    console.log(inputAudioUrl)
   }
 
   function onUploadAudio() {
-
     identifyVoiceActor(inputAudio);
-
   }
 
 }

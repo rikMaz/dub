@@ -1,12 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
-import { ReactMic } from 'react-mic';
+import RecordRTC ,{invokeSaveAsDialog} from "recordrtc";
 
 export default function HomePage() {
   const history = useHistory();
-  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl,setAudioBlob} = useContext(SearchContext);
-  const [recordStatus,setRecordStatus] = useState(false);
+  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl} = useContext(SearchContext);
 
 
   const handleDevices = React.useCallback(
@@ -29,33 +28,34 @@ export default function HomePage() {
       <input type="file" accept="image/*" onChange={onImageUpload}/>
       <input type="file" accept="audio/*" onChange={onAudioUpload}/>
 
-      <div>
-        <ReactMic
-          record={recordStatus}
-          className="sound-wave"
-          onStop={(recordedBlob) => setInputAudio(recordedBlob)}
-          onData={(recordedBlob) => setInputAudio(recordedBlob)}
-          strokeColor="#000000"
-          backgroundColor="#FF4081" />
-        <button onClick={() => setRecordStatus(true)} type="button">Start</button>
-        <button onClick={onStopRecording} type="button">Stop</button>
-      </div>
+      <button onClick={record}>Record</button>
+
     </>
   )
 
+  function record(){
+    const StereoAudioRecorder = require('recordrtc').StereoAudioRecorder
+    navigator.mediaDevices.getUserMedia({
+      audio: true
+    }).then(async function(stream) {
+      let recorder = RecordRTC(stream, {
+        recorderType: StereoAudioRecorder,
+        mimeType: 'audio/wav'
+      });
+      recorder.startRecording();
 
+      const sleep = m => new Promise(r => setTimeout(r, m));
+      await sleep(6000);
 
-  function onRecord(audioData) {
-    const file = new File([audioData],"recorded_audio", {type : "audio/wav"})
-    setInputAudio(file);
-    setInputAudioUrl(URL.createObjectURL(file));
+      recorder.stopRecording(function() {
+        let blob = recorder.getBlob();
+        const file = new File([blob],"recorded_audio", {type : "audio/wav"})
+        setInputAudio(file);
+        setInputAudioUrl(URL.createObjectURL(file))
+        invokeSaveAsDialog(blob, 'audio.wav');
+      });
+    });
   }
-
-  function onStopRecording() {
-    setRecordStatus(false)
-    history.push("/micro");
-  }
-
 
   function onImageUpload(event) {
     setInputImage(event.target.files[0]);
