@@ -65,13 +65,13 @@ public class AzureService {
     public String getAllVoiceActorIds() {
 
         List<VoiceActor> voiceActorList = dbService.getAllVoiceActors();
-        String ids = "";
 
+        StringBuilder idString = new StringBuilder();
         for(VoiceActor voiceActor: voiceActorList) {
-            ids += voiceActor.getId() + ",";
+            idString.append(voiceActor.getId()).append(",");
         }
 
-        return ids;
+        return idString.toString();
     }
 
 }
