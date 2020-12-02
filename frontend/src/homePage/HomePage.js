@@ -12,8 +12,10 @@ import Button from '@material-ui/core/Button';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import IconButton from '@material-ui/core/IconButton';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,10 +31,13 @@ const useStyles = makeStyles((theme) => ({
   arrow: {
     color: 'white',
   },
+  icon: {
+    color: 'white',
+  },
   buttonIcon: {
     color: "black",
-    height: 40,
-    width: 40
+    height: 50,
+    width: 50
   },
   searchButton: {
     color: 'black',
@@ -42,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
   },
   textButton: {
     color: 'white',
+    fontFamily: "Futura",
+    fontStyle: 'normal',
+    textTransform: "none",
+    padding: 0
   },
 
 }));
@@ -52,7 +61,7 @@ export default function HomePage() {
   const history = useHistory();
   const {setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
 
-  const [actionType,setActionType] = useState("micro")
+  const [actionType,setActionType] = useState(0)
 
 
   const handleDevices = React.useCallback(
@@ -70,10 +79,16 @@ export default function HomePage() {
     <>
       <HeaderStyled>
         <MediathekStyled>
-          <Button className={classes.textButton}>Mediathek</Button>
+          <TextIconStyled>
+            <LocalMoviesIcon className={classes.icon}/>
+            <Button className={classes.textButton}>Mediathek</Button>
+          </TextIconStyled>
         </MediathekStyled>
         <LoginStyled>
-          <Button className={classes.textButton}>Login</Button>
+          <TextIconStyled>
+            <AccountCircleIcon className={classes.icon}/>
+            <Button className={classes.textButton}>Login</Button>
+          </TextIconStyled>
         </LoginStyled>
       </HeaderStyled>
 
@@ -81,34 +96,62 @@ export default function HomePage() {
 
         <ButtonGroupStyled>
 
+          {actionType === 0 &&
+          <DescriptionStyled>Tap to identify speaker</DescriptionStyled>
+          }
+          {actionType === 1 &&
+          <DescriptionStyled>Tap to take a photo</DescriptionStyled>
+          }
+          {actionType === 2 &&
+          <DescriptionStyled>Tap to upload image</DescriptionStyled>
+          }
+          {actionType === 3 &&
+          <DescriptionStyled>Tap to upload audio</DescriptionStyled>
+          }
+
           <ButtonGroupTopStyled>
 
             <IconButton aria-label="arrowBackIosIcon">
-              <ArrowBackIosIcon className={classes.arrow} onClick={changeActionType}/>
+              <ArrowBackIosIcon className={classes.arrow} onClick={countDown}/>
             </IconButton>
 
-            {/*<Fab size="small" aria-label="arrowForwardIosIcon" onClick={() => history.push("/camera")}>
-              <ChevronLeftIcon />
-            </Fab>*/}
-
+            {actionType === 0 &&
             <Fab className={classes.button} aria-label="micIcon" onClick={onRecordAudio}>
               <MicIcon className={classes.buttonIcon}/>
             </Fab>
+            }
 
-            {/*<Fab size="small" aria-label="arrowForwardIosIcon" onClick={() => history.push("/camera")}>
-              <ChevronRightIcon />
-            </Fab>*/}
+            {actionType === 1 &&
+            <Fab className={classes.button} aria-label="photoCameraIcon" onClick={() => history.push("/camera")}>
+              <PhotoCameraIcon className={classes.buttonIcon}/>
+            </Fab>
+            }
+
+            {actionType === 2 &&
+            <Fab className={classes.button} aria-label="photoLibraryIcon" onClick={imageUpload}>
+              <PhotoLibraryIcon className={classes.buttonIcon}/>
+            </Fab>
+            }
+
+            {actionType === 3 &&
+            <Fab className={classes.button} aria-label="audiotrackIcon">
+              <AudiotrackIcon className={classes.buttonIcon}/>
+            </Fab>
+            }
+
 
             <IconButton aria-label="arrowForwardIosIcon">
-              <ArrowForwardIosIcon className={classes.arrow} onClick={changeActionType}/>
+              <ArrowForwardIosIcon className={classes.arrow} onClick={countUp}/>
             </IconButton>
 
 
           </ButtonGroupTopStyled>
 
-          <Fab className={classes.searchButton} aria-label="searchIcon" onClick={() => history.push("/search")}>
-            <SearchIcon />
-          </Fab>
+          <BottemStyled>
+            <Fab className={classes.searchButton} aria-label="searchIcon" onClick={() => history.push("/search")}>
+              <SearchIcon />
+            </Fab>
+          </BottemStyled>
 
         </ButtonGroupStyled>
 
@@ -119,14 +162,22 @@ export default function HomePage() {
     </>
   )
 
-  function changeActionType() {
-    if(actionType == "micro") {
-      setActionType("camera");
-    } else {
-      setActionType("audio");
+  function countDown() {
+    if (actionType > 0) {
+      setActionType(actionType-1);
     }
   }
 
+  function countUp() {
+    if (actionType < 3) {
+      setActionType(actionType+1);
+    }
+  }
+
+
+  function imageUpload() {
+
+  }
 
   function onRecordAudio(){
     const StereoAudioRecorder = require('recordrtc').StereoAudioRecorder
@@ -155,6 +206,28 @@ export default function HomePage() {
 
 }
 
+const DescriptionStyled = styled.div`
+  display: grid;
+  align-items: end;
+  color: white;
+  font-size: 1.2em;
+`;
+
+
+const BottemStyled = styled.div`
+  display: grid;
+  align-items: start;
+`;
+
+const TextIconStyled = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  padding-top: 10px;
+  padding-left: 10px;
+`;
+
 const LoginStyled = styled.div`
   display: grid;
   justify-items: end;
@@ -173,15 +246,12 @@ const HeaderStyled = styled.header`
 
 const MainStyled = styled.div`
   display: grid;
-  justify-items: center;
-  align-items: center;
 `;
 
 const ButtonGroupStyled = styled.div`
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 100px 1fr 1fr;
   justify-items: center;
-  align-items: center;
 `;
 
 const ButtonGroupTopStyled = styled.div`
