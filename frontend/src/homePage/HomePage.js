@@ -5,7 +5,7 @@ import RecordRTC ,{invokeSaveAsDialog} from "recordrtc";
 
 export default function HomePage() {
   const history = useHistory();
-  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
 
 
   const handleDevices = React.useCallback(
@@ -28,12 +28,12 @@ export default function HomePage() {
       <input type="file" accept="image/*" onChange={onImageUpload}/>
       <input type="file" accept="audio/*" onChange={onAudioUpload}/>
 
-      <button onClick={record}>Record</button>
+      <button onClick={onRecordAudio}>Record</button>
 
     </>
   )
 
-  function record(){
+  function onRecordAudio(){
     const StereoAudioRecorder = require('recordrtc').StereoAudioRecorder
     navigator.mediaDevices.getUserMedia({
       audio: true
@@ -52,7 +52,8 @@ export default function HomePage() {
         const file = new File([blob],"recorded_audio", {type : "audio/wav"})
         setInputAudio(file);
         setInputAudioUrl(URL.createObjectURL(file))
-        invokeSaveAsDialog(blob, 'audio.wav');
+        invokeSaveAsDialog(blob, 'audio.wav')
+        identifyVoiceActor(file);
       });
     });
   }
