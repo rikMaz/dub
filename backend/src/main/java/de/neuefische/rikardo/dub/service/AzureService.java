@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class AzureService {
@@ -30,8 +31,7 @@ public class AzureService {
 
         String url = "https://westus.api.cognitive.microsoft.com" +
                 "/speaker/identification/v2.0/text-independent/profiles/identifySingleSpeaker" +
-                "?profileIds=27bd5dd5-bfa2-45e8-bc5f-07d9aadc8fbc,bd0099d8-2cca-4a9a-9f6a-9f06c65b6e27," +
-                "4891277c-d82d-4994-851f-14368c3a0574,df81851d-3399-4455-ba39-5b082fc7e3c1";
+                "?profileIds=" + getAllVoiceActorIds();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -62,6 +62,16 @@ public class AzureService {
         return voiceActor.getId();
     }
 
+    public String getAllVoiceActorIds() {
 
+        List<VoiceActor> voiceActorList = dbService.getAllVoiceActors();
+        String ids = "";
+
+        for(VoiceActor voiceActor: voiceActorList) {
+            ids += voiceActor.getId() + ",";
+        }
+
+        return ids;
+    }
 
 }
