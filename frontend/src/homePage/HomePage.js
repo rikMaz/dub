@@ -1,11 +1,58 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 import RecordRTC ,{invokeSaveAsDialog} from "recordrtc";
+import Fab from "@material-ui/core/Fab";
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import MicIcon from '@material-ui/icons/Mic';
+import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
+import styled from "styled-components/macro";
+import Button from '@material-ui/core/Button';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    /*color: 'white',
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',*/
+    color: 'black',
+    background: 'white',
+    height: 120,
+    width: 120
+  },
+  arrow: {
+    color: 'white',
+  },
+  buttonIcon: {
+    color: "black",
+    height: 40,
+    width: 40
+  },
+  searchButton: {
+    color: 'black',
+    background: 'white',
+    height: 50,
+    width: 50
+  },
+  textButton: {
+    color: 'white',
+  },
+
+}));
+
 
 export default function HomePage() {
+  const classes = useStyles();
   const history = useHistory();
-  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+  const {setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+
+  const [actionType,setActionType] = useState("micro")
 
 
   const handleDevices = React.useCallback(
@@ -21,17 +68,65 @@ export default function HomePage() {
 
   return (
     <>
-      <div>Homepage</div>
-      <button onClick={onSearch}>Direct Search</button>
-      <button onClick={onCamera}>Camera</button>
-      <button onClick={onMicro}>Micro</button>
-      <input type="file" accept="image/*" onChange={onImageUpload}/>
-      <input type="file" accept="audio/*" onChange={onAudioUpload}/>
+      <HeaderStyled>
+        <MediathekStyled>
+          <Button className={classes.textButton}>Mediathek</Button>
+        </MediathekStyled>
+        <LoginStyled>
+          <Button className={classes.textButton}>Login</Button>
+        </LoginStyled>
+      </HeaderStyled>
 
-      <button onClick={onRecordAudio}>Record</button>
+      <MainStyled>
+
+        <ButtonGroupStyled>
+
+          <ButtonGroupTopStyled>
+
+            <IconButton aria-label="arrowBackIosIcon">
+              <ArrowBackIosIcon className={classes.arrow} onClick={changeActionType}/>
+            </IconButton>
+
+            {/*<Fab size="small" aria-label="arrowForwardIosIcon" onClick={() => history.push("/camera")}>
+              <ChevronLeftIcon />
+            </Fab>*/}
+
+            <Fab className={classes.button} aria-label="micIcon" onClick={onRecordAudio}>
+              <MicIcon className={classes.buttonIcon}/>
+            </Fab>
+
+            {/*<Fab size="small" aria-label="arrowForwardIosIcon" onClick={() => history.push("/camera")}>
+              <ChevronRightIcon />
+            </Fab>*/}
+
+            <IconButton aria-label="arrowForwardIosIcon">
+              <ArrowForwardIosIcon className={classes.arrow} onClick={changeActionType}/>
+            </IconButton>
+
+
+          </ButtonGroupTopStyled>
+
+          <Fab className={classes.searchButton} aria-label="searchIcon" onClick={() => history.push("/search")}>
+            <SearchIcon />
+          </Fab>
+
+        </ButtonGroupStyled>
+
+
+
+      </MainStyled>
 
     </>
   )
+
+  function changeActionType() {
+    if(actionType == "micro") {
+      setActionType("camera");
+    } else {
+      setActionType("audio");
+    }
+  }
+
 
   function onRecordAudio(){
     const StereoAudioRecorder = require('recordrtc').StereoAudioRecorder
@@ -58,28 +153,43 @@ export default function HomePage() {
     });
   }
 
-  function onImageUpload(event) {
-    setInputImage(event.target.files[0]);
-    setInputImageUrl(URL.createObjectURL(event.target.files[0]));
-    history.push("/previewpage");
-  }
-
-  function onAudioUpload(event) {
-    setInputAudio(event.target.files[0]);
-    setInputAudioUrl(URL.createObjectURL(event.target.files[0]));
-    history.push("/micro");
-  }
-
-  function onSearch() {
-    history.push("/search")
-  }
-
-  function onCamera() {
-    history.push("/camera")
-  }
-
-  function onMicro() {
-    history.push("/micro")
-  }
-
 }
+
+const LoginStyled = styled.div`
+  display: grid;
+  justify-items: end;
+`;
+
+const MediathekStyled = styled.div`
+  display: grid;
+  justify-items: start;
+`;
+
+const HeaderStyled = styled.header`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+`;
+
+const MainStyled = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`;
+
+const ButtonGroupStyled = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`;
+
+const ButtonGroupTopStyled = styled.div`
+
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+
+`;
