@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 
-export default function PreviewPage() {
+export default function ImagePreview() {
   const history = useHistory();
   const {inputImageUrl,inputImage,recognizeCelebrity,setSearchType} = useContext(SearchContext);
 

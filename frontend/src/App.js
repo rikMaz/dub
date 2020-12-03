@@ -6,7 +6,7 @@ import SearchContextProvider from "./context/SearchContextProvider";
 import SearchPage from "./searchPage/SearchPage";
 import MoviePage from "./detailsPage/MoviePage";
 import ActorPage from "./detailsPage/ActorPage";
-import PreviewPage from "./previewPage/PreviewPage";
+import ImagePreview from "./previewPage/ImagePreview";
 import VoiceActorPage from "./detailsPage/VoiceActorPage";
 import Camera from "./camera/Camera";
 
@@ -20,7 +20,8 @@ function App() {
           <Route path="/details/movie" component={MoviePage}/>
           <Route path="/details/actor" component={ActorPage}/>
           <Route path="/details/voiceactor" component={VoiceActorPage}/>
-          <Route path="/previewpage" component={PreviewPage}/>
+          <Route path="/image" component={ImagePreview}/>
+          <Route path="/audio" component={ImagePreview}/>
           <Route path="/camera" component={Camera}/>
           <Route path="/">
             <Redirect to="/home"/>

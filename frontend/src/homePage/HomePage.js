@@ -8,15 +8,14 @@ import MicIcon from '@material-ui/icons/Mic';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import styled from "styled-components/macro";
-import Button from '@material-ui/core/Button';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
-
+import {Typography} from "@material-ui/core";
+import DescriptionIcon from '@material-ui/icons/Description';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HomePage() {
   const classes = useStyles();
   const history = useHistory();
-  const {setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+  const {setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor,setInputImage,setInputImageUrl} = useContext(SearchContext);
 
   const [actionType,setActionType] = useState(0)
 
@@ -78,18 +77,25 @@ export default function HomePage() {
   return (
     <>
       <HeaderStyled>
-        <MediathekStyled>
-          <TextIconStyled>
-            <LocalMoviesIcon className={classes.icon}/>
-            <Button className={classes.textButton}>Mediathek</Button>
-          </TextIconStyled>
-        </MediathekStyled>
-        <LoginStyled>
-          <TextIconStyled>
-            <AccountCircleIcon className={classes.icon}/>
-            <Button className={classes.textButton}>Login</Button>
-          </TextIconStyled>
-        </LoginStyled>
+
+        <HeaderButtonLeftStyled>
+          <IconButton aria-label="recent" onClick={countDown}>
+            <TextIconStyled>
+              <DescriptionIcon className={classes.icon}/>
+              <Typography className={classes.textButton}>Recent</Typography>
+            </TextIconStyled>
+          </IconButton>
+        </HeaderButtonLeftStyled>
+
+        <HeaderButtonRightStyled>
+          <IconButton aria-label="login" onClick={countDown}>
+            <TextIconStyled>
+              <AccountCircleIcon className={classes.icon}/>
+              <Typography className={classes.textButton}>Login</Typography>
+            </TextIconStyled>
+          </IconButton>
+        </HeaderButtonRightStyled>
+
       </HeaderStyled>
 
       <MainStyled>
@@ -111,8 +117,8 @@ export default function HomePage() {
 
           <ButtonGroupTopStyled>
 
-            <IconButton aria-label="arrowBackIosIcon">
-              <ArrowBackIosIcon className={classes.arrow} onClick={countDown}/>
+            <IconButton aria-label="arrowBackIosIcon" onClick={countDown}>
+              <ArrowBackIosIcon className={classes.arrow}/>
             </IconButton>
 
             {actionType === 0 &&
@@ -128,20 +134,44 @@ export default function HomePage() {
             }
 
             {actionType === 2 &&
-            <Fab className={classes.button} aria-label="photoLibraryIcon" onClick={imageUpload}>
-              <PhotoLibraryIcon className={classes.buttonIcon}/>
-            </Fab>
+
+              <div>
+                <input
+                  hidden
+                  id={"contained-button-file"}
+                  accept={"image/*"}
+                  type={"file"}
+                  onChange={onImageUpload}
+                />
+                <label htmlFor={"contained-button-file"}>
+                  <Fab className={classes.button} aria-label="photoLibraryIcon" component={"span"}>
+                    <PhotoLibraryIcon className={classes.buttonIcon}/>
+                  </Fab>
+                </label>
+              </div>
             }
 
             {actionType === 3 &&
-            <Fab className={classes.button} aria-label="audiotrackIcon">
-              <AudiotrackIcon className={classes.buttonIcon}/>
-            </Fab>
+
+            <div>
+              <input
+                hidden
+                id={"contained-button-file"}
+                accept={"image/*"}
+                type={"file"}
+                onChange={onAudioUpload}
+              />
+              <label htmlFor={"contained-button-file"}>
+                <Fab className={classes.button} aria-label="audiotrackIcon">
+                  <AudiotrackIcon className={classes.buttonIcon}/>
+                </Fab>
+              </label>
+            </div>
             }
 
 
-            <IconButton aria-label="arrowForwardIosIcon">
-              <ArrowForwardIosIcon className={classes.arrow} onClick={countUp}/>
+            <IconButton aria-label="arrowForwardIosIcon" onClick={countUp}>
+              <ArrowForwardIosIcon className={classes.arrow} />
             </IconButton>
 
 
@@ -174,9 +204,16 @@ export default function HomePage() {
     }
   }
 
+  function onImageUpload(event) {
+    setInputImage(event.target.files[0]);
+    setInputImageUrl(URL.createObjectURL(event.target.files[0]));
+    history.push("/image")
+  }
 
-  function imageUpload() {
-
+  function onAudioUpload(event) {
+    setInputAudio(event.target.files[0]);
+    setInputAudioUrl(URL.createObjectURL(event.target.files[0]));
+    history.push("/audio")
   }
 
   function onRecordAudio(){
@@ -224,18 +261,17 @@ const TextIconStyled = styled.div`
   grid-template-rows: 1fr 1fr;
   align-items: center;
   justify-items: center;
-  padding-top: 10px;
-  padding-left: 10px;
+  padding: 10px;
 `;
 
-const LoginStyled = styled.div`
-  display: grid;
-  justify-items: end;
-`;
-
-const MediathekStyled = styled.div`
+const HeaderButtonLeftStyled = styled.div`
   display: grid;
   justify-items: start;
+`;
+
+const HeaderButtonRightStyled = styled.div`
+  display: grid;
+  justify-items: end;
 `;
 
 const HeaderStyled = styled.header`
@@ -250,7 +286,7 @@ const MainStyled = styled.div`
 
 const ButtonGroupStyled = styled.div`
   display: grid;
-  grid-template-rows: 100px 1fr 1fr;
+  grid-template-rows: 80px 1fr 1fr;
   justify-items: center;
 `;
 
