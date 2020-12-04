@@ -24,7 +24,7 @@ export default function Camera() {
       const file = new File([blob],"captured_image", {type : "image/jpg"})
       setInputImage(file);
       setInputImageUrl(URL.createObjectURL(file));
-      history.push("/previewpage");
+      history.push("/image");
     })
   }
 

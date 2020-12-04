@@ -1,11 +1,83 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 import RecordRTC ,{invokeSaveAsDialog} from "recordrtc";
+import Fab from "@material-ui/core/Fab";
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import MicIcon from '@material-ui/icons/Mic';
+import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
+import styled from "styled-components/macro";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import {Typography} from "@material-ui/core";
+import DescriptionIcon from '@material-ui/icons/Description';
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    color: 'black',
+    background: 'white',
+    height: 120,
+    width: 120,
+    padding: "10px",
+  },
+  buttonLoading: {
+    color: 'black',
+    background: 'white',
+    height: 120,
+    width: 120,
+    position: "absolute",
+    top: 10,
+    left: 10,
+  },
+  arrow: {
+    color: 'white',
+  },
+  icon: {
+    color: 'white',
+  },
+  buttonIcon: {
+    color: "black",
+    height: 50,
+    width: 50
+  },
+  searchButton: {
+    color: 'black',
+    background: 'white',
+    height: 50,
+    width: 50,
+  },
+  textButton: {
+    color: 'white',
+    fontFamily: "Futura",
+    fontStyle: 'normal',
+    textTransform: "none",
+    padding: 0
+  },
+  loading: {
+    color: "teal"
+  },
+  loadingWrapper: {
+    position: "relative"
+  }
+
+}));
+
 
 export default function HomePage() {
+  const classes = useStyles();
   const history = useHistory();
-  const {setInputImage,setInputImageUrl,setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+  const {setDevices,setInputAudio,setInputAudioUrl,identifyVoiceActor,setInputImage,setInputImageUrl} = useContext(SearchContext);
+  const [progress, setProgress] = useState(0);
+  const [taskStatus, setTaskStatus] = useState(0);
+  const [actionType,setActionType] = useState(0);
+  const [description,setDescription] = useState("Tap to identify speaker");
+  const [loadingType,setLoadingTyp] = useState(0)
 
 
   const handleDevices = React.useCallback(
@@ -16,24 +88,191 @@ export default function HomePage() {
 
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then(handleDevices)
-  },[handleDevices])
+    // eslint-disable-next-line
+  },[])
+
+  useEffect(() => {
+
+    if (taskStatus === 1) {
+      const timer = setInterval(() => {
+        const nextProgress = progress + 4;
+
+        if (nextProgress > 100) {
+          clearInterval(timer);
+          setLoadingTyp(1);
+          setDescription("identifying speaker...")
+        } else {
+          setProgress(nextProgress);
+        }
+      }, 200);
+
+      return () => {
+        clearInterval(timer);
+      };
+    }
+
+  },[progress,taskStatus])
+
+  useEffect(() => {
+    setLoadingTyp(0);
+    setTaskStatus(0);
+    setProgress(0);
+    // eslint-disable-next-line
+  },[actionType])
 
 
   return (
     <>
-      <div>Homepage</div>
-      <button onClick={onSearch}>Direct Search</button>
-      <button onClick={onCamera}>Camera</button>
-      <button onClick={onMicro}>Micro</button>
-      <input type="file" accept="image/*" onChange={onImageUpload}/>
-      <input type="file" accept="audio/*" onChange={onAudioUpload}/>
+      <HeaderStyled>
 
-      <button onClick={onRecordAudio}>Record</button>
+        <IconButton aria-label="recent" onClick={countDown}>
+          <IconButtonStyled>
+            <DescriptionIcon className={classes.icon}/>
+            <Typography className={classes.textButton}>Recent</Typography>
+          </IconButtonStyled>
+        </IconButton>
+
+
+        <IconButton aria-label="login" onClick={countDown}>
+          <IconButtonStyled>
+            <AccountCircleIcon className={classes.icon}/>
+            <Typography className={classes.textButton}>Login</Typography>
+          </IconButtonStyled>
+        </IconButton>
+
+
+      </HeaderStyled>
+
+      <MainStyled>
+
+        <ButtonGroupStyled>
+
+          <DescriptionStyled>{description}</DescriptionStyled>
+
+          <ButtonGroupTopStyled>
+
+            <IconButton aria-label="arrowBackIosIcon" onClick={countDown}>
+              <ArrowBackIosIcon className={classes.arrow}/>
+            </IconButton>
+
+            {actionType === 0 &&
+              <div className={classes.loadingWrapper}>
+                {loadingType === 0 && <CircularProgress className={classes.loading} size={140} variant="determinate" value={progress}/>}
+                {loadingType === 1 && <CircularProgress className={classes.loading} size={140}/>}
+                <Fab className={classes.buttonLoading} aria-label="micIcon" onClick={onRecordAudio}>
+                  <MicIcon className={classes.buttonIcon}/>
+                </Fab>
+              </div>
+            }
+
+            {actionType === 1 &&
+              <ButtonWrapper>
+                <Fab className={classes.button} aria-label="photoCameraIcon" onClick={() => history.push("/camera")}>
+                  <PhotoCameraIcon className={classes.buttonIcon}/>
+                </Fab>
+              </ButtonWrapper>
+            }
+
+            {actionType === 2 &&
+              <ButtonWrapper>
+                <input
+                  hidden
+                  id={"contained-button-file"}
+                  accept={"image/*"}
+                  type={"file"}
+                  onChange={onImageUpload}
+                />
+                <label htmlFor={"contained-button-file"}>
+                  <Fab className={classes.button} aria-label="photoLibraryIcon" component={"span"}>
+                    <PhotoLibraryIcon className={classes.buttonIcon}/>
+                  </Fab>
+                </label>
+              </ButtonWrapper>
+            }
+
+            {actionType === 3 &&
+              <ButtonWrapper>
+                <input
+                  hidden
+                  id={"contained-button-file"}
+                  accept={"audio/*"}
+                  type={"file"}
+                  onChange={onAudioUpload}
+                />
+                <label htmlFor={"contained-button-file"}>
+                  <Fab className={classes.button} aria-label="audioTrackIcon" component={"span"}>
+                    <AudiotrackIcon className={classes.buttonIcon}/>
+                  </Fab>
+                </label>
+              </ButtonWrapper>
+            }
+
+            <IconButton aria-label="arrowForwardIosIcon" onClick={countUp}>
+              <ArrowForwardIosIcon className={classes.arrow} />
+            </IconButton>
+
+          </ButtonGroupTopStyled>
+
+          <ButtonGroupBottomStyled>
+            <Fab className={classes.searchButton} aria-label="searchIcon" onClick={() => history.push("/search")}>
+              <SearchIcon />
+            </Fab>
+          </ButtonGroupBottomStyled>
+
+        </ButtonGroupStyled>
+
+      </MainStyled>
 
     </>
   )
 
+
+
+
+  function countDown() {
+    if (actionType > 0) {
+      setActionType(actionType-1);
+    }
+    changeDescription(actionType-1);
+  }
+
+  function countUp() {
+    if (actionType < 3) {
+      setActionType(actionType+1);
+    }
+    changeDescription(actionType+1);
+  }
+
+  function changeDescription(counter) {
+    if (counter === 0) {
+      setDescription("Tap to identify speaker")
+    }
+    if (counter === 1) {
+      setDescription("Tap to take a photo")
+    }
+    if (counter === 2) {
+      setDescription("Tap to upload image")
+    }
+    if (counter === 3) {
+      setDescription("Tap to upload audio")
+    }
+  }
+
+  function onImageUpload(event) {
+    setInputImage(event.target.files[0]);
+    setInputImageUrl(URL.createObjectURL(event.target.files[0]));
+    history.push("/image")
+  }
+
+  function onAudioUpload(event) {
+    setInputAudio(event.target.files[0]);
+    setInputAudioUrl(URL.createObjectURL(event.target.files[0]));
+    history.push("/audio")
+  }
+
   function onRecordAudio(){
+    setTaskStatus(1);
+    setDescription("recording speaker...")
     const StereoAudioRecorder = require('recordrtc').StereoAudioRecorder
     navigator.mediaDevices.getUserMedia({
       audio: true
@@ -45,41 +284,67 @@ export default function HomePage() {
       recorder.startRecording();
 
       const sleep = m => new Promise(r => setTimeout(r, m));
-      await sleep(6000);
+      await sleep(5000);
 
       recorder.stopRecording(function() {
         let blob = recorder.getBlob();
         const file = new File([blob],"recorded_audio", {type : "audio/wav"})
         setInputAudio(file);
         setInputAudioUrl(URL.createObjectURL(file))
-        invokeSaveAsDialog(blob, 'audio.wav')
-        identifyVoiceActor(file);
+        //invokeSaveAsDialog(blob, 'audio.wav')
+        //identifyVoiceActor(file);
       });
     });
   }
 
-  function onImageUpload(event) {
-    setInputImage(event.target.files[0]);
-    setInputImageUrl(URL.createObjectURL(event.target.files[0]));
-    history.push("/previewpage");
-  }
-
-  function onAudioUpload(event) {
-    setInputAudio(event.target.files[0]);
-    setInputAudioUrl(URL.createObjectURL(event.target.files[0]));
-    history.push("/micro");
-  }
-
-  function onSearch() {
-    history.push("/search")
-  }
-
-  function onCamera() {
-    history.push("/camera")
-  }
-
-  function onMicro() {
-    history.push("/micro")
-  }
-
 }
+
+const HeaderStyled = styled.header`
+  display: flex;
+  justify-content: space-between;
+`;
+
+
+const IconButtonStyled = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 10px;
+`;
+
+const MainStyled = styled.div`
+  display: grid;
+`;
+
+const DescriptionStyled = styled.div`
+  display: grid;
+  align-items: end;
+  color: white;
+  font-size: 1.4em;
+`;
+
+const ButtonGroupStyled = styled.div`
+  display: grid;
+  grid-template-rows: 80px 1fr 1fr;
+  justify-items: center;
+`;
+
+const ButtonGroupTopStyled = styled.div`
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`;
+
+const ButtonGroupBottomStyled = styled.div`
+  display: grid;
+  align-items: start;
+`;
+
+const ButtonWrapper = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 3px;
+`;
