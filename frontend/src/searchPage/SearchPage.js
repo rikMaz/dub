@@ -4,8 +4,30 @@ import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import styled from "styled-components/macro";
+import SearchIcon from "@material-ui/icons/Search";
+import Fab from "@material-ui/core/Fab";
+import {makeStyles} from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+
+  searchButton: {
+    color: 'black',
+    background: 'white',
+    height: 120,
+    width: 120,
+  },
+  searchIcon: {
+    color: 'black',
+    height: 60,
+    width: 60,
+  },
+
+}));
 
 export default function SearchPage() {
+  const classes = useStyles();
   const history = useHistory();
   const {name,setName,searchType,setSearchType,getActors,getMovies,setSearchItems,getVoiceActors,getMovieCrew} = useContext(SearchContext);
 
@@ -29,7 +51,26 @@ export default function SearchPage() {
   return (
 
     <>
-      <div>{searchType}</div>
+      <HeaderStyled>
+        <div>
+          <Input name="name" value={name} type="text" placeholder="Search..." onChange={event => setName(event.target.value)}/>
+        </div>
+      </HeaderStyled>
+
+      <MainStyled>
+        <div>
+          <Input name="name" value={name} type="text" placeholder="Search..." onChange={event => setName(event.target.value)}/>
+        </div>
+      </MainStyled>
+
+      <BottomStyled>
+        <Fab className={classes.searchButton} aria-label="searchIcon" onClick={() => history.push("/search")}>
+          <SearchIcon className={classes.searchIcon}/>
+        </Fab>
+      </BottomStyled>
+
+
+      {/*<div>{searchType}</div>
       <DropdownButton id="searchtype" title="SearchType">
         <Dropdown.Item onClick={() => setSearchType("movie")}>Movie</Dropdown.Item>
         <Dropdown.Item onClick={() => setSearchType("actor")}>Actor</Dropdown.Item>
@@ -39,7 +80,7 @@ export default function SearchPage() {
       <input name="name" disabled={!searchType} value={name} type="text" onChange={event => setName(event.target.value)}/>
       <button onClick={onSearch} disabled={!name}>Search</button>
       <button onClick={goHome}>Cancel</button>
-      <SearchList/>
+      <SearchList/>*/}
     </>)
 
 
@@ -109,3 +150,32 @@ export default function SearchPage() {
 
 
 }
+
+const HeaderStyled = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: end;
+`;
+
+const MainStyled = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`;
+
+const BottomStyled = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: start;
+`;
+
+const Input = styled.input`
+  font-size: 18px;
+  padding: 10px;
+  background: grey;
+  border: none;
+  border-radius: 3px;
+  ::placeholder {
+    color: white;
+  }
+`;
