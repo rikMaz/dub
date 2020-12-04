@@ -14,6 +14,7 @@ export default function Camera() {
       <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" videoConstraints={{ deviceId: devices[camera].deviceId}} width={"100%"}/>
       <button onClick={onCapture}>Capture photo</button>
       <button onClick={onCameraSwitch}>Switch Camera</button>
+      <button onClick={onCancel}>Cancel</button>
       </>
   )
 
@@ -33,6 +34,10 @@ export default function Camera() {
     } else {
       setCamera(0);
     }
+  }
+
+  function onCancel() {
+    history.goBack();
   }
 
 }

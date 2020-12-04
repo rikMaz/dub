@@ -8,7 +8,8 @@ import {
   getMovieCrewById,
   uploadImage,
   getVoiceActorsByName,
-  getVoiceActorById} from "../service/SearchService";
+  getVoiceActorById, uploadAudio
+} from "../service/SearchService";
 import {useHistory} from "react-router-dom";
 
 
@@ -26,7 +27,9 @@ export default function SearchContextProvider({children}) {
   const voiceActorActors = [];
   const [actors,setActors] = useState([]);
   const [devices, setDevices] = useState([]);
-
+  const [inputAudio,setInputAudio] = useState();
+  const [inputAudioUrl,setInputAudioUrl] = useState();
+  const [audioBlob,setAudioBlob] = useState();
 
   const getMovies = (name) =>
     getMoviesByName(name).then((item) => setSearchItems(item));
@@ -46,6 +49,9 @@ export default function SearchContextProvider({children}) {
   const recognizeCelebrity = (file) =>
     uploadImage(file).then((item) => history.push("/search/actor/" + item));
 
+  const identifyVoiceActor = (file) =>
+    uploadAudio(file).then((item) => history.push("/details/voiceactor/" + item));
+
   const getVoiceActors = (name) =>
     getVoiceActorsByName(name).then((item) => setSearchItems(item));
 
@@ -55,6 +61,9 @@ export default function SearchContextProvider({children}) {
 
   return (
     <SearchContext.Provider value={{
+      audioBlob,setAudioBlob,
+      inputAudioUrl,setInputAudioUrl,
+      inputAudio,setInputAudio,
       devices, setDevices,
       reloadStatus,
       setReloadStatus,
@@ -82,7 +91,8 @@ export default function SearchContextProvider({children}) {
       getActor,
       getMovie,
       getMovieCrew,
-      recognizeCelebrity}}>
+      recognizeCelebrity,
+      identifyVoiceActor}}>
       {children}
     </SearchContext.Provider>
   )

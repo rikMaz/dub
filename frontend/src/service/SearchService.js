@@ -32,3 +32,15 @@ export function uploadImage(file) {
     })
     .then((response) => response.data);
 }
+
+export function uploadAudio(file) {
+  const formData = new FormData();
+  formData.append('audio', file);
+  return axios
+    .post('/azure/audio/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => response.data);
+}
