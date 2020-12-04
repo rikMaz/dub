@@ -39,6 +39,6 @@ const AppStyled = styled.div`
   grid-template-rows: min-content 1fr;
   height: 100vh;
   background-size: cover;
-  background-color: #0A0F0D;
+  background-color: #333;
   overflow: scroll;
 `;
