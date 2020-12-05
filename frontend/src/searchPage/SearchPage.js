@@ -11,7 +11,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputBase from "@material-ui/core/InputBase";
 import withStyles from "@material-ui/core/styles/withStyles";
-import ClearIcon from '@material-ui/icons/Clear';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPage() {
   const classes = useStyles();
   const history = useHistory();
-  const {name,setName,getActors,searchType, setSearchType,getMovies,setSearchItems,getVoiceActors,getMovieCrew} = useContext(SearchContext);
+  const {name,setName,getActors,searchType, setSearchType,getMovies,getVoiceActors,getMovieCrew} = useContext(SearchContext);
   const handleChange = (event) => {
     setSearchType(event.target.value);
   };
@@ -107,7 +106,7 @@ export default function SearchPage() {
       }
       {searchType === "crew" &&
         <HeaderCrewStyled>
-            <MovieNameStyled>{name}</MovieNameStyled>
+            <NameStyled>{name}</NameStyled>
         </HeaderCrewStyled>
       }
 
@@ -117,11 +116,6 @@ export default function SearchPage() {
 
     </>)
 
-
-  function onCancel() {
-    history.goBack();
-    setSearchItems([]);
-  }
 
  /* function goHome() {
     history.push("/");
@@ -218,7 +212,7 @@ const Input = styled.input`
   }
 `;
 
-const MovieNameStyled = styled.div`
+const NameStyled = styled.div`
   font-size: 1.4em;
   padding-top: 20px;
   color: white;
