@@ -19,7 +19,7 @@ export default createGlobalStyle`
   
   html, body {
     margin: 0;
-    font-family: "Futura",sans-serif;
+    font-family: "Futura";
   }
   
   body {

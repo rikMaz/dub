@@ -11,7 +11,13 @@ const useStyles = makeStyles((theme) => ({
   button: {
     color: 'black',
     background: 'white',
-    fontFamily: 'Futura'
+    fontFamily: 'Futura',
+    position: "absolute",
+    top: "520px",
+    left: "10px",
+    borderRadius: 50,
+    paddingLeft: "141px",
+    paddingRight: "141px"
   },
 
 }));
@@ -22,6 +28,12 @@ export default function MoviePage() {
   const {setName,getMovieCrew,setSearchType} = useContext(SearchContext);
   const classes = useStyles();
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+
   return (
     <>
       <HeaderStyled>
@@ -30,21 +42,46 @@ export default function MoviePage() {
 
       <MainStyled>
 
-        <DivStyled>
-          <ImgStyled alt="MovieImage" src={movie?.image} height="300px" width="200px"/>
+        <DivWrapper>
+          <ImgStyled alt="MovieImage" src={movie?.image} height="525px" width="350px"/>
           <Button className={classes.button} onClick={getCrew}>Crew</Button>
-        </DivStyled>
+        </DivWrapper>
 
         <InfosStyled>
 
+          <ListStyled>
 
-          <div>Release Date: {movie?.releaseDate}</div>
-          <div>Original Language: {movie?.originalLanguage}</div>
-          <div>Runtime: {movie?.runtime}</div>
-          <div>Budget: {movie?.budget}</div>
-          <div>Revenue: {movie?.revenue}</div>
-          <div>Overview: {movie?.overview}</div>
+          <ListItemStyled>
+            <LabelStyled>Release Date:</LabelStyled>
+            <div>{movie?.releaseDate}</div>
+          </ListItemStyled>
 
+          <ListItemStyled>
+            <LabelStyled>Original Language:</LabelStyled>
+            <div>{movie?.originalLanguage}</div>
+          </ListItemStyled>
+
+          <ListItemStyled>
+            <LabelStyled>Runtime:</LabelStyled>
+            <div>{movie?.runtime}</div>
+          </ListItemStyled>
+
+          <ListItemStyled>
+            <LabelStyled>Budget:</LabelStyled>
+            <div>{formatter.format(movie?.budget)}</div>
+          </ListItemStyled>
+
+          <ListItemStyled>
+            <LabelStyled>Revenue:</LabelStyled>
+            <div>{formatter.format(movie?.revenue)}</div>
+          </ListItemStyled>
+
+          <ListItemStyled>
+            <LabelStyled>Overview:</LabelStyled>
+            <div>{movie?.overview}</div>
+          </ListItemStyled>
+
+          </ListStyled>
         </InfosStyled>
       </MainStyled>
     </>
@@ -84,14 +121,26 @@ const ImgStyled = styled.img`
   font-weight: bold;
 `;
 
-
-const DivStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
+const DivWrapper = styled.div`
+  padding-top: 40px;
+  position: relative;
 `;
-
 
 const InfosStyled = styled.div`
   color: white;
 `;
+
+const LabelStyled = styled.div`
+  font-size: 1em;
+  font-weight: bold;
+`;
+
+const ListStyled = styled.ul`
+  padding: 5px;
+  list-style: none;
+`;
+
+const ListItemStyled = styled.li`
+  padding: 10px;
+`;
+

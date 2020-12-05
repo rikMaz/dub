@@ -79,7 +79,6 @@ export default function SearchPage() {
           <div className={classes.itemPadding}>
             <FormControl>
               <Select
-                id="demo-customized-select"
                 value={searchType}
                 onChange={handleChange}
                 input={<BootstrapInput/>}
