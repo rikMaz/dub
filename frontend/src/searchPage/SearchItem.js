@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
+import styled from 'styled-components/macro';
 
 
 export default function SearchItem({searchItem}){
@@ -18,10 +19,9 @@ export default function SearchItem({searchItem}){
   }
 
   return(
-    <>
-      <div>{searchItem.name}</div>
-      <img alt="SearchItemImage" src={searchItem.image} onClick={onImageClick} onError={noImage} height="231px" width="154px" />
-    </>
+    <div>
+      <ImgStyled alt="SearchItemImage" src={searchItem.image} onClick={onImageClick} onError={noImage} height="525px" width="350px" />
+    </div>
   )
 
 
@@ -52,5 +52,8 @@ export default function SearchItem({searchItem}){
   }
 
 
-
 }
+
+const ImgStyled = styled.img`
+  border-radius: 10px;
+`;

@@ -1,9 +1,7 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 import styled from "styled-components/macro";
 import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
@@ -128,11 +126,11 @@ export default function SearchPage() {
     setSearchItems([]);
   }
 
-  function goHome() {
+ /* function goHome() {
     history.push("/");
     setName("");
     setSearchItems([]);
-  }
+  }*/
 
   function onSearch() {
     console.log(searchType);
@@ -194,26 +192,15 @@ const HeaderStyled = styled.div`
   /*display: grid;
   grid-template-columns: min-content min-content min-content;*/
   display: flex;
-  
   justify-items: start;
   align-items: center;
-  
-  .item-a{
-  
-  }
-  
+  padding-top: 10px;
 `;
 
 const MainStyled = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-`;
-
-const BottomStyled = styled.div`
-  display: grid;
-  justify-items: center;
-  align-items: start;
 `;
 
 const Input = styled.input`
