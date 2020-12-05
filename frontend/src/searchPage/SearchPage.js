@@ -11,6 +11,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputBase from "@material-ui/core/InputBase";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ClearIcon from '@material-ui/icons/Clear';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     height: 20,
     width: 20,
   },
-  selecter: {
+  itemPadding: {
     padding: "10px",
   }
 
@@ -70,49 +71,45 @@ export default function SearchPage() {
   },[])
 
 
-  if(searchType === "crew") {
-    return (
-      <>
-        <div>{name}</div>
-        <div>{searchType}</div>
-        <button onClick={onCancel}>Cancel</button>
-        <SearchList/>
-      </> )
-
-  }
-
   return (
 
     <>
-      <HeaderStyled>
-        <div className={classes.selecter}>
+      {searchType !== "crew" &&
+        <HeaderStyled>
 
-          <FormControl>
-            <Select
-              id="demo-customized-select"
-              value={searchType}
-              onChange={handleChange}
-              input={<BootstrapInput />}
-            >
-              <MenuItem value={"movie"}>Movie</MenuItem>
-              <MenuItem value={"actor"}>Actor</MenuItem>
-              <MenuItem value={"voiceactor"}>Voice Actor</MenuItem>
-            </Select>
-          </FormControl>
+          <div className={classes.itemPadding}>
+            <FormControl>
+              <Select
+                id="demo-customized-select"
+                value={searchType}
+                onChange={handleChange}
+                input={<BootstrapInput/>}
+              >
+                <MenuItem value={"movie"}>Movie</MenuItem>
+                <MenuItem value={"actor"}>Actor</MenuItem>
+                <MenuItem value={"voiceactor"}>Voice Actor</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
 
-        </div>
+          <div>
+            <Input name="name" value={name} type="text" placeholder="Search..."
+                   onChange={event => setName(event.target.value)}/>
+          </div>
 
-        <div>
-          <Input name="name" value={name} type="text" placeholder="Search..." onChange={event => setName(event.target.value)}/>
-        </div>
+          <div className={classes.itemPadding}>
+            <Fab className={classes.searchButton} aria-label="searchIcon" onClick={onSearch}>
+              <SearchIcon className={classes.searchIcon}/>
+            </Fab>
+          </div>
 
-        <div className={classes.selecter}>
-          <Fab className={classes.searchButton} aria-label="searchIcon" onClick={onSearch}>
-            <SearchIcon className={classes.searchIcon}/>
-          </Fab>
-        </div>
-
-      </HeaderStyled>
+        </HeaderStyled>
+      }
+      {searchType === "crew" &&
+        <HeaderCrewStyled>
+            <MovieNameStyled>{name}</MovieNameStyled>
+        </HeaderCrewStyled>
+      }
 
       <MainStyled>
         <SearchList/>
@@ -197,6 +194,13 @@ const HeaderStyled = styled.div`
   padding-top: 10px;
 `;
 
+const HeaderCrewStyled = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: end;
+  padding-top: 20px;
+`;
+
 const MainStyled = styled.div`
   display: grid;
   justify-items: center;
@@ -212,4 +216,10 @@ const Input = styled.input`
   ::placeholder {
     color: black;
   }
+`;
+
+const MovieNameStyled = styled.div`
+  font-size: 1.4em;
+  padding-top: 20px;
+  color: white;
 `;

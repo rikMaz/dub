@@ -71,6 +71,7 @@ public class MovieService {
             ActorPreview actorPreview = new ActorPreview(
                     tmdbActor.getId(),
                     tmdbActor.getName(),
+                    tmdbActor.getCharacter(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
                     "actor");
             actorPreviews.add(actorPreview);

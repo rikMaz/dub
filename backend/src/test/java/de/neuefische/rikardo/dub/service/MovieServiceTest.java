@@ -36,7 +36,7 @@ class MovieServiceTest {
     ));
 
     List<ActorPreview> actorPreviews = new ArrayList<>(List.of(
-            new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+            new ActorPreview("6384","Keanu Reeves","Neo","https://image.tmdb.org/t/p/w154/image.jpg","actor")
     ));
 
     @Test

@@ -23,13 +23,13 @@ export default function SearchList() {
 const StyledList = styled.ul`
   overflow: scroll;
   margin: 0;
-  padding: var(--size-l);
+  padding: 40px;
 
   list-style: none;
 
   display: grid;
   grid-auto-rows: min-content;
-  gap: var(--size-xl);
+  gap: var(--size-xxl);
 
   li:last-child:after {
     content: '';

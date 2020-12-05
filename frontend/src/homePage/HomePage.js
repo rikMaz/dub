@@ -86,10 +86,10 @@ export default function HomePage() {
     [setDevices]
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then(handleDevices)
     // eslint-disable-next-line
-  },[])
+  },[])*/
 
   useEffect(() => {
 

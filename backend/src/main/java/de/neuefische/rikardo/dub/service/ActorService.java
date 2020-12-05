@@ -40,6 +40,7 @@ public class ActorService {
             ActorPreview actorPreview = new ActorPreview(
                     tmdbActor.getId(),
                     tmdbActor.getName(),
+                    tmdbActor.getCharacter(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
                     "actor");
             actors.add(actorPreview);
@@ -55,6 +56,7 @@ public class ActorService {
         return new ActorPreview(
                         tmdbActor.getId(),
                         tmdbActor.getName(),
+                        tmdbActor.getCharacter(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
                     "actor");
     }

@@ -52,22 +52,22 @@ class TmdbControllerIntegrationTest {
 
     Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
 
-    ActorPreview actorPreview = new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor");
+    ActorPreview actorPreview = new ActorPreview("6384","Keanu Reeves","Neo","https://image.tmdb.org/t/p/w154/image.jpg","actor");
     List<ActorPreview> actorPreviews = new ArrayList<>(List.of(actorPreview));
 
     VoiceActorPreview voiceActorPreview = new VoiceActorPreview("2","Benjamin Völz","/benjamin_voelz.jpeg","voiceactor");
     List<VoiceActorPreview> voiceActorPreviews = new ArrayList<>(List.of(voiceActorPreview));
 
     List<ActorPreview> actorPreviewsWunder = new ArrayList<>(List.of(
-            new ActorPreview("19292","Adam Sandler","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
-            new ActorPreview("9777","Cuba Gooding Jr.","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
-            new ActorPreview("8784","Daniel Craig","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+            new ActorPreview("19292","Adam Sandler","placeholder","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("9777","Cuba Gooding Jr.","placeholder","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("8784","Daniel Craig","placeholder","https://image.tmdb.org/t/p/w154/image.jpg","actor")
     ));
 
     List<ActorPreview> actorPreviewsVoelz = new ArrayList<>(List.of(
-            new ActorPreview("6384","Keanu Reeves","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
-            new ActorPreview("12640","David Duchovny","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
-            new ActorPreview("13548","James Spader","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+            new ActorPreview("6384","Keanu Reeves","placeholder","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("12640","David Duchovny","placeholder","https://image.tmdb.org/t/p/w154/image.jpg","actor"),
+            new ActorPreview("13548","James Spader","placeholder","https://image.tmdb.org/t/p/w154/image.jpg","actor")
     ));
     List<VoiceActor> voiceActors = new ArrayList<>(List.of(
             new VoiceActor("1","Dietmar Wunder","/dietmar_wunder.jpeg","1965-12-05",actorPreviewsWunder,"voiceactor"),
