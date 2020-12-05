@@ -16,9 +16,7 @@ function App() {
       <AppStyled>
         <Switch>
           <Route path="/home" component={HomePage}/>
-          <SearchPageStyled>
-            <Route path="/search" component={SearchPage}/>
-          </SearchPageStyled>
+          <Route path="/search" component={SearchPage}/>
           <Route path="/details/movie" component={MoviePage}/>
           <Route path="/details/actor" component={ActorPage}/>
           <Route path="/details/voiceactor" component={VoiceActorPage}/>
@@ -39,15 +37,6 @@ export default App;
 const AppStyled = styled.div`
   display: grid;
   grid-template-rows: min-content 1fr;
-  height: 100vh;
-  background-size: cover;
-  background-color: #333;
-  overflow: scroll;
-`;
-
-const SearchPageStyled = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;
   background-size: cover;
   background-color: #333;

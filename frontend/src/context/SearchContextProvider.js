@@ -20,7 +20,7 @@ export default function SearchContextProvider({children}) {
   const [movie, setMovie] = useState([]);
   const [reloadStatus,setReloadStatus] = useState(false);
   const [voiceActor, setVoiceActor] = useState([]);
-  const [searchType, setSearchType] = useState();
+  const [searchType, setSearchType] = useState("");
   const [searchItems, setSearchItems] = useState([]);
   const [inputImageUrl,setInputImageUrl] = useState("/imageerror.png");
   const [inputImage,setInputImage] = useState(null);

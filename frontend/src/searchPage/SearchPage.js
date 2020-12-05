@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
@@ -8,28 +8,63 @@ import styled from "styled-components/macro";
 import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
 import {makeStyles} from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputBase from "@material-ui/core/InputBase";
+import withStyles from "@material-ui/core/styles/withStyles";
 
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 50,
+    position: 'relative',
+    backgroundColor: "white",
+    fontSize: "16px",
+    padding: '10px 26px 10px 12px',
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      'Futura',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 50,
+      border: "none",
+      backgroundColor: "white",
+    },
+
+  },
+}))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
 
   searchButton: {
     color: 'black',
     background: 'white',
-    height: 120,
-    width: 120,
+    height: 39,
+    width: 39,
   },
   searchIcon: {
     color: 'black',
-    height: 60,
-    width: 60,
+    height: 20,
+    width: 20,
   },
+  selecter: {
+    padding: "10px",
+  }
 
 }));
 
 export default function SearchPage() {
   const classes = useStyles();
   const history = useHistory();
-  const {name,setName,searchType,setSearchType,getActors,getMovies,setSearchItems,getVoiceActors,getMovieCrew} = useContext(SearchContext);
+  const {name,setName,getActors,searchType, setSearchType,getMovies,setSearchItems,getVoiceActors,getMovieCrew} = useContext(SearchContext);
+  const handleChange = (event) => {
+    setSearchType(event.target.value);
+  };
 
   useEffect(() => {
     onRefresh();
@@ -52,35 +87,39 @@ export default function SearchPage() {
 
     <>
       <HeaderStyled>
+        <div className={classes.selecter}>
+
+          <FormControl>
+            <Select
+              id="demo-customized-select"
+              value={searchType}
+              onChange={handleChange}
+              input={<BootstrapInput />}
+            >
+              <MenuItem value={"movie"}>Movie</MenuItem>
+              <MenuItem value={"actor"}>Actor</MenuItem>
+              <MenuItem value={"voiceactor"}>Voice Actor</MenuItem>
+            </Select>
+          </FormControl>
+
+        </div>
+
         <div>
           <Input name="name" value={name} type="text" placeholder="Search..." onChange={event => setName(event.target.value)}/>
         </div>
+
+        <div className={classes.selecter}>
+          <Fab className={classes.searchButton} aria-label="searchIcon" onClick={onSearch}>
+            <SearchIcon className={classes.searchIcon}/>
+          </Fab>
+        </div>
+
       </HeaderStyled>
 
       <MainStyled>
-        <div>
-          <Input name="name" value={name} type="text" placeholder="Search..." onChange={event => setName(event.target.value)}/>
-        </div>
+        <SearchList/>
       </MainStyled>
 
-      <BottomStyled>
-        <Fab className={classes.searchButton} aria-label="searchIcon" onClick={() => history.push("/search")}>
-          <SearchIcon className={classes.searchIcon}/>
-        </Fab>
-      </BottomStyled>
-
-
-      {/*<div>{searchType}</div>
-      <DropdownButton id="searchtype" title="SearchType">
-        <Dropdown.Item onClick={() => setSearchType("movie")}>Movie</Dropdown.Item>
-        <Dropdown.Item onClick={() => setSearchType("actor")}>Actor</Dropdown.Item>
-        <Dropdown.Item onClick={() => setSearchType("voiceactor")}>Voice Actor</Dropdown.Item>
-      </DropdownButton>
-
-      <input name="name" disabled={!searchType} value={name} type="text" onChange={event => setName(event.target.value)}/>
-      <button onClick={onSearch} disabled={!name}>Search</button>
-      <button onClick={goHome}>Cancel</button>
-      <SearchList/>*/}
     </>)
 
 
@@ -96,7 +135,7 @@ export default function SearchPage() {
   }
 
   function onSearch() {
-
+    console.log(searchType);
     switch (searchType) {
 
       case "movie":
@@ -152,9 +191,17 @@ export default function SearchPage() {
 }
 
 const HeaderStyled = styled.div`
-  display: grid;
-  justify-items: center;
-  align-items: end;
+  /*display: grid;
+  grid-template-columns: min-content min-content min-content;*/
+  display: flex;
+  
+  justify-items: start;
+  align-items: center;
+  
+  .item-a{
+  
+  }
+  
 `;
 
 const MainStyled = styled.div`
@@ -170,12 +217,12 @@ const BottomStyled = styled.div`
 `;
 
 const Input = styled.input`
-  font-size: 18px;
-  padding: 10px;
-  background: grey;
+  font-size: 16px;
+  padding: 9px;
+  background: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 50px;
   ::placeholder {
-    color: white;
+    color: black;
   }
 `;
