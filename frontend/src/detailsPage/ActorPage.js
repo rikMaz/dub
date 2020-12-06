@@ -46,7 +46,8 @@ export default function ActorPage() {
 
           {actor?.voiceActors.length > 0 &&
           <div>
-            <ImgVoiceActorStyled alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="160px" width="115px"/>
+              <ImgVoiceActorStyled alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="160px" width="114px"/>
+              <NameVoiceActorStyled>Voice Actor</NameVoiceActorStyled>
           </div>
           }
 
@@ -74,20 +75,15 @@ export default function ActorPage() {
             </ListStyled>
           </InfosStyled>
 
-          {/*{actor?.voiceActors.length > 0 &&
-            <>
-          <div>{actor?.voiceActors[0].name}</div>
-          <img alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="231px" width="154px"/>
-          </>
-          }*/}
 
-          {/*<ul>
+          <ListStyled>
             {actor?.movies.map((listItem) =>
               <li key={listItem.id}>
                 <SearchItem searchItem={listItem}/>
               </li>
             )}
-          </ul>*/}
+          </ListStyled>
+
       </MainStyled>
 
     </>
@@ -153,4 +149,15 @@ list-style: none;
 
 const ListItemStyled = styled.li`
 padding: 10px;
+`;
+
+const NameVoiceActorStyled = styled.div`
+  font-size: 0.5em;
+  padding: 5px 36px 5px 36px;
+  background: white;
+  border-radius: 0px 0px 5px 5px;
+  position: absolute;
+  top: 540px;
+  left: 225px;
+  white-space: nowrap;
 `;
