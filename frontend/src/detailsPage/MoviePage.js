@@ -43,7 +43,7 @@ export default function MoviePage() {
       <MainStyled>
 
         <DivWrapper>
-          <ImgStyled alt="MovieImage" src={movie?.image} height="525px" width="350px"/>
+          <ImgStyled alt="movieImage" src={movie?.image} height="525px" width="350px"/>
           <Button className={classes.button} onClick={getCrew}>Crew</Button>
         </DivWrapper>
 
@@ -118,7 +118,6 @@ const MainStyled = styled.div`
 
 const ImgStyled = styled.img`
   border-radius: 10px;
-  font-weight: bold;
 `;
 
 const DivWrapper = styled.div`

@@ -2,46 +2,155 @@ import React from 'react';
 import {useHistory} from "react-router-dom";
 import useActor from "../hooks/useActor";
 import SearchItem from "../searchPage/SearchItem";
+import styled from 'styled-components/macro';
+import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+
+  button: {
+    color: 'black',
+    background: 'white',
+    fontFamily: 'Futura',
+    position: "absolute",
+    top: "520px",
+    left: "10px",
+    borderRadius: 50,
+    paddingLeft: "141px",
+    paddingRight: "141px"
+  },
+  voiceActorImage: {
+    position: "absolute",
+    top: "400px",
+    left: "225px",
+  }
+
+}));
 
 export default function ActorPage() {
   const history = useHistory();
   const [actor] = useActor();
+  const classes = useStyles();
 
 
   return (
     <>
-      <div>{actor?.name}</div>
-      <img alt="ActorImage" src={actor?.image}/>
+      <HeaderStyled>
+        <NameStyled>{actor?.name}</NameStyled>
+      </HeaderStyled>
 
-      {actor?.voiceActors.length > 0 &&
-        <>
-      <div>{actor?.voiceActors[0].name}</div>
-      <img alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="231px" width="154px"/>
-      </>
-      }
+      <MainStyled>
 
-      <button onClick={onCancel}>Cancel</button>
-      <label>Birthday<p>{actor?.birthday}</p></label>
-      <label>Place of Birth<p>{actor?.placeOfBirth}</p></label>
-      <label>Biography<p>{actor?.biography}</p></label>
+        <DivWrapper>
+          <ImgStyled alt="actorImage" src={actor?.image} height="525px" width="350px"/>
 
-      <ul>
-        {actor?.movies.map((listItem) =>
-          <li key={listItem.id}>
-            <SearchItem searchItem={listItem}/>
-          </li>
-        )}
-      </ul>
+          {actor?.voiceActors.length > 0 &&
+          <div>
+            <ImgVoiceActorStyled alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="160px" width="115px"/>
+          </div>
+          }
+
+        </DivWrapper>
+
+          <InfosStyled>
+
+            <ListStyled>
+
+              <ListItemStyled>
+                <LabelStyled>Birthday:</LabelStyled>
+                <div>{actor?.birthday}</div>
+              </ListItemStyled>
+
+              <ListItemStyled>
+                <LabelStyled>Place of Birth:</LabelStyled>
+                <div>{actor?.placeOfBirth}</div>
+              </ListItemStyled>
+
+              <ListItemStyled>
+                <LabelStyled>Biography:</LabelStyled>
+                <div>{actor?.biography}</div>
+              </ListItemStyled>
+
+            </ListStyled>
+          </InfosStyled>
+
+          {/*{actor?.voiceActors.length > 0 &&
+            <>
+          <div>{actor?.voiceActors[0].name}</div>
+          <img alt="VoiceActorImage" src={actor?.voiceActors[0].image} onClick={onImageClick} height="231px" width="154px"/>
+          </>
+          }*/}
+
+          {/*<ul>
+            {actor?.movies.map((listItem) =>
+              <li key={listItem.id}>
+                <SearchItem searchItem={listItem}/>
+              </li>
+            )}
+          </ul>*/}
+      </MainStyled>
 
     </>
   )
-
-  function onCancel() {
-    history.goBack();
-  }
 
   function onImageClick() {
     history.push(`/details/voiceactor/${actor?.voiceActors[0].id}`);
   }
 
 }
+
+const HeaderStyled = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: end;
+  padding-top: 20px;
+`;
+
+const NameStyled = styled.div`
+  font-size: 1.4em;
+  padding-top: 20px;
+  color: white;
+`;
+
+const ImgStyled = styled.img`
+  border-radius: 10px;
+`;
+
+const ImgVoiceActorStyled = styled.img`
+  border: 2px solid white;
+  border-radius: 10px;
+  position: absolute;
+  top: 400px;
+  left: 225px;
+`;
+
+const MainStyled = styled.div`
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  justify-items: center;
+  align-items: center;
+`;
+
+const DivWrapper = styled.div`
+  padding-top: 40px;
+  position: relative;
+`;
+
+
+const InfosStyled = styled.div`
+color: white;
+`;
+
+const LabelStyled = styled.div`
+font-size: 1em;
+font-weight: bold;
+`;
+
+const ListStyled = styled.ul`
+padding: 5px;
+list-style: none;
+`;
+
+const ListItemStyled = styled.li`
+padding: 10px;
+`;
