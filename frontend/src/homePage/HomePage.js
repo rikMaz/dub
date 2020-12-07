@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
-import RecordRTC ,{invokeSaveAsDialog} from "recordrtc";
+import RecordRTC from "recordrtc";
 import Fab from "@material-ui/core/Fab";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import MicIcon from '@material-ui/icons/Mic';
@@ -284,7 +284,7 @@ export default function HomePage() {
       recorder.startRecording();
 
       const sleep = m => new Promise(r => setTimeout(r, m));
-      await sleep(5000);
+      await sleep(8000);
 
       recorder.stopRecording(function() {
         let blob = recorder.getBlob();

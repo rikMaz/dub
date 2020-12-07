@@ -29,37 +29,43 @@ public class AzureService {
 
     public IdentifiedProfile requestAzureRestApi(MultipartFile file) throws IOException {
 
-        String url = "https://westus.api.cognitive.microsoft.com" +
-                "/speaker/identification/v2.0/text-independent/profiles/identifySingleSpeaker" +
-                "?profileIds=" + getAllVoiceActorIds();
+        try {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Ocp-Apim-Subscription-Key",apiKey);
+            String url = "https://westus.api.cognitive.microsoft.com" +
+                    "/speaker/identification/v2.0/text-independent/profiles/identifySingleSpeaker" +
+                    "?profileIds=" + getAllVoiceActorIds();
 
-        HttpEntity<byte[]> requestEntity = new HttpEntity<>(IOUtils.toByteArray(file.getInputStream()),headers);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Ocp-Apim-Subscription-Key",apiKey);
 
-        ResponseEntity<AzureResult> response = restTemplate.exchange(url,
+            HttpEntity<byte[]> requestEntity = new HttpEntity<>(IOUtils.toByteArray(file.getInputStream()),headers);
+
+            ResponseEntity<AzureResult> response = restTemplate.exchange(url,
                     HttpMethod.POST, requestEntity, AzureResult.class);
 
-        System.out.println(response.getBody());
+            System.out.println(response.getBody());
 
-    return response.getBody().getIdentifiedProfile();
+            return response.getBody().getIdentifiedProfile();
+
+        } catch (Exception e) {
+            return new IdentifiedProfile("00000000-0000-0000-0000-000000000000",0.0);
+        }
+
     }
 
     public String identifySpeaker(MultipartFile file) throws IOException {
 
         IdentifiedProfile identifiedProfile = requestAzureRestApi(file);
 
-        VoiceActor voiceActor = dbService.getVoiceActorById(identifiedProfile.getProfileId());
-
-        if (voiceActor == null) {
-
-            return "Couldn't identify VoiceActor";
-
+        if (identifiedProfile.getProfileId().equals("00000000-0000-0000-0000-000000000000")) {
+            System.out.println("Coudn't identify speaker");
+            return "coudntIdentifySpeaker";
+        } else {
+            VoiceActor voiceActor = dbService.getVoiceActorById(identifiedProfile.getProfileId());
+            return voiceActor.getId();
         }
 
-        return voiceActor.getId();
     }
 
     public String getAllVoiceActorIds() {
