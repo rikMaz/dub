@@ -20,7 +20,7 @@ public class ActorService {
     private final TmdbService tmdbService;
     private final VoiceActorMongoDb voiceActorMongoDb;
 
-    private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w154";
+    private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w500";
 
     public ActorService(TmdbService tmdbService, VoiceActorMongoDb voiceActorMongoDb) {
         this.tmdbService = tmdbService;
@@ -40,6 +40,7 @@ public class ActorService {
             ActorPreview actorPreview = new ActorPreview(
                     tmdbActor.getId(),
                     tmdbActor.getName(),
+                    tmdbActor.getCharacter(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
                     "actor");
             actors.add(actorPreview);
@@ -55,6 +56,7 @@ public class ActorService {
         return new ActorPreview(
                         tmdbActor.getId(),
                         tmdbActor.getName(),
+                        tmdbActor.getCharacter(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
                     "actor");
     }

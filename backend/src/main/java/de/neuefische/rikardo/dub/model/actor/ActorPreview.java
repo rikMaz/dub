@@ -11,6 +11,7 @@ public class ActorPreview {
 
     private String id;
     private String name;
+    private String character;
     private String image;
     private String type;
 }

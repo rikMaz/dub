@@ -17,7 +17,7 @@ public class MovieService {
 
     private final TmdbService tmdbService;
 
-    private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w154";
+    private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w500";
 
     public MovieService(TmdbService tmdbService) {
         this.tmdbService = tmdbService;
@@ -71,6 +71,7 @@ public class MovieService {
             ActorPreview actorPreview = new ActorPreview(
                     tmdbActor.getId(),
                     tmdbActor.getName(),
+                    tmdbActor.getCharacter(),
                     tmdbUrlPath + tmdbActor.getProfile_path(),
                     "actor");
             actorPreviews.add(actorPreview);

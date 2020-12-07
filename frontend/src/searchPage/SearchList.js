@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import SearchContext from "../context/SearchContext";
+import styled from 'styled-components/macro';
 import SearchItem from "./SearchItem";
 
 
@@ -8,13 +9,31 @@ export default function SearchList() {
 
   return(
     <>
-      <ul>
+      <StyledList>
         {searchItems?.map((searchItem) =>
           <li key={searchItem.id}>
             <SearchItem searchItem={searchItem}/>
           </li>
         )}
-      </ul>
+      </StyledList>
     </>
   )
 }
+
+const StyledList = styled.ul`
+  overflow: scroll;
+  margin: 0;
+  padding: 40px;
+
+  list-style: none;
+
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: var(--size-xxl);
+
+  li:last-child:after {
+    content: '';
+    display: block;
+    height: 56px;
+  }
+`;

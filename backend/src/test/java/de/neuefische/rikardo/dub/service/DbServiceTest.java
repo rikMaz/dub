@@ -23,7 +23,7 @@ class DbServiceTest {
 
     final DbService dbService = new DbService(voiceActorMongoDb,actorService);
 
-    ActorPreview actorPreview = new ActorPreview("8784","Daniel Craig","/image.jpg","actor");
+    ActorPreview actorPreview = new ActorPreview("8784","Daniel Craig","placeholder","/image.jpg","actor");
     List<ActorPreview> actorPreviews = new ArrayList<>(List.of(actorPreview));
 
     VoiceActor voiceActor = new VoiceActor("1","Dietmar Wunder","/dietmar_wunder.jpeg","1965-12-05",actorPreviews,"voiceactor");
