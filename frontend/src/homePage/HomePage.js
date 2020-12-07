@@ -86,10 +86,10 @@ export default function HomePage() {
     [setDevices]
   );
 
-  /*useEffect(() => {
+  useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then(handleDevices)
     // eslint-disable-next-line
-  },[])*/
+  },[])
 
   useEffect(() => {
 
@@ -292,7 +292,7 @@ export default function HomePage() {
         setInputAudio(file);
         setInputAudioUrl(URL.createObjectURL(file))
         //invokeSaveAsDialog(blob, 'audio.wav')
-        //identifyVoiceActor(file);
+        identifyVoiceActor(file);
       });
     });
   }

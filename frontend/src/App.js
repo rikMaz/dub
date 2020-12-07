@@ -9,6 +9,7 @@ import ActorPage from "./detailsPage/ActorPage";
 import ImagePreview from "./previewPage/ImagePreview";
 import VoiceActorPage from "./detailsPage/VoiceActorPage";
 import Camera from "./camera/Camera";
+import AudioPreview from "./previewPage/AudioPreview";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Route path="/details/actor" component={ActorPage}/>
           <Route path="/details/voiceactor" component={VoiceActorPage}/>
           <Route path="/image" component={ImagePreview}/>
-          <Route path="/audio" component={ImagePreview}/>
+          <Route path="/audio" component={AudioPreview}/>
           <Route path="/camera" component={Camera}/>
           <Route path="/">
             <Redirect to="/home"/>
