@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import SearchContext from "./SearchContext";
 import {
   getMoviesByName,
@@ -11,10 +11,12 @@ import {
   getVoiceActorById, uploadAudio
 } from "../service/SearchService";
 import {useHistory} from "react-router-dom";
+import UserContext from "./UserContext";
 
 
 export default function SearchContextProvider({children}) {
   const history = useHistory();
+  const { token, tokenIsValid } = useContext(UserContext);
   const [name,setName] = useState("");
   const [actor, setActor] = useState([]);
   const [movie, setMovie] = useState([]);
@@ -32,25 +34,25 @@ export default function SearchContextProvider({children}) {
   const [audioBlob,setAudioBlob] = useState();
 
   const getMovies = (name) =>
-    getMoviesByName(name).then((item) => setSearchItems(item));
+    getMoviesByName(name,token).then((item) => setSearchItems(item));
 
   const getMovie = (id) =>
-    getMovieById(id).then((item) => setMovie(item));
+    getMovieById(id,token).then((item) => setMovie(item));
 
   const getActors = (name) =>
-    getActorsByName(name).then((item) => setSearchItems(item));
+    getActorsByName(name,token).then((item) => setSearchItems(item));
 
   const getActor = (id) =>
-    getActorById(id).then((item) => setActor(item));
+    getActorById(id,token).then((item) => setActor(item));
 
   const getMovieCrew = (id) =>
-    getMovieCrewById(id).then((item) => setSearchItems(item));
+    getMovieCrewById(id,token).then((item) => setSearchItems(item));
 
   const recognizeCelebrity = (file) =>
-    uploadImage(file).then((item) => history.push("/search/actor/" + item));
+    uploadImage(file,token).then((item) => history.push("/search/actor/" + item));
 
   const identifyVoiceActor = (file) =>
-    uploadAudio(file).then(function(item){
+    uploadAudio(file,token).then(function(item){
       if(item === ("couldntIdentifySpeaker")) {
         history.push("/audio/notFound");
       } else {
@@ -59,10 +61,10 @@ export default function SearchContextProvider({children}) {
     });
 
   const getVoiceActors = (name) =>
-    getVoiceActorsByName(name).then((item) => setSearchItems(item));
+    getVoiceActorsByName(name,token).then((item) => setSearchItems(item));
 
   const getVoiceActor = (name) =>
-    getVoiceActorById(name).then((item) => setVoiceActor(item));
+    getVoiceActorById(name,token).then((item) => setVoiceActor(item));
 
 
   return (
