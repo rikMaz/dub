@@ -3,34 +3,10 @@ import {useHistory} from "react-router-dom";
 import useActor from "../hooks/useActor";
 import SearchItem from "../searchPage/SearchItem";
 import styled from 'styled-components/macro';
-import Button from "@material-ui/core/Button";
-import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-
-  button: {
-    color: 'black',
-    background: 'white',
-    fontFamily: 'Futura',
-    position: "absolute",
-    top: "520px",
-    left: "10px",
-    borderRadius: 50,
-    paddingLeft: "141px",
-    paddingRight: "141px"
-  },
-  voiceActorImage: {
-    position: "absolute",
-    top: "400px",
-    left: "225px",
-  }
-
-}));
 
 export default function ActorPage() {
   const history = useHistory();
   const [actor] = useActor();
-  const classes = useStyles();
 
 
   return (
@@ -116,7 +92,7 @@ const ImgVoiceActorStyled = styled.img`
   border: 2px solid white;
   border-radius: 10px;
   position: absolute;
-  top: 400px;
+  top: 395px;
   left: 225px;
 `;
 
@@ -157,7 +133,7 @@ const NameVoiceActorStyled = styled.div`
   background: white;
   border-radius: 0px 0px 5px 5px;
   position: absolute;
-  top: 540px;
+  top: 535px;
   left: 225px;
   white-space: nowrap;
 `;
