@@ -284,7 +284,7 @@ export default function HomePage() {
       recorder.startRecording();
 
       const sleep = m => new Promise(r => setTimeout(r, m));
-      await sleep(8000);
+      await sleep(5000);
 
       recorder.stopRecording(function() {
         let blob = recorder.getBlob();
