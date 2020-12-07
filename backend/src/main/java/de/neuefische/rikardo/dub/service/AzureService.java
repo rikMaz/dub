@@ -59,8 +59,8 @@ public class AzureService {
         IdentifiedProfile identifiedProfile = requestAzureRestApi(file);
 
         if (identifiedProfile.getProfileId().equals("00000000-0000-0000-0000-000000000000")) {
-            System.out.println("Coudn't identify speaker");
-            return "coudntIdentifySpeaker";
+            System.out.println("Couldn't identify speaker");
+            return "couldntIdentifySpeaker";
         } else {
             VoiceActor voiceActor = dbService.getVoiceActorById(identifiedProfile.getProfileId());
             return voiceActor.getId();

@@ -59,7 +59,7 @@ export default function AudioPreview() {
         <MainStyled>
 
           {error === "notFound" &&
-          <ErrorMessageStyled>Coundn't identify speaker!</ErrorMessageStyled>
+          <ErrorMessageStyled>Couldn't identify speaker!</ErrorMessageStyled>
           }
 
           <DivFlex>

@@ -51,7 +51,7 @@ export default function SearchContextProvider({children}) {
 
   const identifyVoiceActor = (file) =>
     uploadAudio(file).then(function(item){
-      if(item === ("coudntIdentifySpeaker")) {
+      if(item === ("couldntIdentifySpeaker")) {
         history.push("/audio/notFound");
       } else {
         history.push("/details/voiceactor/" + item);
