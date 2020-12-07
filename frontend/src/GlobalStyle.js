@@ -23,7 +23,7 @@ export default createGlobalStyle`
   }
   
   body {
-    background-color: white;
+    background-color: #333;
   }
    
   input, textarea {

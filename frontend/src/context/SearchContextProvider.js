@@ -50,7 +50,13 @@ export default function SearchContextProvider({children}) {
     uploadImage(file).then((item) => history.push("/search/actor/" + item));
 
   const identifyVoiceActor = (file) =>
-    uploadAudio(file).then((item) => history.push("/details/voiceactor/" + item));
+    uploadAudio(file).then(function(item){
+      if(item === ("coudntIdentifySpeaker")) {
+        history.push("/audio/notFound");
+      } else {
+        history.push("/details/voiceactor/" + item);
+      }
+    });
 
   const getVoiceActors = (name) =>
     getVoiceActorsByName(name).then((item) => setSearchItems(item));

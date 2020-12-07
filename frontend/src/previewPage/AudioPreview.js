@@ -7,6 +7,7 @@ import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
+import useAudio from "../hooks/useAudio";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
@@ -16,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "black",
     height: 100,
     width: 100,
-    position: "absolute",
+    /*position: "absolute",
     top: "150px",
-    left: "190px",
+    left: "190px",*/
   },
 
   buttonCheck: {
@@ -28,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "black",
     height: 100,
     width: 100,
-    position: "absolute",
+    /*position: "absolute",
     top: "150px",
-    left: "10px",
+    left: "10px",*/
   },
 
   buttonIcon: {
@@ -46,17 +47,22 @@ export default function AudioPreview() {
   const classes = useStyles();
   const history = useHistory();
   const {inputAudio,inputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+  const [error] = useAudio();
 
 
   return (
       <>
         <HeaderStyled>
-          <NameStyled>Audio Upload</NameStyled>
+          <TitleStyled>Audio Upload</TitleStyled>
         </HeaderStyled>
 
         <MainStyled>
 
-          <DivWrapper>
+          {error === "notFound" &&
+          <ErrorMessageStyled>Coundn't identify speaker!</ErrorMessageStyled>
+          }
+
+          <DivFlex>
 
             <ReactAudioPlayer
               src={inputAudioUrl}
@@ -64,20 +70,18 @@ export default function AudioPreview() {
               controls
             />
 
-            <div>
+            <ButtonGroupGridStyled>
               <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={identify}>
                 <CheckIcon className={classes.buttonIcon}/>
               </Fab>
               <Fab className={classes.buttonClose} aria-label="closeIcon" onClick={onCancel}>
                 <CloseIcon className={classes.buttonIcon}/>
               </Fab>
-            </div>
+            </ButtonGroupGridStyled>
 
-          </DivWrapper>
+          </DivFlex>
 
         </MainStyled>
-
-
 
       </>
   )
@@ -102,29 +106,35 @@ const HeaderStyled = styled.div`
   padding-top: 20px;
 `;
 
-const NameStyled = styled.div`
+const TitleStyled = styled.div`
   font-size: 1.4em;
   padding-top: 20px;
   color: white;
 `;
 
-const ImgStyled = styled.img`
-  border-radius: 10px;
+const ErrorMessageStyled = styled.div`
+  padding: 50px;
+  font-size: 1.0em;
+  color: red;
 `;
 
 const MainStyled = styled.div`
   display: grid;
+  justify-content: center;
+  align-content: center;
+`;
+
+const DivFlex = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-items: center;
   align-items: center;
 `;
 
-const MainImageStyled = styled.div`
+const ButtonGroupGridStyled = styled.div`
+padding: 20px;
   display: grid;
-  justify-items: center;
-  align-items: center;
-`;
-
-const DivWrapper = styled.div`
-  padding-top: 40px;
-  position: relative;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  justify-content: center;
 `;
