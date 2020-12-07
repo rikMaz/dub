@@ -128,7 +128,7 @@ const ButtonGroupPositionStyled = styled.div`
   display: grid;
   justify-items: center;
   position: absolute;
-  bottom: 10px;
+  bottom: 25px;
   width: 100%;
 `;
 
