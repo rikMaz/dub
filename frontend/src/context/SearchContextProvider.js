@@ -16,7 +16,7 @@ import UserContext from "./UserContext";
 
 export default function SearchContextProvider({children}) {
   const history = useHistory();
-  const { token, tokenIsValid } = useContext(UserContext);
+  const { token } = useContext(UserContext);
   const [name,setName] = useState("");
   const [actor, setActor] = useState([]);
   const [movie, setMovie] = useState([]);
