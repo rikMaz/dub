@@ -26,9 +26,9 @@ class MovieServiceTest {
     TmdbMovie tmdbMovie = new TmdbMovie("603","The Matrix", "/image.jpg","overview","1999-03-30","136","en","0","0");
     List<TmdbMovie> tmdbMovies = new ArrayList<>(List.of(tmdbMovie));
 
-    Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","overview","1999-03-30","136","en","0","0","movie");
+    Movie movie = new Movie("603","The Matrix", "https://image.tmdb.org/t/p/w500/image.jpg","overview","1999-03-30","136","en","0","0","movie");
 
-    MoviePreview moviePreview = new MoviePreview("603","The Matrix", "https://image.tmdb.org/t/p/w154/image.jpg","movie");
+    MoviePreview moviePreview = new MoviePreview("603","The Matrix", "https://image.tmdb.org/t/p/w500/image.jpg","movie");
     List<MoviePreview> moviePreviews = new ArrayList<>(List.of(moviePreview));
 
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(
@@ -36,7 +36,7 @@ class MovieServiceTest {
     ));
 
     List<ActorPreview> actorPreviews = new ArrayList<>(List.of(
-            new ActorPreview("6384","Keanu Reeves","Neo","https://image.tmdb.org/t/p/w154/image.jpg","actor")
+            new ActorPreview("6384","Keanu Reeves","Neo","https://image.tmdb.org/t/p/w500/image.jpg","actor")
     ));
 
     @Test
