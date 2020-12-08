@@ -32,9 +32,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {
-        "jwt.secretkey=somesecrettoken"
-})
+@TestPropertySource(properties = {"jwt.secretkey=somesecrettoken"})
 class TmdbControllerIntegrationTest {
 
     @LocalServerPort
