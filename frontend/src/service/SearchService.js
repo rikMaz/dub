@@ -10,11 +10,8 @@ const header = (token, options = {}) => ({
 export const getMoviesByName = (name, token) =>
   axios.get("/api/search/movie/" + name, header(token)).then((response) => response.data);
 
-export const getMovieById = (id, token) => {
- return axios.get("/api/movie/" + id, header(token)).then((response) => response.data);
-}
-
-
+export const getMovieById = (id, token) =>
+  axios.get("/api/movie/" + id, header(token)).then((response) => response.data);
 
 export const getActorsByName = (name, token) =>
   axios.get("/api/search/actor/" + name, header(token)).then((response) => response.data);
