@@ -13,6 +13,7 @@ import AudioPreview from "./previewPage/AudioPreview";
 import UserContextProvider from "./context/UserContextProvider";
 import ProtectedRoute from './routing/ProtectedRoute';
 import LoginPage from "./loginPage/LoginPage";
+import backgroundImage from "./backgroundImage/background_movies_new.png"
 
 function App() {
   return (
@@ -48,4 +49,18 @@ const AppStyled = styled.div`
   background-size: cover;
   background-color: #333;
   overflow: scroll;
+`;
+
+const LoginStyled = styled.div`
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  height: 100vh;
+  overflow: scroll;
+  background-size: cover;
+  background-color: #333;
+  background-image: url(${backgroundImage});
+  background-position-x: 0;
+  background-position-y: 0;
+  height: 667px;
+  width: 400px;
 `;

@@ -132,7 +132,7 @@ const DivFlex = styled.div`
 `;
 
 const ButtonGroupGridStyled = styled.div`
-padding: 20px;
+  padding: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 50px;

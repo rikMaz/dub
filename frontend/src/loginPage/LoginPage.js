@@ -15,32 +15,42 @@ export default function LoginPage() {
   const history = useHistory();
   return (
     <>
-      <div title="Login" />
-      <Main>
-        <Form onSubmit={handleSubmit}>
-          <label>
-            Username
-            <input
-              name="username"
-              value={credentials.username}
-              onChange={handleChange}
-              type="text"
-            />
-          </label>
-          <label>
-            Password
-            <input
-              name="password"
-              value={credentials.password}
-              onChange={handleChange}
-              type="password"
-            />
-          </label>
-          {error && <p>{error}</p>}
-          <button>Login</button>
-        </Form>
+      <DivWrapper>
+        <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%"/>
 
-      </Main>
+        <DivGrid>
+
+          <HeaderStyled>
+            <TitleStyled>dub</TitleStyled>
+            <SubtitleStyled>Who's speaking?</SubtitleStyled>
+          </HeaderStyled>
+
+          <Form onSubmit={handleSubmit}>
+            <label>
+              Username
+              <input
+                name="username"
+                value={credentials.username}
+                onChange={handleChange}
+                type="text"
+              />
+            </label>
+            <label>
+              Password
+              <input
+                name="password"
+                value={credentials.password}
+                onChange={handleChange}
+                type="password"
+              />
+            </label>
+            {error && <p>{error}</p>}
+            <button>Login</button>
+          </Form>
+
+
+        </DivGrid>
+      </DivWrapper>
     </>
   );
 
@@ -56,23 +66,28 @@ export default function LoginPage() {
   }
 }
 
-const Main = styled.main`
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--size-l);
+
+
+
+const ImgStyled = styled.img`
+  position: absolute;
+  opacity: 0.3;
+  filter: alpha(opacity=40);
 `;
+
 
 const Form = styled.form`
   width: 100%;
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: var(--size-l);
+  color: white;
 
   input {
     display: block;
-    width: 100%;
+    border-radius: 50px;
+    border: none;
+    width: 300px;
   }
 
   button {
@@ -84,4 +99,35 @@ const Form = styled.form`
     font-size: 1em;
     font-weight: 600;
   }
+`;
+
+
+const HeaderStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 6em;
+  color: white;
+`;
+
+const TitleStyled = styled.div`
+  font-size: 1em;
+`;
+
+const SubtitleStyled = styled.div`
+  font-size: 0.3em;
+`;
+
+const DivGrid = styled.div`
+  position: absolute;
+  width: 100%;
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+`;
+
+const DivWrapper = styled.div`
+position: relative;
 `;
