@@ -1,9 +1,11 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getActorById} from "../service/SearchService";
+import UserContext from "../context/UserContext";
 
 
 export default function useActor() {
   const [actor, setActor] = useState()
+  const { token } = useContext(UserContext);
 
   useEffect(() => {
     onRefresh();
@@ -13,7 +15,7 @@ export default function useActor() {
   function onRefresh() {
     const currentPath = window.location.pathname.split("/");
     const previousSearch = currentPath[3].replace("%20", " ");
-    getActorById(previousSearch).then((item) => setActor(item));
+    getActorById(previousSearch,token).then((item) => setActor(item));
   }
 
   return [actor];

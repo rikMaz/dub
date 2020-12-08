@@ -1,9 +1,11 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getVoiceActorById} from "../service/SearchService";
+import UserContext from "../context/UserContext";
 
 
 export default function useVoiceActor() {
- const [voiceActor, setVoiceActor] = useState()
+ const [voiceActor, setVoiceActor] = useState();
+ const { token } = useContext(UserContext);
 
   useEffect(() => {
     onRefresh();
@@ -13,7 +15,7 @@ export default function useVoiceActor() {
   function onRefresh() {
     const currentPath = window.location.pathname.split("/");
     const previousSearch = currentPath[3].replace("%20", " ");
-    getVoiceActorById(previousSearch).then((item) => setVoiceActor(item));
+    getVoiceActorById(previousSearch,token).then((item) => setVoiceActor(item));
   }
 
  return [voiceActor];
