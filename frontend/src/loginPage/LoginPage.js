@@ -33,12 +33,12 @@ export default function LoginPage() {
 
   return (
     <>
-      <DivWrapper>
+      <MobileViewWrapper>
         {windowDimensions.width <= 500 &&
           <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%" />
         }
 
-        <DivGrid>
+        <MobileViewGrid>
 
           <HeaderStyled>
             <TitleStyled>dub</TitleStyled>
@@ -69,8 +69,8 @@ export default function LoginPage() {
           </Form>
 
 
-        </DivGrid>
-      </DivWrapper>
+        </MobileViewGrid>
+      </MobileViewWrapper>
     </>
   );
 
@@ -87,6 +87,9 @@ export default function LoginPage() {
 }
 
 
+const MobileViewWrapper = styled.div`
+position: relative;
+`;
 
 
 const ImgStyled = styled.img`
@@ -95,6 +98,21 @@ const ImgStyled = styled.img`
   filter: alpha(opacity=40);
 `;
 
+const HeaderStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+`;
+
+const TitleStyled = styled.div`
+  font-size: 6em;
+`;
+
+const SubtitleStyled = styled.div`
+  font-size: 2em;
+`;
 
 const Form = styled.form`
   width: 100%;
@@ -121,33 +139,11 @@ const Form = styled.form`
   }
 `;
 
-
-const HeaderStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 6em;
-  color: white;
-`;
-
-const TitleStyled = styled.div`
-  font-size: 1em;
-`;
-
-const SubtitleStyled = styled.div`
-  font-size: 0.3em;
-`;
-
-const DivGrid = styled.div`
+const MobileViewGrid = styled.div`
   position: absolute;
   width: 100%;
   display: grid;
   height: 100vh;
   grid-template-rows: 1fr 1fr;
   justify-content: center;
-`;
-
-const DivWrapper = styled.div`
-position: relative;
 `;

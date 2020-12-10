@@ -100,7 +100,6 @@ const HeaderStyled = styled.div`
   display: grid;
   justify-items: center;
   align-items: end;
-  padding-top: 20px;
 `;
 
 const NameStyled = styled.div`

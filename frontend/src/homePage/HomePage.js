@@ -2,21 +2,22 @@ import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchContext from "../context/SearchContext";
 import RecordRTC from "recordrtc";
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress'
+import styled from "styled-components/macro";
+import {Typography} from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
 import Fab from "@material-ui/core/Fab";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import MicIcon from '@material-ui/icons/Mic';
 import SearchIcon from '@material-ui/icons/Search';
-import { makeStyles } from '@material-ui/core/styles';
-import styled from "styled-components/macro";
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
-import {Typography} from "@material-ui/core";
-import DescriptionIcon from '@material-ui/icons/Description';
-import CircularProgress from '@material-ui/core/CircularProgress'
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -34,9 +35,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: 10,
     left: 10,
-  },
-  arrow: {
-    color: 'white',
   },
   icon: {
     color: 'white',
@@ -57,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Futura",
     fontStyle: 'normal',
     textTransform: "none",
-    padding: 0
   },
   loading: {
     color: "teal"
@@ -125,19 +122,19 @@ export default function HomePage() {
     <>
       <HeaderStyled>
 
-        <IconButton aria-label="recent" onClick={countDown}>
+        <IconButton aria-label="recent">
           <IconButtonStyled>
-            <DescriptionIcon className={classes.icon}/>
+            <FindInPageIcon className={classes.icon}/>
             <Typography className={classes.textButton}>Recent</Typography>
           </IconButtonStyled>
         </IconButton>
 
 
-        <IconButton aria-label="login" onClick={countDown}>
-          <IconButtonStyled>
+        <IconButton aria-label="login">
+          <AccountButtonStyled>
             <AccountCircleIcon className={classes.icon}/>
-            <Typography className={classes.textButton}>Login</Typography>
-          </IconButtonStyled>
+            <Typography className={classes.textButton}>Account</Typography>
+          </AccountButtonStyled>
         </IconButton>
 
 
@@ -152,7 +149,7 @@ export default function HomePage() {
           <ButtonGroupTopStyled>
 
             <IconButton aria-label="arrowBackIosIcon" onClick={countDown}>
-              <ArrowBackIosIcon className={classes.arrow}/>
+              <ArrowBackIosIcon className={classes.icon}/>
             </IconButton>
 
             {actionType === 0 &&
@@ -208,7 +205,7 @@ export default function HomePage() {
             }
 
             <IconButton aria-label="arrowForwardIosIcon" onClick={countUp}>
-              <ArrowForwardIosIcon className={classes.arrow} />
+              <ArrowForwardIosIcon className={classes.icon} />
             </IconButton>
 
           </ButtonGroupTopStyled>
@@ -312,6 +309,15 @@ const IconButtonStyled = styled.div`
   justify-items: center;
   padding: 10px;
 `;
+
+const AccountButtonStyled = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 5px;
+`;
+
 
 const MainStyled = styled.div`
   display: grid;
