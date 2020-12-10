@@ -118,7 +118,7 @@ export default function MoviePage() {
 
   function getCrew() {
     setSearchType("crew")
-    setName(movie.name)
+    setName(movie?.name)
     getMovieCrew(movie.id).then(() => history.push(`/search/crew/${movie.name}/${movie.id}`))
   }
 

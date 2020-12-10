@@ -70,9 +70,12 @@ export default function VoiceActorPage() {
               <div>{voiceActor?.birthday}</div>
             </ListItemStyled>
 
+
           </ListStyled>
 
         </InfosStyled>
+
+        <ListTitleStyled>Speaking roles:</ListTitleStyled>
 
         <ListStyled>
           {voiceActor?.actors.map((listItem) =>
@@ -120,7 +123,7 @@ const ImgStyled = styled.img`
 
 const MainStyled = styled.div`
   display: grid;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: min-content min-content 1fr;
 `;
 
 const MainImageStyled = styled.div`
@@ -142,6 +145,14 @@ const InfosStyled = styled.div`
   align-items: center;
 `;
 
+
+const ListTitleStyled = styled.div`
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  padding-left: 15px;
+`;
+
 const LabelStyled = styled.div`
 font-size: 1em;
 font-weight: bold;
@@ -153,6 +164,7 @@ const ListStyled = styled.ul`
   align-items: center;
   padding: 5px;
   list-style: none;
+  gap: var(--size-xxl);
 `;
 
 const ListItemStyled = styled.li`

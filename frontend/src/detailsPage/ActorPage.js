@@ -89,13 +89,13 @@ export default function ActorPage() {
           </InfosStyled>
 
 
-          <ListStyled>
+          <MovieListStyled>
             {actor?.movies.map((listItem) =>
               <li key={listItem.id}>
                 <SearchItem searchItem={listItem}/>
               </li>
             )}
-          </ListStyled>
+          </MovieListStyled>
 
       </MainStyled>
 
@@ -170,6 +170,15 @@ font-weight: bold;
 const ListStyled = styled.ul`
 padding: 5px;
 list-style: none;
+`;
+
+const MovieListStyled = styled.ul`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+  list-style: none;
+  gap: var(--size-xxl);
 `;
 
 const ListItemStyled = styled.li`

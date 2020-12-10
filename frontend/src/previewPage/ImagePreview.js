@@ -10,25 +10,25 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
     color: 'black',
-    background: 'red',
+    background: 'grey',
     border: "2px solid",
     borderColor: "black",
     height: 100,
     width: 100,
     position: "absolute",
-    top: "450px",
+    top: "420px",
     left: "240px",
   },
 
   buttonCheck: {
     color: 'black',
-    background: 'green',
+    background: 'teal',
     border: "2px solid",
     borderColor: "black",
     height: 100,
     width: 100,
     position: "absolute",
-    top: "450px",
+    top: "420px",
     left: "10px",
   },
 
@@ -90,13 +90,11 @@ export default function ImagePreview() {
 const HeaderStyled = styled.div`
   display: grid;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
 `;
 
 const NameStyled = styled.div`
   font-size: 1.4em;
-  padding-top: 20px;
   color: white;
 `;
 
@@ -116,6 +114,6 @@ const MainImageStyled = styled.div`
 `;
 
 const DivWrapper = styled.div`
-  padding-top: 40px;
+  padding-top: 10px;
   position: relative;
 `;

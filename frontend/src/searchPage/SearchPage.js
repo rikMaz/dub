@@ -223,7 +223,7 @@ export default function SearchPage() {
           break;
 
         case "crew":
-          setName(previousSearch);
+          setName(previousSearch.replace("%20"," "));
           getMovieCrew(currentPath[4]);
           break;
 
