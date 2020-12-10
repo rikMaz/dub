@@ -42,8 +42,8 @@ public class AwsService {
 
     public String upload(MultipartFile file) throws IOException {
 
-        //InputStream resizeImageInputStream = new ByteArrayInputStream(resizeImage(file).toByteArray());
-        InputStream resizeImageInputStream = file.getInputStream();
+        InputStream resizeImageInputStream = new ByteArrayInputStream(resizeImage(file).toByteArray());
+        //InputStream resizeImageInputStream = file.getInputStream();
         String photo = file.getOriginalFilename();
 
         //AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
