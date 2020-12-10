@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
@@ -8,15 +8,35 @@ const emptyCredentials = {
   password: '',
 };
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
 export default function LoginPage() {
   const { loginWithUserCredentials } = useContext(UserContext);
   const [credentials, setCredentials] = useState(emptyCredentials);
   const [error, setError] = useState('');
   const history = useHistory();
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       <DivWrapper>
-        <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%"/>
+        {windowDimensions.width <= 500 &&
+          <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%" />
+        }
 
         <DivGrid>
 
