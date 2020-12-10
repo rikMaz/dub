@@ -1,16 +1,55 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SearchItem from "../searchPage/SearchItem";
 import useVoiceActor from "../hooks/useVoiceActor";
 import styled from 'styled-components/macro';
+import Fab from "@material-ui/core/Fab";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import HomeIcon from "@material-ui/icons/Home";
+import {makeStyles} from "@material-ui/core/styles";
+import SearchContext from "../context/SearchContext";
+import {useHistory} from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+
+  button: {
+    color: 'black',
+    background: 'white',
+    height: 43,
+    width: 43,
+  },
+  icon: {
+    color: 'black',
+    height: 20,
+    width: 20,
+  }
+
+}));
 
 export default function VoiceActorPage() {
+  const history = useHistory();
   const [voiceActor] = useVoiceActor();
+  const classes = useStyles();
+  const {setName,setSearchItems,setSearchType} = useContext(SearchContext);
 
   return (
     <>
 
       <HeaderStyled>
+
+        <div>
+          <Fab className={classes.button} aria-label="goBack" onClick={goBack}>
+            <ArrowBackIcon className={classes.icon}/>
+          </Fab>
+        </div>
+
         <NameStyled>{voiceActor?.name}</NameStyled>
+
+        <div>
+          <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+            <HomeIcon className={classes.icon}/>
+          </Fab>
+        </div>
+
       </HeaderStyled>
 
       <MainStyled>
@@ -46,19 +85,32 @@ export default function VoiceActorPage() {
       </MainStyled>
     </>
   )
+
+  function goHome() {
+    history.push("/");
+    setName("");
+    setSearchItems([]);
+    setSearchType("movie");
+  }
+
+  function goBack() {
+    history.goBack();
+  }
+
 }
 
 
 const HeaderStyled = styled.div`
   display: grid;
+  grid-template-columns: min-content 1fr min-content;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const NameStyled = styled.div`
   font-size: 1.4em;
-  padding-top: 20px;
   color: white;
 `;
 
@@ -79,7 +131,7 @@ const MainImageStyled = styled.div`
 
 
 const DivWrapper = styled.div`
-  padding-top: 40px;
+  padding-top: 10px;
   position: relative;
 `;
 

@@ -17,6 +17,7 @@ import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import PersonIcon from '@material-ui/icons/Person';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import HomeIcon from "@material-ui/icons/Home";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -141,7 +142,19 @@ export default function SearchPage() {
       }
       {searchType === "crew" &&
         <HeaderCrewStyled>
-            <NameStyled>{name}</NameStyled>
+          <div>
+            <Fab className={classes.button} aria-label="goBack" onClick={goBack}>
+              <ArrowBackIcon className={classes.icon}/>
+            </Fab>
+          </div>
+
+          <NameStyled>{name}</NameStyled>
+
+          <div>
+            <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+              <HomeIcon className={classes.icon}/>
+            </Fab>
+          </div>
         </HeaderCrewStyled>
       }
 
@@ -162,6 +175,10 @@ export default function SearchPage() {
     //history.push("/search");
     setName("");
     setSearchItems([]);
+  }
+
+  function goBack() {
+    history.goBack();
   }
 
   function onSearch() {
@@ -233,8 +250,11 @@ const HeaderStyled = styled.div`
 
 const HeaderCrewStyled = styled.div`
   display: grid;
+  grid-template-columns: min-content 1fr min-content;
   justify-items: center;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const MainStyled = styled.div`
@@ -265,6 +285,5 @@ const SearchbarStyled = styled.div`
 
 const NameStyled = styled.div`
   font-size: 1.4em;
-  padding-top: 20px;
   color: white;
 `;

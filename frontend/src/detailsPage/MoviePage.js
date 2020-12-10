@@ -126,10 +126,11 @@ export default function MoviePage() {
     history.push("/");
     setName("");
     setSearchItems([]);
+    setSearchType("movie");
   }
 
   function goBack() {
-    history.back();
+    history.goBack();
   }
 
 
