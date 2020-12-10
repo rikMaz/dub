@@ -45,6 +45,5 @@ const PageLayout = styled.div`
   display: grid;
   grid-template-rows: 100px 1fr;
   height: 100vh;
-  width: 100vw;
   background-color: #333;
 `;

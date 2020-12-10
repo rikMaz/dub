@@ -15,9 +15,6 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "black",
     height: 100,
     width: 100,
-    position: "absolute",
-    top: "420px",
-    left: "240px",
   },
 
   buttonCheck: {
@@ -27,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "black",
     height: 100,
     width: 100,
-    position: "absolute",
-    top: "420px",
-    left: "10px",
   },
 
   buttonIcon: {
@@ -57,14 +51,14 @@ export default function ImagePreview() {
 
           <DivWrapper>
             <ImgStyled alt="ActorImage" src={inputImageUrl} height="525px" width="350px"/>
-            <div>
+            <ButtenGroupStyled>
               <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={recognize}>
                 <CheckIcon className={classes.buttonIcon}/>
               </Fab>
               <Fab className={classes.buttonClose} aria-label="closeIcon" onClick={onCancel}>
                 <CloseIcon className={classes.buttonIcon}/>
               </Fab>
-            </div>
+            </ButtenGroupStyled>
           </DivWrapper>
 
         </MainImageStyled>
@@ -86,6 +80,16 @@ export default function ImagePreview() {
 
 }
 
+const ButtenGroupStyled = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  grid-gap: 90px;
+  align-items: center;
+  position: absolute;
+  top: 420px;
+  left: 30px;
+`;
 
 const HeaderStyled = styled.div`
   display: grid;
