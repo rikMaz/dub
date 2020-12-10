@@ -234,8 +234,7 @@ const HeaderStyled = styled.div`
 const HeaderCrewStyled = styled.div`
   display: grid;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
 `;
 
 const MainStyled = styled.div`
