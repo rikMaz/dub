@@ -12,7 +12,7 @@ import useAudio from "../hooks/useAudio";
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
     color: 'black',
-    background: 'red',
+    background: 'grey',
     border: "2px solid",
     borderColor: "black",
     height: 100,
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
   buttonCheck: {
     color: 'black',
-    background: 'green',
+    background: 'teal',
     border: "2px solid",
     borderColor: "black",
     height: 100,
@@ -64,6 +64,8 @@ export default function AudioPreview() {
 
           <DivFlex>
 
+
+
             <ReactAudioPlayer
               src={inputAudioUrl}
               autoPlay
@@ -102,8 +104,7 @@ export default function AudioPreview() {
 const HeaderStyled = styled.div`
   display: grid;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
 `;
 
 const TitleStyled = styled.div`

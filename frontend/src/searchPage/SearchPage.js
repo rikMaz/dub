@@ -216,6 +216,7 @@ export default function SearchPage() {
 
         case "actor":
           getActors(previousSearch);
+          setSearchPlaceholder("actors...");
           break;
 
         case "voiceactor":
