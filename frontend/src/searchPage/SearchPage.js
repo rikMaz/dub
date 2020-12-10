@@ -265,7 +265,7 @@ const MainStyled = styled.div`
 `;
 
 const Input = styled.input`
-  font-size: 16px;
+  font-size: 0.9em;
   border: none;
   width: 150px;
   border-radius: 50px;
