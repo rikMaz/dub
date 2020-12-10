@@ -1,5 +1,11 @@
 package de.neuefische.rikardo.dub.service;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
@@ -23,6 +29,16 @@ import java.util.List;
 @Service
 public class AwsService {
 
+    @Value("${aws.access.key:defaultApiKeyPlaceholder}")
+    private String amazonAWSAccessKey;
+
+    @Value("${aws.secret.key:defaultApiKeyPlaceholder}")
+    private String amazonAWSSecretKey;
+
+    @Value("${aws.region:defaultApiKeyPlaceholder}")
+    private String amazonAWSRegion;
+
+
 
     public String upload(MultipartFile file) throws IOException {
 
@@ -30,7 +46,9 @@ public class AwsService {
         InputStream resizeImageInputStream = file.getInputStream();
         String photo = file.getOriginalFilename();
 
-        AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
+        //AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
+
+        AmazonRekognition rekognitionClient = amazonRekognition();
 
         ByteBuffer imageBytes=null;
         try (InputStream inputStream = resizeImageInputStream) {
@@ -83,6 +101,19 @@ public class AwsService {
 
         return baos;
     }
+
+    public AmazonRekognition amazonRekognition() {
+
+        AWSCredentialsProvider credentialsProvider = amazonAWSAccessKey == null || amazonAWSAccessKey.isBlank() ?
+
+                new InstanceProfileCredentialsProvider(true) :
+                new AWSStaticCredentialsProvider(new BasicAWSCredentials(amazonAWSAccessKey, amazonAWSSecretKey));
+        return AmazonRekognitionClientBuilder.standard()
+                .withCredentials(credentialsProvider)
+                .withRegion(Regions.fromName(amazonAWSRegion))
+                .build();
+    }
+
 
 
 }

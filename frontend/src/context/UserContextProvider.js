@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import UserContext from './UserContext';
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import {
   loadTokenFromLocalStorage,
@@ -8,6 +7,7 @@ import {
   saveTokenToLocalStorage,
   saveUserDataToLocalStorage,
 } from '../service/LocalStorage';
+import {axiosClient} from "../service/axiosClient";
 
 export default function UserContextProvider({ children }) {
   const [token, setToken] = useState(loadTokenFromLocalStorage());
@@ -32,7 +32,7 @@ export default function UserContextProvider({ children }) {
     token && userData?.exp > new Date().getTime() / 1000;
 
   const loginWithUserCredentials = (loginData) =>
-    axios
+    axiosClient
       .post('/auth/login', loginData)
       .then((response) => setToken(response.data));
 
