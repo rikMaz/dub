@@ -192,7 +192,7 @@ export default function HomePage() {
                 <input
                   hidden
                   id={"contained-button-file"}
-                  accept={"audio/*"}
+                  accept={"audio/*, .m4a"}
                   type={"file"}
                   onChange={onAudioUpload}
                 />
