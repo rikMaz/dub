@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import SearchContext from "../context/SearchContext";
@@ -11,6 +11,13 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputBase from "@material-ui/core/InputBase";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ClearIcon from '@material-ui/icons/Clear';
+import IconButton from "@material-ui/core/IconButton";
+import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
+import PersonIcon from '@material-ui/icons/Person';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import HomeIcon from "@material-ui/icons/Home";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -39,19 +46,26 @@ const BootstrapInput = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
 
-  searchButton: {
+  button: {
     color: 'black',
     background: 'white',
-    height: 39,
-    width: 39,
+    height: 43,
+    width: 43,
   },
-  searchIcon: {
+  icon: {
     color: 'black',
     height: 20,
     width: 20,
   },
   itemPadding: {
-    padding: "10px",
+    paddingLeft: "6px",
+    paddingRight: "6px",
+  },
+  iconButton: {
+    padding: 0
+  },
+  formControl: {
+    padding: 0
   }
 
 }));
@@ -59,9 +73,23 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPage() {
   const classes = useStyles();
   const history = useHistory();
-  const {name,setName,getActors,searchType, setSearchType,getMovies,getVoiceActors,getMovieCrew} = useContext(SearchContext);
+  const {name,setName,getActors,searchType, setSearchItems, setSearchType,getMovies,getVoiceActors,getMovieCrew} = useContext(SearchContext);
+  const [searchPlaceholder,setSearchPlaceholder] = useState("movies...")
   const handleChange = (event) => {
     setSearchType(event.target.value);
+    switch (event.target.value) {
+      case "movie":
+        setSearchPlaceholder("movies...")
+        break;
+      case "actor":
+        setSearchPlaceholder("actors...")
+        break;
+      case "voiceactor":
+        setSearchPlaceholder("voice actors...")
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -76,28 +104,37 @@ export default function SearchPage() {
       {searchType !== "crew" &&
         <HeaderStyled>
 
-          <div className={classes.itemPadding}>
+          <div>
+            <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+              <ArrowBackIcon className={classes.icon}/>
+            </Fab>
+          </div>
+
+          <div>
             <FormControl>
               <Select
                 value={searchType}
                 onChange={handleChange}
                 input={<BootstrapInput/>}
               >
-                <MenuItem value={"movie"}>Movie</MenuItem>
-                <MenuItem value={"actor"}>Actor</MenuItem>
-                <MenuItem value={"voiceactor"}>Voice Actor</MenuItem>
+                <MenuItem value={"movie"}><LocalMoviesIcon className={classes.icon}/></MenuItem>
+                <MenuItem value={"actor"}><PersonIcon className={classes.icon}/></MenuItem>
+                <MenuItem value={"voiceactor"}><RecordVoiceOverIcon className={classes.icon}/></MenuItem>
               </Select>
             </FormControl>
           </div>
 
-          <div>
-            <Input name="name" value={name} type="text" placeholder="Search..."
+          <SearchbarStyled>
+            <Input name="name" value={name} type="text" placeholder={searchPlaceholder}
                    onChange={event => setName(event.target.value)}/>
-          </div>
+            <IconButton className={classes.iconButton} aria-label="clear" onClick={clear}>
+              <ClearIcon className={classes.icon}/>
+            </IconButton>
+          </SearchbarStyled>
 
-          <div className={classes.itemPadding}>
-            <Fab className={classes.searchButton} aria-label="searchIcon" onClick={onSearch}>
-              <SearchIcon className={classes.searchIcon}/>
+          <div>
+            <Fab className={classes.button} aria-label="searchIcon" onClick={onSearch}>
+              <SearchIcon className={classes.icon}/>
             </Fab>
           </div>
 
@@ -105,7 +142,19 @@ export default function SearchPage() {
       }
       {searchType === "crew" &&
         <HeaderCrewStyled>
-            <NameStyled>{name}</NameStyled>
+          <div>
+            <Fab className={classes.button} aria-label="goBack" onClick={goBack}>
+              <ArrowBackIcon className={classes.icon}/>
+            </Fab>
+          </div>
+
+          <NameStyled>{name}</NameStyled>
+
+          <div>
+            <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+              <HomeIcon className={classes.icon}/>
+            </Fab>
+          </div>
         </HeaderCrewStyled>
       }
 
@@ -116,11 +165,21 @@ export default function SearchPage() {
     </>)
 
 
- /* function goHome() {
+  function goHome() {
     history.push("/");
     setName("");
     setSearchItems([]);
-  }*/
+  }
+
+ function clear() {
+    //history.push("/search");
+    setName("");
+    setSearchItems([]);
+  }
+
+  function goBack() {
+    history.goBack();
+  }
 
   function onSearch() {
     console.log(searchType);
@@ -157,6 +216,7 @@ export default function SearchPage() {
 
         case "actor":
           getActors(previousSearch);
+          setSearchPlaceholder("actors...");
           break;
 
         case "voiceactor":
@@ -164,7 +224,7 @@ export default function SearchPage() {
           break;
 
         case "crew":
-          setName(previousSearch);
+          setName(previousSearch.replace("%20"," "));
           getMovieCrew(currentPath[4]);
           break;
 
@@ -179,19 +239,23 @@ export default function SearchPage() {
 }
 
 const HeaderStyled = styled.div`
-  /*display: grid;
-  grid-template-columns: min-content min-content min-content;*/
   display: flex;
-  justify-items: start;
+  flex-direction: row;
   align-items: center;
-  padding-top: 10px;
+  align-content: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
+
 
 const HeaderCrewStyled = styled.div`
   display: grid;
+  grid-template-columns: min-content 1fr min-content;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const MainStyled = styled.div`
@@ -201,18 +265,26 @@ const MainStyled = styled.div`
 `;
 
 const Input = styled.input`
-  font-size: 16px;
-  padding: 9px;
-  background: white;
+  font-size: 0.9em;
   border: none;
+  width: 150px;
   border-radius: 50px;
   ::placeholder {
     color: black;
   }
 `;
 
+const SearchbarStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 9px;
+  background: white;
+  height: 43px;
+  border-radius: 50px;
+`;
+
+
 const NameStyled = styled.div`
   font-size: 1.4em;
-  padding-top: 20px;
   color: white;
 `;

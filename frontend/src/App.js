@@ -18,7 +18,7 @@ function App() {
   return (
     <UserContextProvider>
       <SearchContextProvider>
-        <AppStyled>
+        <PageLayout>
           <Switch>
             <Route path="/login" component={LoginPage} />
             <ProtectedRoute path="/home" component={HomePage}/>
@@ -33,7 +33,7 @@ function App() {
               <Redirect to="/home"/>
             </Route>
           </Switch>
-        </AppStyled>
+        </PageLayout>
       </SearchContextProvider>
     </UserContextProvider>
   );
@@ -41,11 +41,9 @@ function App() {
 
 export default App;
 
-const AppStyled = styled.div`
+const PageLayout = styled.div`
   display: grid;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: 100px 1fr;
   height: 100vh;
-  background-size: cover;
   background-color: #333;
-  overflow: scroll;
 `;

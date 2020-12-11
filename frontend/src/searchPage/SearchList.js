@@ -23,8 +23,8 @@ export default function SearchList() {
 const StyledList = styled.ul`
   overflow: scroll;
   margin: 0;
-  padding: 40px;
-
+  padding-top: 10px;
+  padding-left: 0px;
   list-style: none;
 
   display: grid;

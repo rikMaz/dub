@@ -1,18 +1,55 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useHistory} from "react-router-dom";
 import useActor from "../hooks/useActor";
 import SearchItem from "../searchPage/SearchItem";
 import styled from 'styled-components/macro';
+import Fab from "@material-ui/core/Fab";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import HomeIcon from "@material-ui/icons/Home";
+import {makeStyles} from "@material-ui/core/styles";
+import SearchContext from "../context/SearchContext";
+
+const useStyles = makeStyles((theme) => ({
+
+  button: {
+    color: 'black',
+    background: 'white',
+    height: 43,
+    width: 43,
+  },
+  icon: {
+    color: 'black',
+    height: 20,
+    width: 20,
+  }
+
+}));
+
 
 export default function ActorPage() {
   const history = useHistory();
+  const {setName,setSearchItems,setSearchType} = useContext(SearchContext);
   const [actor] = useActor();
-
+  const classes = useStyles();
 
   return (
     <>
       <HeaderStyled>
+
+        <div>
+          <Fab className={classes.button} aria-label="goBack" onClick={goBack}>
+            <ArrowBackIcon className={classes.icon}/>
+          </Fab>
+        </div>
+
         <NameStyled>{actor?.name}</NameStyled>
+
+        <div>
+          <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+            <HomeIcon className={classes.icon}/>
+          </Fab>
+        </div>
+
       </HeaderStyled>
 
       <MainStyled>
@@ -52,13 +89,13 @@ export default function ActorPage() {
           </InfosStyled>
 
 
-          <ListStyled>
+          <MovieListStyled>
             {actor?.movies.map((listItem) =>
               <li key={listItem.id}>
                 <SearchItem searchItem={listItem}/>
               </li>
             )}
-          </ListStyled>
+          </MovieListStyled>
 
       </MainStyled>
 
@@ -69,18 +106,30 @@ export default function ActorPage() {
     history.push(`/details/voiceactor/${actor?.voiceActors[0].id}`);
   }
 
+  function goHome() {
+    history.push("/");
+    setName("");
+    setSearchItems([]);
+    setSearchType("movie");
+  }
+
+  function goBack() {
+    history.goBack();
+  }
+
 }
 
 const HeaderStyled = styled.div`
   display: grid;
+  grid-template-columns: min-content 1fr min-content;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const NameStyled = styled.div`
   font-size: 1.4em;
-  padding-top: 20px;
   color: white;
 `;
 
@@ -92,7 +141,7 @@ const ImgVoiceActorStyled = styled.img`
   border: 2px solid white;
   border-radius: 10px;
   position: absolute;
-  top: 395px;
+  top: 365px;
   left: 225px;
 `;
 
@@ -104,7 +153,7 @@ const MainStyled = styled.div`
 `;
 
 const DivWrapper = styled.div`
-  padding-top: 40px;
+  padding-top: 10px;
   position: relative;
 `;
 
@@ -123,6 +172,15 @@ padding: 5px;
 list-style: none;
 `;
 
+const MovieListStyled = styled.ul`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+  list-style: none;
+  gap: var(--size-xxl);
+`;
+
 const ListItemStyled = styled.li`
 padding: 10px;
 `;
@@ -133,7 +191,7 @@ const NameVoiceActorStyled = styled.div`
   background: white;
   border-radius: 0px 0px 5px 5px;
   position: absolute;
-  top: 535px;
+  top: 505px;
   left: 225px;
   white-space: nowrap;
 `;

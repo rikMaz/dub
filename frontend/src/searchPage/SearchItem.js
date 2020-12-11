@@ -18,7 +18,10 @@ export default function SearchItem({searchItem}){
 
               :
 
-              <NameStyled>{searchItem.name}, {searchItem.character}</NameStyled>
+              <ActorNamesStyled>
+                <ActorNameStyled>{searchItem.name}</ActorNameStyled>
+                <ActorCharacterStyled>{searchItem.character}</ActorCharacterStyled>
+              </ActorNamesStyled>
           }
         </>
         }
@@ -51,6 +54,39 @@ const NameStyled = styled.div`
   top: 475px;
   left: 10px;
 `;
+
+
+const ActorNamesStyled = styled.div`
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-content: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 475px;
+  left: 10px;
+`;
+
+const ActorNameStyled = styled.div`
+  font-size: 0.8em;
+  padding: 9px;
+  background: white;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  white-space: nowrap;
+
+`;
+
+const ActorCharacterStyled = styled.div`
+  font-size: 0.8em;
+  padding: 9px;
+  background: #333;
+  color: white;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+  white-space: nowrap;
+`;
+
 
 const DivWrapper = styled.div`
   position: relative;

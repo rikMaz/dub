@@ -12,7 +12,7 @@ import useAudio from "../hooks/useAudio";
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
     color: 'black',
-    background: 'red',
+    background: 'grey',
     border: "2px solid",
     borderColor: "black",
     height: 100,
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
   buttonCheck: {
     color: 'black',
-    background: 'green',
+    background: 'teal',
     border: "2px solid",
     borderColor: "black",
     height: 100,
@@ -62,7 +62,7 @@ export default function AudioPreview() {
           <ErrorMessageStyled>Couldn't identify speaker!</ErrorMessageStyled>
           }
 
-          <DivFlex>
+          <DivGrid>
 
             <ReactAudioPlayer
               src={inputAudioUrl}
@@ -79,7 +79,7 @@ export default function AudioPreview() {
               </Fab>
             </ButtonGroupGridStyled>
 
-          </DivFlex>
+          </DivGrid>
 
         </MainStyled>
 
@@ -102,8 +102,7 @@ export default function AudioPreview() {
 const HeaderStyled = styled.div`
   display: grid;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
 `;
 
 const TitleStyled = styled.div`
@@ -124,9 +123,10 @@ const MainStyled = styled.div`
   align-content: center;
 `;
 
-const DivFlex = styled.div`
-  display: flex;
-  flex-direction: column;
+const DivGrid = styled.div`
+  display: grid;
+  //flex-direction: column;
+  grid-template-rows: 1fr 1fr;
   justify-items: center;
   align-items: center;
 `;
@@ -135,6 +135,6 @@ const ButtonGroupGridStyled = styled.div`
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  gap: 90px;
   justify-content: center;
 `;

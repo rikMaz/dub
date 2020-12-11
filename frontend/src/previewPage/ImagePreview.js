@@ -10,26 +10,20 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
     color: 'black',
-    background: 'red',
+    background: 'grey',
     border: "2px solid",
     borderColor: "black",
     height: 100,
     width: 100,
-    position: "absolute",
-    top: "450px",
-    left: "240px",
   },
 
   buttonCheck: {
     color: 'black',
-    background: 'green',
+    background: 'teal',
     border: "2px solid",
     borderColor: "black",
     height: 100,
     width: 100,
-    position: "absolute",
-    top: "450px",
-    left: "10px",
   },
 
   buttonIcon: {
@@ -57,14 +51,14 @@ export default function ImagePreview() {
 
           <DivWrapper>
             <ImgStyled alt="ActorImage" src={inputImageUrl} height="525px" width="350px"/>
-            <div>
+            <ButtenGroupStyled>
               <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={recognize}>
                 <CheckIcon className={classes.buttonIcon}/>
               </Fab>
               <Fab className={classes.buttonClose} aria-label="closeIcon" onClick={onCancel}>
                 <CloseIcon className={classes.buttonIcon}/>
               </Fab>
-            </div>
+            </ButtenGroupStyled>
           </DivWrapper>
 
         </MainImageStyled>
@@ -86,17 +80,25 @@ export default function ImagePreview() {
 
 }
 
+const ButtenGroupStyled = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  grid-gap: 90px;
+  align-items: center;
+  position: absolute;
+  top: 420px;
+  left: 30px;
+`;
 
 const HeaderStyled = styled.div`
   display: grid;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
 `;
 
 const NameStyled = styled.div`
   font-size: 1.4em;
-  padding-top: 20px;
   color: white;
 `;
 
@@ -116,6 +118,6 @@ const MainImageStyled = styled.div`
 `;
 
 const DivWrapper = styled.div`
-  padding-top: 40px;
+  padding-top: 10px;
   position: relative;
 `;
