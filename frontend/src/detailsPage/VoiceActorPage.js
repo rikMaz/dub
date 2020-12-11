@@ -32,7 +32,7 @@ export default function VoiceActorPage() {
   const {setName,setSearchItems,setSearchType} = useContext(SearchContext);
 
   return (
-    <>
+    <PageLayout>
 
       <HeaderStyled>
 
@@ -86,7 +86,7 @@ export default function VoiceActorPage() {
         </ListStyled>
 
       </MainStyled>
-    </>
+    </PageLayout>
   )
 
   function goHome() {
@@ -101,6 +101,13 @@ export default function VoiceActorPage() {
   }
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 
 const HeaderStyled = styled.div`

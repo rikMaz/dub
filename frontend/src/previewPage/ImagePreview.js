@@ -56,7 +56,7 @@ export default function ImagePreview() {
   };
 
   return (
-    <>
+    <PageLayout>
 
       <HeaderStyled>
         <NameStyled>Image Upload</NameStyled>
@@ -84,7 +84,7 @@ export default function ImagePreview() {
       </MainStyled>
 
 
-      </>
+      </PageLayout>
   )
 
   function onCancel() {
@@ -99,6 +99,13 @@ export default function ImagePreview() {
   }
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const ButtenGroupStyled = styled.div`
   display: grid;

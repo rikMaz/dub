@@ -50,7 +50,7 @@ export default function Camera() {
   const [camera,setCamera] = useState(0);
 
   return (
-    <>
+    <PageLayout>
 
       <HeaderStyled>
         <TitleStyled>Take a photo</TitleStyled>
@@ -77,7 +77,7 @@ export default function Camera() {
         </ButtonGroupGridStyled>
       </ButtonGroupPositionStyled>
 
-      </>
+      </PageLayout>
   )
 
   function onCapture() {
@@ -103,6 +103,13 @@ export default function Camera() {
   }
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const HeaderStyled = styled.div`
   display: grid;

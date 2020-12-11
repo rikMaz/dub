@@ -119,7 +119,7 @@ export default function HomePage() {
 
 
   return (
-    <>
+    <PageLayout>
       <HeaderStyled>
 
         <IconButton aria-label="recent">
@@ -220,7 +220,7 @@ export default function HomePage() {
 
       </MainStyled>
 
-    </>
+    </PageLayout>
   )
 
 
@@ -295,6 +295,13 @@ export default function HomePage() {
   }
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const HeaderStyled = styled.header`
   display: flex;

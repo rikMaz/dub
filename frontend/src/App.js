@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components/macro";
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from "./homePage/HomePage";
 import SearchContextProvider from "./context/SearchContextProvider";
@@ -18,7 +17,6 @@ function App() {
   return (
     <UserContextProvider>
       <SearchContextProvider>
-        <PageLayout>
           <Switch>
             <Route path="/login" component={LoginPage} />
             <ProtectedRoute path="/home" component={HomePage}/>
@@ -33,17 +31,9 @@ function App() {
               <Redirect to="/home"/>
             </Route>
           </Switch>
-        </PageLayout>
       </SearchContextProvider>
     </UserContextProvider>
   );
 }
 
 export default App;
-
-const PageLayout = styled.div`
-  display: grid;
-  grid-template-rows: 100px 1fr;
-  height: 100vh;
-  background-color: #333;
-`;

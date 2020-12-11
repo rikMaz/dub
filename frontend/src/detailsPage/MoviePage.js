@@ -49,7 +49,7 @@ export default function MoviePage() {
   })
 
   return (
-    <>
+    <PageLayout>
       <HeaderStyled>
 
         <div>
@@ -113,7 +113,7 @@ export default function MoviePage() {
           </ListStyled>
         </InfosStyled>
       </MainStyled>
-    </>
+    </PageLayout>
   )
 
   function getCrew() {
@@ -135,6 +135,13 @@ export default function MoviePage() {
 
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const HeaderStyled = styled.div`
   display: grid;

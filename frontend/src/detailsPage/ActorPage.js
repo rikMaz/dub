@@ -33,7 +33,7 @@ export default function ActorPage() {
   const classes = useStyles();
 
   return (
-    <>
+    <PageLayout>
       <HeaderStyled>
 
         <div>
@@ -99,7 +99,7 @@ export default function ActorPage() {
 
       </MainStyled>
 
-    </>
+    </PageLayout>
   )
 
   function onImageClick() {
@@ -118,6 +118,13 @@ export default function ActorPage() {
   }
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const HeaderStyled = styled.div`
   display: grid;

@@ -61,7 +61,7 @@ export default function AudioPreview() {
 
 
   return (
-      <>
+      <PageLayout>
         <HeaderStyled>
           <TitleStyled>Audio Upload</TitleStyled>
         </HeaderStyled>
@@ -95,7 +95,7 @@ export default function AudioPreview() {
 
         </MainStyled>
 
-      </>
+      </PageLayout>
   )
 
 
@@ -110,6 +110,13 @@ export default function AudioPreview() {
   }
 
 }
+
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const HeaderStyled = styled.div`
   display: grid;

@@ -32,7 +32,7 @@ export default function LoginPage() {
   }, []);
 
   return (
-    <>
+    <PageLayout>
       <MobileViewWrapper>
         {windowDimensions.width <= 375 &&
           <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%" />
@@ -71,7 +71,7 @@ export default function LoginPage() {
 
         </MobileViewGrid>
       </MobileViewWrapper>
-    </>
+    </PageLayout>
   );
 
   function handleSubmit(event) {
@@ -86,6 +86,12 @@ export default function LoginPage() {
   }
 }
 
+const PageLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  height: 100vh;
+  background-color: #333;
+`;
 
 const MobileViewWrapper = styled.div`
 position: relative;
