@@ -6,6 +6,8 @@ import Fab from "@material-ui/core/Fab";
 import {makeStyles} from "@material-ui/core/styles";
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
@@ -30,7 +32,14 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     height: 50,
     width: 50
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  loading: {
+    color: "teal"
+  },
 
 }));
 
@@ -38,6 +47,13 @@ export default function ImagePreview() {
   const classes = useStyles();
   const history = useHistory();
   const {inputImageUrl,inputImage,recognizeCelebrity,setSearchType} = useContext(SearchContext);
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   return (
     <>
@@ -51,6 +67,9 @@ export default function ImagePreview() {
 
           <DivWrapper>
             <ImgStyled alt="ActorImage" src={inputImageUrl} height="525px" width="350px"/>
+            <Backdrop className={classes.backdrop} open={open}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <ButtenGroupStyled>
               <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={recognize}>
                 <CheckIcon className={classes.buttonIcon}/>
@@ -73,9 +92,10 @@ export default function ImagePreview() {
   }
 
   function recognize() {
+    handleToggle();
     console.log(inputImage);
     setSearchType("Actors");
-    recognizeCelebrity(inputImage);
+    recognizeCelebrity(inputImage).then(() => handleClose());
   }
 
 }

@@ -34,7 +34,7 @@ export default function LoginPage() {
   return (
     <>
       <MobileViewWrapper>
-        {windowDimensions.width <= 500 &&
+        {windowDimensions.width <= 375 &&
           <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%" />
         }
 
