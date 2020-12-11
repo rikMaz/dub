@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "dub",
+  "name": "dub - Who's speaking?",
   "icons": [
     {
       "src": "favicon.ico",
