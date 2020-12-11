@@ -8,6 +8,8 @@ import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
 import useAudio from "../hooks/useAudio";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
@@ -17,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "black",
     height: 100,
     width: 100,
-    /*position: "absolute",
-    top: "150px",
-    left: "190px",*/
   },
 
   buttonCheck: {
@@ -29,16 +28,20 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "black",
     height: 100,
     width: 100,
-    /*position: "absolute",
-    top: "150px",
-    left: "10px",*/
   },
 
   buttonIcon: {
     color: "black",
     height: 50,
     width: 50
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  loading: {
+    color: "teal"
+  },
 
 }));
 
@@ -48,6 +51,13 @@ export default function AudioPreview() {
   const history = useHistory();
   const {inputAudio,inputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
   const [error] = useAudio();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
 
   return (
@@ -69,7 +79,9 @@ export default function AudioPreview() {
               autoPlay
               controls
             />
-
+            <Backdrop className={classes.backdrop} open={open}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <ButtonGroupGridStyled>
               <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={identify}>
                 <CheckIcon className={classes.buttonIcon}/>
@@ -92,10 +104,10 @@ export default function AudioPreview() {
   }
 
   function identify() {
+    handleToggle();
     console.log(inputAudio);
-    identifyVoiceActor(inputAudio);
+    identifyVoiceActor(inputAudio).then(() => handleClose());
   }
-
 
 }
 
