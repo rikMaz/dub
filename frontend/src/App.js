@@ -1,17 +1,18 @@
 import React from "react";
 import { Route, Switch, Redirect } from 'react-router-dom';
-import HomePage from "./homePage/HomePage";
-import SearchContextProvider from "./context/SearchContextProvider";
-import SearchPage from "./searchPage/SearchPage";
-import MoviePage from "./detailsPage/MoviePage";
-import ActorPage from "./detailsPage/ActorPage";
-import ImagePreview from "./previewPage/ImagePreview";
-import VoiceActorPage from "./detailsPage/VoiceActorPage";
-import Camera from "./camera/Camera";
-import AudioPreview from "./previewPage/AudioPreview";
-import UserContextProvider from "./context/UserContextProvider";
-import ProtectedRoute from './routing/ProtectedRoute';
-import LoginPage from "./loginPage/LoginPage";
+import UserContextProvider from "./tech/context/UserContextProvider";
+import SearchContextProvider from "./tech/context/SearchContextProvider";
+import ProtectedRoute from "./tech/routing/ProtectedRoute";
+import LoginPage from "./pages/loginPage/LoginPage";
+import HomePage from "./pages/homePage/HomePage";
+import SearchPage from "./pages/searchPage/SearchPage";
+import MoviePage from "./pages/detailsPage/MoviePage";
+import ActorPage from "./pages/detailsPage/ActorPage";
+import VoiceActorPage from "./pages/detailsPage/VoiceActorPage";
+import ImagePreview from "./pages/previewPage/ImagePreview";
+import AudioPreview from "./pages/previewPage/AudioPreview";
+import CameraPage from "./pages/cameraPage/CameraPage";
+
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
             <ProtectedRoute path="/details/voiceactor/:id" component={VoiceActorPage}/>
             <ProtectedRoute path="/image" component={ImagePreview}/>
             <ProtectedRoute path="/audio" component={AudioPreview}/>
-            <ProtectedRoute path="/camera" component={Camera}/>
+            <ProtectedRoute path="/camera" component={CameraPage}/>
             <Route path="/">
               <Redirect to="/home"/>
             </Route>

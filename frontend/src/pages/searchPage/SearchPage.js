@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
-import SearchContext from "../context/SearchContext";
 import styled from "styled-components/macro";
 import SearchIcon from "@material-ui/icons/Search";
 import Fab from "@material-ui/core/Fab";
@@ -18,6 +17,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import HomeIcon from "@material-ui/icons/Home";
+import SearchContext from "../../tech/context/SearchContext";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {

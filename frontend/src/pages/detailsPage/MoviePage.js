@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
-import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
-import useMovie from "../hooks/useMovie";
 import styled from 'styled-components/macro';
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import HomeIcon from '@material-ui/icons/Home';
+import SearchContext from "../../tech/context/SearchContext";
+import useMovie from "../../tech/hooks/useMovie";
 
 const useStyles = makeStyles((theme) => ({
 

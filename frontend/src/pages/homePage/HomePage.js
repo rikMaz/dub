@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
 import { useHistory } from 'react-router-dom';
-import SearchContext from "../context/SearchContext";
 import RecordRTC from "recordrtc";
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -17,6 +16,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import SearchContext from "../../tech/context/SearchContext";
 
 
 const useStyles = makeStyles((theme) => ({

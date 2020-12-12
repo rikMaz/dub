@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
 import SearchItem from "../searchPage/SearchItem";
-import useVoiceActor from "../hooks/useVoiceActor";
 import styled from 'styled-components/macro';
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import HomeIcon from "@material-ui/icons/Home";
 import {makeStyles} from "@material-ui/core/styles";
-import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
+import useVoiceActor from "../../tech/hooks/useVoiceActor";
+import SearchContext from "../../tech/context/SearchContext";
 
 const useStyles = makeStyles((theme) => ({
 

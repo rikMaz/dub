@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 import styled from 'styled-components/macro';
 import Fab from "@material-ui/core/Fab";
@@ -8,6 +7,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import SearchContext from "../../tech/context/SearchContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {

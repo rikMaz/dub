@@ -1,15 +1,15 @@
 import React, {useContext} from "react";
 import ReactAudioPlayer from "react-audio-player";
 import styled from 'styled-components/macro';
-import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
-import useAudio from "../hooks/useAudio";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+import useAudio from "../../tech/hooks/useAudio";
+import SearchContext from "../../tech/context/SearchContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {

@@ -11,6 +11,8 @@ export default createGlobalStyle`
    --size-l: 16px;
    --size-xl: 24px;
    --size-xxl: 32px;
+   
+   --border-round: 50px;
   }
   
   * {

@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
 import Webcam from "react-webcam";
-import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 import styled from 'styled-components/macro';
 import Fab from "@material-ui/core/Fab";
@@ -8,6 +7,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
 import SwitchCameraIcon from '@material-ui/icons/SwitchCamera';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import SearchContext from "../../tech/context/SearchContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonSwitch: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Camera() {
+export default function CameraPage() {
   const classes = useStyles();
   const history = useHistory();
   const webcamRef = React.useRef(null);
