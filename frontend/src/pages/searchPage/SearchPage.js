@@ -1,15 +1,18 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import { useHistory } from 'react-router-dom';
 import SearchList from "./SearchList";
 import styled from "styled-components/macro";
-import SearchIcon from "@material-ui/icons/Search";
-import Fab from "@material-ui/core/Fab";
+import SearchContext from "../../tech/context/SearchContext";
+
+
 import {makeStyles} from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Select from "@material-ui/core/Select";
+import Fab from "@material-ui/core/Fab";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputBase from "@material-ui/core/InputBase";
-import withStyles from "@material-ui/core/styles/withStyles";
+import FormControl from "@material-ui/core/FormControl";
+import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from "@material-ui/core/IconButton";
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
@@ -17,7 +20,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import HomeIcon from "@material-ui/icons/Home";
-import SearchContext from "../../tech/context/SearchContext";
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -45,7 +47,6 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
-
   button: {
     color: 'black',
     background: 'white',
@@ -73,8 +74,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchPage() {
   const classes = useStyles();
   const history = useHistory();
-  const {name,setName,getActors,searchType, setSearchItems, setSearchType,getMovies,getVoiceActors,getMovieCrew} = useContext(SearchContext);
-  const [searchPlaceholder,setSearchPlaceholder] = useState("movies...")
+  const {name,setName,searchType,setSearchType,setSearchItems,searchPlaceholder,setSearchPlaceholder,onSearch,onRefresh} = useContext(SearchContext);
+
   const handleChange = (event) => {
     setSearchType(event.target.value);
     switch (event.target.value) {
@@ -104,57 +105,44 @@ export default function SearchPage() {
       {searchType !== "crew" &&
         <HeaderStyled>
 
-          <div>
-            <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
-              <ArrowBackIcon className={classes.icon}/>
-            </Fab>
-          </div>
+          <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+            <ArrowBackIcon className={classes.icon}/>
+          </Fab>
 
-          <div>
-            <FormControl>
-              <Select
-                value={searchType}
-                onChange={handleChange}
-                input={<BootstrapInput/>}
-              >
-                <MenuItem value={"movie"}><LocalMoviesIcon className={classes.icon}/></MenuItem>
-                <MenuItem value={"actor"}><PersonIcon className={classes.icon}/></MenuItem>
-                <MenuItem value={"voiceactor"}><RecordVoiceOverIcon className={classes.icon}/></MenuItem>
-              </Select>
-            </FormControl>
-          </div>
+          <FormControl>
+            <Select value={searchType} onChange={handleChange} input={<BootstrapInput/>}>
+              <MenuItem value={"movie"}><LocalMoviesIcon className={classes.icon}/></MenuItem>
+              <MenuItem value={"actor"}><PersonIcon className={classes.icon}/></MenuItem>
+              <MenuItem value={"voiceactor"}><RecordVoiceOverIcon className={classes.icon}/></MenuItem>
+            </Select>
+          </FormControl>
 
           <SearchbarStyled>
-            <Input name="name" value={name} type="text" placeholder={searchPlaceholder}
-                   onChange={event => setName(event.target.value)}/>
+            <Input name="name" value={name} type="text" placeholder={searchPlaceholder} onChange={event => setName(event.target.value)}/>
             <IconButton className={classes.iconButton} aria-label="clear" onClick={clear}>
               <ClearIcon className={classes.icon}/>
             </IconButton>
           </SearchbarStyled>
 
-          <div>
-            <Fab className={classes.button} aria-label="searchIcon" onClick={onSearch}>
-              <SearchIcon className={classes.icon}/>
-            </Fab>
-          </div>
+          <Fab className={classes.button} aria-label="searchIcon" onClick={onSearch}>
+            <SearchIcon className={classes.icon}/>
+          </Fab>
 
         </HeaderStyled>
       }
       {searchType === "crew" &&
         <HeaderCrewStyled>
-          <div>
-            <Fab className={classes.button} aria-label="goBack" onClick={goBack}>
-              <ArrowBackIcon className={classes.icon}/>
-            </Fab>
-          </div>
+
+          <Fab className={classes.button} aria-label="goBack" onClick={goBack}>
+            <ArrowBackIcon className={classes.icon}/>
+          </Fab>
 
           <NameStyled>{name}</NameStyled>
 
-          <div>
-            <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
-              <HomeIcon className={classes.icon}/>
-            </Fab>
-          </div>
+          <Fab className={classes.button} aria-label="goHome" onClick={goHome}>
+            <HomeIcon className={classes.icon}/>
+          </Fab>
+
         </HeaderCrewStyled>
       }
 
@@ -172,7 +160,6 @@ export default function SearchPage() {
   }
 
  function clear() {
-    //history.push("/search");
     setName("");
     setSearchItems([]);
   }
@@ -181,68 +168,12 @@ export default function SearchPage() {
     history.goBack();
   }
 
-  function onSearch() {
-    console.log(searchType);
-    switch (searchType) {
-
-      case "movie":
-        getMovies(name).then(() => history.push(`/search/${searchType}/${name}`));
-        break;
-
-      case "actor":
-        getActors(name).then(() => history.push(`/search/${searchType}/${name}`));
-        break;
-
-      case "voiceactor":
-        getVoiceActors(name).then(() => history.push(`/search/${searchType}/${name}`));
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  function onRefresh() {
-
-    let currentPath = window.location.pathname.split("/");
-    if (currentPath.length > 2) {
-      const previousSearch = currentPath[3].replace("%20", " ");
-      setSearchType(currentPath[2]);
-      switch (currentPath[2]) {
-
-        case "movie":
-          getMovies(previousSearch);
-          break;
-
-        case "actor":
-          getActors(previousSearch);
-          setSearchPlaceholder("actors...");
-          break;
-
-        case "voiceactor":
-          getVoiceActors(previousSearch);
-          break;
-
-        case "crew":
-          setName(previousSearch.replace("%20"," "));
-          getMovieCrew(currentPath[4]);
-          break;
-
-        default:
-          break;
-
-      }
-    }
-  }
-
-
 }
 
 const PageLayout = styled.div`
   display: grid;
   grid-template-rows: 100px 1fr;
   height: 100vh;
-  background-color: #333;
 `;
 
 const HeaderStyled = styled.div`
@@ -254,7 +185,6 @@ const HeaderStyled = styled.div`
   padding-left: 10px;
   padding-right: 10px;
 `;
-
 
 const HeaderCrewStyled = styled.div`
   display: grid;
@@ -289,7 +219,6 @@ const SearchbarStyled = styled.div`
   height: 43px;
   border-radius: 50px;
 `;
-
 
 const NameStyled = styled.div`
   font-size: 1.4em;

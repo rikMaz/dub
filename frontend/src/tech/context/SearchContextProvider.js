@@ -32,6 +32,7 @@ export default function SearchContextProvider({children}) {
   const [inputAudio,setInputAudio] = useState();
   const [inputAudioUrl,setInputAudioUrl] = useState();
   const [audioBlob,setAudioBlob] = useState();
+  const [searchPlaceholder,setSearchPlaceholder] = useState("movies...")
 
   const getMovies = (name) =>
     getMoviesByName(name,token).then((item) => setSearchItems(item));
@@ -66,9 +67,63 @@ export default function SearchContextProvider({children}) {
   const getVoiceActor = (name) =>
     getVoiceActorById(name,token).then((item) => setVoiceActor(item));
 
+  function onSearch() {
+    console.log(searchType);
+    switch (searchType) {
+
+      case "movie":
+        getMovies(name).then(() => history.push(`/search/${searchType}/${name}`));
+        break;
+
+      case "actor":
+        getActors(name).then(() => history.push(`/search/${searchType}/${name}`));
+        break;
+
+      case "voiceactor":
+        getVoiceActors(name).then(() => history.push(`/search/${searchType}/${name}`));
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  async function onRefresh() {
+
+    let currentPath = window.location.pathname.split("/");
+    if (currentPath.length > 2) {
+      const previousSearch = currentPath[3].replace("%20", " ");
+      setSearchType(currentPath[2]);
+      switch (currentPath[2]) {
+
+        case "movie":
+          await getMovies(previousSearch);
+          break;
+
+        case "actor":
+          await getActors(previousSearch);
+          setSearchPlaceholder("actors...");
+          break;
+
+        case "voiceactor":
+          await getVoiceActors(previousSearch);
+          break;
+
+        case "crew":
+          setName(previousSearch.replace("%20"," "));
+          await getMovieCrew(currentPath[4]);
+          break;
+
+        default:
+          break;
+
+      }
+    }
+  }
 
   return (
     <SearchContext.Provider value={{
+      searchPlaceholder,setSearchPlaceholder,
       audioBlob,setAudioBlob,
       inputAudioUrl,setInputAudioUrl,
       inputAudio,setInputAudio,
@@ -92,6 +147,8 @@ export default function SearchContextProvider({children}) {
       setSearchItems,
       searchType,
       setSearchType,
+      onSearch,
+      onRefresh,
       getVoiceActor,
       getVoiceActors,
       getActors,
