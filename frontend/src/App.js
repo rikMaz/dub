@@ -12,12 +12,14 @@ import VoiceActorPage from "./pages/detailsPage/VoiceActorPage";
 import ImagePreview from "./pages/previewPage/ImagePreview";
 import AudioPreview from "./pages/previewPage/AudioPreview";
 import CameraPage from "./pages/cameraPage/CameraPage";
+import UploadContextProvider from "./tech/context/UploadContextProvider";
 
 
 function App() {
   return (
     <UserContextProvider>
-      <SearchContextProvider>
+      <UploadContextProvider>
+        <SearchContextProvider>
           <Switch>
             <Route path="/login" component={LoginPage} />
             <ProtectedRoute path="/home" component={HomePage}/>
@@ -32,7 +34,8 @@ function App() {
               <Redirect to="/home"/>
             </Route>
           </Switch>
-      </SearchContextProvider>
+        </SearchContextProvider>
+      </UploadContextProvider>
     </UserContextProvider>
   );
 }

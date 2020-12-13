@@ -1,11 +1,12 @@
 import React, {useContext, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components/macro";
+import UploadContext from "../../tech/context/UploadContext";
 
 import {makeStyles} from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import SearchContext from "../../tech/context/SearchContext";
+
 
 
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CameraButton() {
   const classes = useStyles();
   const history = useHistory();
-  const {setDevices} = useContext(SearchContext);
+  const {setDevices} = useContext(UploadContext);
 
   const handleDevices = React.useCallback(
     mediaDevices =>

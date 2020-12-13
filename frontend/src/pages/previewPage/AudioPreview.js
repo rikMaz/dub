@@ -9,7 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import useAudio from "../../tech/hooks/useAudio";
-import SearchContext from "../../tech/context/SearchContext";
+import UploadContext from "../../tech/context/UploadContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AudioPreview() {
   const classes = useStyles();
   const history = useHistory();
-  const {inputAudio,inputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+  const {inputAudio,inputAudioUrl,identifyVoiceActor} = useContext(UploadContext);
   const [error] = useAudio();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {

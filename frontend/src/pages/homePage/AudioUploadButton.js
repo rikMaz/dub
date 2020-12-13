@@ -1,11 +1,12 @@
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import SearchContext from "../../tech/context/SearchContext";
+import UploadContext from "../../tech/context/UploadContext";
 import styled from "styled-components/macro";
 
 import {makeStyles} from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AudiotrackIcon from "@material-ui/icons/Audiotrack";
+
 
 
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AudioUploadButton() {
   const classes = useStyles();
   const history = useHistory();
-  const {setInputAudio,setInputAudioUrl} = useContext(SearchContext);
+  const {setInputAudio,setInputAudioUrl} = useContext(UploadContext);
 
   return (
     <ComponentLayout>

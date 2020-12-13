@@ -8,6 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import SearchContext from "../../tech/context/SearchContext";
+import UploadContext from "../../tech/context/UploadContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
@@ -46,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 export default function ImagePreview() {
   const classes = useStyles();
   const history = useHistory();
-  const {inputImageUrl,inputImage,recognizeCelebrity,setSearchType} = useContext(SearchContext);
+  const {setSearchType} = useContext(SearchContext);
+  const {inputImageUrl,inputImage,recognizeCelebrity} = useContext(UploadContext);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);

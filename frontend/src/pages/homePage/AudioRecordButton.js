@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import SearchContext from "../../tech/context/SearchContext";
+import UploadContext from "../../tech/context/UploadContext";
 import styled from "styled-components/macro";
 import RecordRTC from "recordrtc";
 
@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import MicIcon from "@material-ui/icons/Mic";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AudioRecordButton({actionType}) {
   const classes = useStyles();
-  const {setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(SearchContext);
+  const {setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(UploadContext);
   const [description,setDescription] = useState("Tap to identify speaker");
   const [loadingType,setLoadingTyp] = useState(0)
   const [taskStatus, setTaskStatus] = useState(0);

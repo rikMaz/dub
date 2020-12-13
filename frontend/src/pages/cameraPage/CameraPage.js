@@ -7,7 +7,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import {makeStyles} from "@material-ui/core/styles";
 import SwitchCameraIcon from '@material-ui/icons/SwitchCamera';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import SearchContext from "../../tech/context/SearchContext";
+import UploadContext from "../../tech/context/UploadContext";
 
 const useStyles = makeStyles((theme) => ({
   buttonSwitch: {
@@ -46,7 +46,7 @@ export default function CameraPage() {
   const classes = useStyles();
   const history = useHistory();
   const webcamRef = React.useRef(null);
-  const {setInputImage,setInputImageUrl,devices} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl,devices} = useContext(UploadContext);
   const [camera,setCamera] = useState(0);
 
   return (

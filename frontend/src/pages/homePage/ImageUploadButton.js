@@ -1,11 +1,12 @@
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import SearchContext from "../../tech/context/SearchContext";
+import UploadContext from "../../tech/context/UploadContext";
 import styled from "styled-components/macro";
 
 import Fab from "@material-ui/core/Fab";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import {makeStyles} from "@material-ui/core/styles";
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ImageUploadButton() {
   const classes = useStyles();
   const history = useHistory();
-  const {setInputImage,setInputImageUrl} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl} = useContext(UploadContext);
 
   return (
     <ComponentLayout>

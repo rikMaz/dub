@@ -49,4 +49,5 @@ const MainImageStyled = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  padding-top: 10px;
 `;
