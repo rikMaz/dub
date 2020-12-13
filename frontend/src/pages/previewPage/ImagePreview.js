@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
 import {useHistory} from "react-router-dom";
 import styled from 'styled-components/macro';
-import Fab from "@material-ui/core/Fab";
-import {makeStyles} from "@material-ui/core/styles";
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import SearchContext from "../../tech/context/SearchContext";
 import UploadContext from "../../tech/context/UploadContext";
+
+import {makeStyles} from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fab from "@material-ui/core/Fab";
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   buttonClose: {
@@ -19,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     height: 100,
     width: 100,
   },
-
   buttonCheck: {
     color: 'black',
     background: 'teal',
@@ -28,8 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: 100,
     width: 100,
   },
-
-  buttonIcon: {
+  icon: {
     color: "black",
     height: 50,
     width: 50
@@ -37,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
-  },
-  loading: {
-    color: "teal"
   },
 
 }));
@@ -60,32 +56,24 @@ export default function ImagePreview() {
   return (
     <PageLayout>
 
-      <HeaderStyled>
-        <NameStyled>Image Upload</NameStyled>
-      </HeaderStyled>
+        <TitleStyled>Image Upload</TitleStyled>
 
-      <MainStyled>
-        <MainImageStyled>
+        <ImageWrapper>
+          <ImgStyled alt="ActorImage" src={inputImageUrl} height="525px" width="350px"/>
 
-          <DivWrapper>
-            <ImgStyled alt="ActorImage" src={inputImageUrl} height="525px" width="350px"/>
-            <Backdrop className={classes.backdrop} open={open}>
-              <CircularProgress color="inherit" />
-            </Backdrop>
-            <ButtenGroupStyled>
-              <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={recognize}>
-                <CheckIcon className={classes.buttonIcon}/>
-              </Fab>
-              <Fab className={classes.buttonClose} aria-label="closeIcon" onClick={onCancel}>
-                <CloseIcon className={classes.buttonIcon}/>
-              </Fab>
-            </ButtenGroupStyled>
-          </DivWrapper>
+          <ButtenGroupStyled>
+            <Fab className={classes.buttonCheck} aria-label="buttonCheck" onClick={recognize}>
+              <CheckIcon className={classes.icon}/>
+            </Fab>
+            <Fab className={classes.buttonClose} aria-label="closeIcon" onClick={onCancel}>
+              <CloseIcon className={classes.icon}/>
+            </Fab>
+          </ButtenGroupStyled>
+        </ImageWrapper>
 
-        </MainImageStyled>
-      </MainStyled>
-
-
+        <Backdrop className={classes.backdrop} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </PageLayout>
   )
 
@@ -107,6 +95,21 @@ const PageLayout = styled.div`
   grid-template-rows: 100px 1fr;
   height: 100vh;
   background-color: #333;
+  justify-items: center;
+  align-items: center;
+`;
+
+const TitleStyled = styled.div`
+  font-size: 1.4em;
+  color: white;
+`;
+
+const ImgStyled = styled.img`
+  border-radius: 10px;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
 `;
 
 const ButtenGroupStyled = styled.div`
@@ -116,37 +119,6 @@ const ButtenGroupStyled = styled.div`
   grid-gap: 90px;
   align-items: center;
   position: absolute;
-  top: 420px;
+  top: 400px;
   left: 30px;
-`;
-
-const HeaderStyled = styled.div`
-  display: grid;
-  justify-items: center;
-  align-items: center;
-`;
-
-const NameStyled = styled.div`
-  font-size: 1.4em;
-  color: white;
-`;
-
-const ImgStyled = styled.img`
-  border-radius: 10px;
-`;
-
-const MainStyled = styled.div`
-  display: grid;
-  grid-template-rows: min-content;
-`;
-
-const MainImageStyled = styled.div`
-  display: grid;
-  justify-items: center;
-  align-items: center;
-`;
-
-const DivWrapper = styled.div`
-  padding-top: 10px;
-  position: relative;
 `;
