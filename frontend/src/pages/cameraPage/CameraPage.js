@@ -1,15 +1,16 @@
 import React, {useContext, useState} from "react";
 import Webcam from "react-webcam";
-import SearchContext from "../context/SearchContext";
 import {useHistory} from "react-router-dom";
 import styled from 'styled-components/macro';
+import UploadContext from "../../tech/context/UploadContext";
+
+import {makeStyles} from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import CloseIcon from "@material-ui/icons/Close";
-import {makeStyles} from "@material-ui/core/styles";
 import SwitchCameraIcon from '@material-ui/icons/SwitchCamera';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   buttonSwitch: {
     color: 'black',
     background: 'grey',
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     height: 100,
     width: 100,
   },
-  buttonIcon: {
+  icon: {
     color: "black",
     height: 50,
     width: 50
@@ -42,42 +43,35 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Camera() {
+export default function CameraPage() {
   const classes = useStyles();
   const history = useHistory();
   const webcamRef = React.useRef(null);
-  const {setInputImage,setInputImageUrl,devices} = useContext(SearchContext);
+  const {setInputImage,setInputImageUrl,devices} = useContext(UploadContext);
   const [camera,setCamera] = useState(0);
 
   return (
-    <>
+    <PageLayout>
 
-      <HeaderStyled>
-        <TitleStyled>Take a photo</TitleStyled>
-      </HeaderStyled>
+      <TitleStyled>Take a photo</TitleStyled>
 
-      <MainStyled>
+      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" videoConstraints={{ deviceId: devices[camera].deviceId}} height={"400px"} width={"100%"}/>
 
-          <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" videoConstraints={{ deviceId: devices[camera].deviceId}} height={"400px"} width={"100%"}/>
-
-
-      </MainStyled>
-
-      <ButtonGroupPositionStyled>
-        <ButtonGroupGridStyled>
+      <ButtonGroupWrapper>
+        <ButtonGroupStyled>
           <Fab className={classes.buttonSwitch} aria-label="switchCameraIcon" onClick={onCameraSwitch}>
-            <SwitchCameraIcon className={classes.buttonIcon}/>
+            <SwitchCameraIcon className={classes.icon}/>
           </Fab>
           <Fab className={classes.buttonCapture} aria-label="photoCameraIcon" onClick={onCapture}>
-            <PhotoCameraIcon className={classes.buttonIcon}/>
+            <PhotoCameraIcon className={classes.icon}/>
           </Fab>
           <Fab className={classes.buttonClose} aria-label="closeIcon" onClick={onCancel}>
-            <CloseIcon className={classes.buttonIcon}/>
+            <CloseIcon className={classes.icon}/>
           </Fab>
-        </ButtonGroupGridStyled>
-      </ButtonGroupPositionStyled>
+        </ButtonGroupStyled>
+      </ButtonGroupWrapper>
 
-      </>
+      </PageLayout>
   )
 
   function onCapture() {
@@ -104,11 +98,13 @@ export default function Camera() {
 
 }
 
-const HeaderStyled = styled.div`
+const PageLayout = styled.div`
   display: grid;
+  grid-template-rows: 100px 1fr 200px;
+  height: 100vh;
+  background-color: #333;
   justify-items: center;
-  align-items: end;
-  padding-top: 20px;
+  align-items: center;
 `;
 
 const TitleStyled = styled.div`
@@ -117,14 +113,7 @@ const TitleStyled = styled.div`
   color: white;
 `;
 
-const MainStyled = styled.div`
-  display: grid;
-  justify-items: center;
-  grid-template-rows: min-content;
-`;
-
-const ButtonGroupPositionStyled = styled.div`
-  
+const ButtonGroupWrapper = styled.div`
   display: grid;
   justify-items: center;
   position: absolute;
@@ -132,7 +121,7 @@ const ButtonGroupPositionStyled = styled.div`
   width: 100%;
 `;
 
-const ButtonGroupGridStyled = styled.div`
+const ButtonGroupStyled = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;

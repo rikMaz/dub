@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import SearchContext from "../context/SearchContext";
 import styled from 'styled-components/macro';
 import SearchItem from "./SearchItem";
+import SearchContext from "../../tech/context/SearchContext";
 
 
 export default function SearchList() {

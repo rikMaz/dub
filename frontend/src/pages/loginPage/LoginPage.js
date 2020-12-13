@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components/macro';
-import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
+import UserContext from "../../tech/context/UserContext";
 
 const emptyCredentials = {
   username: '',
@@ -32,13 +32,13 @@ export default function LoginPage() {
   }, []);
 
   return (
-    <>
-      <MobileViewWrapper>
+    <PageLayout>
+
         {windowDimensions.width <= 375 &&
           <ImgStyled alt="movies" src="/background_movies.jpg" height="667px" width="100%" />
         }
 
-        <MobileViewGrid>
+        <ForegroundGrid>
 
           <HeaderStyled>
             <TitleStyled>dub</TitleStyled>
@@ -46,32 +46,14 @@ export default function LoginPage() {
           </HeaderStyled>
 
           <Form onSubmit={handleSubmit}>
-            <label>
-              Username
-              <input
-                name="username"
-                value={credentials.username}
-                onChange={handleChange}
-                type="text"
-              />
-            </label>
-            <label>
-              Password
-              <input
-                name="password"
-                value={credentials.password}
-                onChange={handleChange}
-                type="password"
-              />
-            </label>
+            <label>Username<input name="username" value={credentials.username} onChange={handleChange} type="text"/></label>
+            <label>Password<input name="password" value={credentials.password} onChange={handleChange} type="password"/></label>
             {error && <p>{error}</p>}
             <button>Login</button>
           </Form>
 
-
-        </MobileViewGrid>
-      </MobileViewWrapper>
-    </>
+        </ForegroundGrid>
+    </PageLayout>
   );
 
   function handleSubmit(event) {
@@ -86,11 +68,9 @@ export default function LoginPage() {
   }
 }
 
-
-const MobileViewWrapper = styled.div`
-position: relative;
+const PageLayout = styled.div`
+  position: relative;
 `;
-
 
 const ImgStyled = styled.img`
   position: absolute;
@@ -123,7 +103,7 @@ const Form = styled.form`
 
   input {
     display: block;
-    border-radius: 50px;
+    border-radius: var(--border-round);
     border: none;
     width: 300px;
   }
@@ -135,14 +115,14 @@ const Form = styled.form`
     color: white;
     border-radius: var(--size-s);
     font-size: 1em;
-    font-weight: 600;
+    font-weight: bold;
   }
 `;
 
-const MobileViewGrid = styled.div`
+const ForegroundGrid = styled.div`
   position: absolute;
-  width: 100%;
   display: grid;
+  width: 100%;
   height: 100vh;
   grid-template-rows: 1fr 1fr;
   justify-content: center;
