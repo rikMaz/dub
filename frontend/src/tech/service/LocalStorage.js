@@ -20,3 +20,8 @@ export const loadUserDataFromLocalStorage = () => {
 export const saveUserDataToLocalStorage = (userData) => {
   localStorage.setItem(USER_DATA, JSON.stringify(userData));
 };
+
+export const deleteTokenFromLocalStorage = () => {
+  localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem(USER_DATA);
+}
