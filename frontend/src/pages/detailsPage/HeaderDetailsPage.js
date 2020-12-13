@@ -8,7 +8,7 @@ import SearchContext from "../../tech/context/SearchContext";
 import {useHistory} from "react-router-dom";
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 
   button: {
     color: 'black',

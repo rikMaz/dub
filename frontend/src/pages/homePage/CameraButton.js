@@ -10,7 +10,7 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   button: {
     color: 'black',
     background: 'white',

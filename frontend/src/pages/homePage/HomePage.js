@@ -15,7 +15,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   backwardArrow: {
     position: "absolute",
     top: 166,

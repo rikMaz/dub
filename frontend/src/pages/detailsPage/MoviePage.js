@@ -9,7 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SearchContext from "../../tech/context/SearchContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 
   crewButton: {
     color: 'black',

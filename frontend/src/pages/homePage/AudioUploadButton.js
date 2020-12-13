@@ -10,7 +10,7 @@ import AudiotrackIcon from "@material-ui/icons/Audiotrack";
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   button: {
     color: 'black',
     background: 'white',

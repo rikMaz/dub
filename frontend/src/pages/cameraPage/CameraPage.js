@@ -10,7 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import SwitchCameraIcon from '@material-ui/icons/SwitchCamera';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   buttonSwitch: {
     color: 'black',
     background: 'grey',

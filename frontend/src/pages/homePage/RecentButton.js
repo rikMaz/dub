@@ -7,7 +7,7 @@ import {Typography} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   icon: {
     color: 'white',
   },

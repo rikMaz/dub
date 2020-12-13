@@ -7,7 +7,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import {Typography} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   icon: {
     color: 'white',
   },

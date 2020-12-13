@@ -6,7 +6,7 @@ import Fab from "@material-ui/core/Fab";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   button: {
     color: 'black',
     background: 'white',

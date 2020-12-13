@@ -46,7 +46,7 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   button: {
     color: 'black',
     background: 'white',
