@@ -34,19 +34,19 @@ export default function AudioRecordButton({actionType}) {
   const classes = useStyles();
   const {setInputAudio,setInputAudioUrl,identifyVoiceActor} = useContext(UploadContext);
   const [description,setDescription] = useState("Tap to identify speaker");
-  const [loadingType,setLoadingTyp] = useState(0)
-  const [taskStatus, setTaskStatus] = useState(0);
+  const [loading,setLoading] = useState(false)
+  const [taskStatus, setTaskStatus] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
 
-    if (taskStatus === 1) {
+    if (taskStatus) {
       const timer = setInterval(() => {
         const nextProgress = progress + 4;
 
         if (nextProgress > 100) {
           clearInterval(timer);
-          setLoadingTyp(1);
+          setLoading(true);
           setDescription("identifying speaker...")
         } else {
           setProgress(nextProgress);
@@ -61,8 +61,8 @@ export default function AudioRecordButton({actionType}) {
   },[progress,taskStatus])
 
   useEffect(() => {
-    setLoadingTyp(0);
-    setTaskStatus(0);
+    setLoading(false);
+    setTaskStatus(false);
     setProgress(0);
     // eslint-disable-next-line
   },[actionType])
@@ -71,8 +71,8 @@ export default function AudioRecordButton({actionType}) {
     <ComponentLayout>
       <DescriptionStyled>{description}</DescriptionStyled>
       <CircularProgressStyled>
-        {loadingType === 0 && <CircularProgress className={classes.circularProgress} size={140} variant="determinate" value={progress}/>}
-        {loadingType === 1 && <CircularProgress className={classes.circularProgress} size={140}/>}
+        {!loading && <CircularProgress className={classes.circularProgress} size={140} variant="determinate" value={progress}/>}
+        {loading && <CircularProgress className={classes.circularProgress} size={140}/>}
         <Fab className={classes.button} aria-label="micIcon" onClick={onRecordAudio}>
           <MicIcon className={classes.icon}/>
         </Fab>
@@ -81,7 +81,7 @@ export default function AudioRecordButton({actionType}) {
   )
 
   function onRecordAudio(){
-    setTaskStatus(1);
+    setTaskStatus(true);
     setDescription("recording speaker...")
     const StereoAudioRecorder = require('recordrtc').StereoAudioRecorder
     navigator.mediaDevices.getUserMedia({
@@ -101,7 +101,6 @@ export default function AudioRecordButton({actionType}) {
         const file = new File([blob],"recorded_audio", {type : "audio/wav"})
         setInputAudio(file);
         setInputAudioUrl(URL.createObjectURL(file))
-        //invokeSaveAsDialog(blob, 'audio.wav')
         identifyVoiceActor(file);
       });
     });
@@ -110,17 +109,18 @@ export default function AudioRecordButton({actionType}) {
 }
 
 const ComponentLayout = styled.div`
-display: grid;
-grid-template-rows: min-content min-content;
-justify-items: center;
-grid-gap: 50px;
-`;
-
-const CircularProgressStyled = styled.div`
-position: relative;
+  display: grid;
+  grid-template-rows: min-content min-content;
+  justify-items: center;
+  grid-gap: 50px;
 `;
 
 const DescriptionStyled = styled.div`
   color: white;
   font-size: 1.4em;
 `;
+
+const CircularProgressStyled = styled.div`
+  position: relative;
+`;
+
