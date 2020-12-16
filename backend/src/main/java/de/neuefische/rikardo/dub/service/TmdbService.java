@@ -22,49 +22,38 @@ public class TmdbService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<TmdbMovie> getTmdbMoviesByName(String name) {
-        ResponseEntity<TmdbMovieList> response = restTemplate.getForEntity(buildApiUrl(true,false,false,name,"","movie"), TmdbMovieList.class);
+        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=" + name;
+        ResponseEntity<TmdbMovieList> response = restTemplate.getForEntity(url, TmdbMovieList.class);
         return response.getBody().getMovies();
     }
 
     public List<TmdbActor> getTmdbActorsByName(String name) {
-        ResponseEntity<TmdbActorList> response = restTemplate.getForEntity(buildApiUrl(true,false,false,name,"","person"), TmdbActorList.class);
+        String url = "https://api.themoviedb.org/3/search/person?api_key=" + apiKey + "&query=" + name;
+        ResponseEntity<TmdbActorList> response = restTemplate.getForEntity(url, TmdbActorList.class);
         return response.getBody().getActors();
     }
 
     public TmdbActor getTmdbActorById(String id) {
-        ResponseEntity<TmdbActor> response = restTemplate.getForEntity(buildApiUrl(false,false,false,"",id,"person"), TmdbActor.class);
+        String url = "https://api.themoviedb.org/3/person/" + id + "?api_key=" + apiKey;
+        ResponseEntity<TmdbActor> response = restTemplate.getForEntity(url, TmdbActor.class);
         return response.getBody();
     }
 
     public List<TmdbMovie> getTmdbActorMovieCreditsById(String id) {
-        ResponseEntity<TmdbActorMovieCredits> response = restTemplate.getForEntity(buildApiUrl(false,false,true,"",id,"person"), TmdbActorMovieCredits.class);
+        String url = "https://api.themoviedb.org/3/person/" + id + "/movie_credits?api_key=" + apiKey;
+        ResponseEntity<TmdbActorMovieCredits> response = restTemplate.getForEntity(url, TmdbActorMovieCredits.class);
         return response.getBody().getMovieList();
     }
 
     public TmdbMovie getTmdbMovieById(String id) {
-        ResponseEntity<TmdbMovie> response = restTemplate.getForEntity(buildApiUrl(false,false,false,"",id,"movie"), TmdbMovie.class);
+        String url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + apiKey;
+        ResponseEntity<TmdbMovie> response = restTemplate.getForEntity(url, TmdbMovie.class);
         return response.getBody();
     }
 
     public List<TmdbActor> getTmdbMovieCrewById(String id) {
-        ResponseEntity<TmdbMovieCrew> response = restTemplate.getForEntity(buildApiUrl(false,true,false,"",id,"movie"), TmdbMovieCrew.class);
+        String url = "https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + apiKey;
+        ResponseEntity<TmdbMovieCrew> response = restTemplate.getForEntity(url, TmdbMovieCrew.class);
         return response.getBody().getMovieCrew();
-    }
-
-    public String buildApiUrl(Boolean doSearchByName, Boolean lookingForCrew, Boolean lookingForMovieCredits, String name, String id,String type) {
-        String apiUrl = "https://api.themoviedb.org/3/";
-        String apiKeyQuery = "?api_key=";
-        String nameQuery = "&query=";
-        String crewQuery = "/credits";
-        if (doSearchByName) {
-            return apiUrl + "search" + "/" + type + apiKeyQuery + apiKey + nameQuery + name.toLowerCase();
-        }
-        if (lookingForCrew) {
-            return apiUrl + type + "/" + id + crewQuery + apiKeyQuery + apiKey;
-        }
-        if (lookingForMovieCredits) {
-            return apiUrl + type + "/" + id + "/movie_credits" + apiKeyQuery + apiKey;
-        }
-        return apiUrl + type + "/" + id + apiKeyQuery + apiKey;
     }
 }
