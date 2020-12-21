@@ -39,15 +39,6 @@ public class DbService {
         return voiceActorPreviews;
     }
 
-    public VoiceActorPreview getVoiceActorPreviewById(String id) {
-        VoiceActor voiceActor = voiceActorMongoDb.findAllById(id);
-        return new VoiceActorPreview(
-                voiceActor.getId(),
-                voiceActor.getName(),
-                voiceActor.getImage(),
-                voiceActor.getType());
-    }
-
 
     public VoiceActor getVoiceActorById(String id) {
         VoiceActor voiceActor = voiceActorMongoDb.findAllById(id);
