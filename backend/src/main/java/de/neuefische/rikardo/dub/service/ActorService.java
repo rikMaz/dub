@@ -29,24 +29,18 @@ public class ActorService {
 
     public List<ActorPreview> getActorPreviewsByName(String name) {
 
-        List<ActorPreview> actors = new ArrayList<>();
-        List<TmdbActor> tmdbActors = tmdbService.getTmdbActorsByName(name)
+        return tmdbService.getTmdbActorsByName(name)
                 .stream()
                 .filter(item -> item.getProfile_path() != null)
                 .filter(item -> item.getKnown_for_department().equals("Acting"))
+                .map(tmdbActor -> ActorPreview.builder()
+                        .id(tmdbActor.getId())
+                        .name(tmdbActor.getName())
+                        .character(tmdbActor.getCharacter())
+                        .image(tmdbUrlPath + tmdbActor.getProfile_path())
+                        .type("actor")
+                        .build())
                 .collect(Collectors.toList());
-
-        for (TmdbActor tmdbActor : tmdbActors) {
-            ActorPreview actorPreview = new ActorPreview(
-                    tmdbActor.getId(),
-                    tmdbActor.getName(),
-                    tmdbActor.getCharacter(),
-                    tmdbUrlPath + tmdbActor.getProfile_path(),
-                    "actor");
-            actors.add(actorPreview);
-        }
-
-        return actors;
     }
 
 
