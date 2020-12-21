@@ -81,6 +81,6 @@ const NameVoiceActorStyled = styled.div`
   border-radius: 0px 0px 5px 5px;
   position: absolute;
   top: 505px;
-  left: 225px;
+  left: 227.5px;
   white-space: nowrap;
 `;
