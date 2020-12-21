@@ -21,9 +21,10 @@ import static org.mockito.Mockito.*;
 class ActorServiceTest {
 
     final TmdbService tmdbService = mock(TmdbService.class);
+    final MovieService movieService = mock(MovieService.class);
     final VoiceActorMongoDb voiceActorMongoDb = mock(VoiceActorMongoDb.class);
 
-    final ActorService actorService = new ActorService(tmdbService, voiceActorMongoDb);
+    final ActorService actorService = new ActorService(tmdbService, movieService, voiceActorMongoDb);
 
     TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));

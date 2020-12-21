@@ -25,23 +25,33 @@ public class MovieService {
 
     public List<MoviePreview> getMoviePreviewsByName(String name) {
 
-        List<MoviePreview> moviePreviews = new ArrayList<>();
-        List<TmdbMovie> tmdbMovies = tmdbService.getTmdbMoviesByName(name)
+        return tmdbService.getTmdbMoviesByName(name)
                 .stream()
                 .filter(item -> item.getPoster_path() != null)
+                .map(tmdbMovie -> MoviePreview.builder()
+                        .id(tmdbMovie.getId())
+                        .name(tmdbMovie.getTitle())
+                        .image(tmdbUrlPath + tmdbMovie.getPoster_path())
+                        .type("movie")
+                        .build())
                 .collect(Collectors.toList());
-
-        for (TmdbMovie tmdbMovie : tmdbMovies) {
-            MoviePreview moviePreview = new MoviePreview(
-                    tmdbMovie.getId(),
-                    tmdbMovie.getTitle(),
-                    tmdbUrlPath + tmdbMovie.getPoster_path(),
-                    "movie");
-            moviePreviews.add(moviePreview);
-        }
-
-        return moviePreviews;
     }
+
+    public List<MoviePreview> getMoviePreviewsById(String id) {
+
+        return tmdbService.getTmdbActorMovieCreditsById(id)
+                .stream()
+                .filter(item -> item.getPoster_path() != null)
+                .map(tmdbMovie -> MoviePreview.builder()
+                        .id(tmdbMovie.getId())
+                        .name(tmdbMovie.getTitle())
+                        .image(tmdbUrlPath + tmdbMovie.getPoster_path())
+                        .type("movie")
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+
 
     public Movie getMovieById(String id) {
         TmdbMovie tmdbMovie = tmdbService.getTmdbMovieById(id);

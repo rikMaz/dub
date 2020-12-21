@@ -18,12 +18,14 @@ import java.util.stream.Collectors;
 public class ActorService {
 
     private final TmdbService tmdbService;
+    private final MovieService movieService;
     private final VoiceActorMongoDb voiceActorMongoDb;
 
     private final String tmdbUrlPath = "https://image.tmdb.org/t/p/w500";
 
-    public ActorService(TmdbService tmdbService, VoiceActorMongoDb voiceActorMongoDb) {
+    public ActorService(TmdbService tmdbService, MovieService movieService, VoiceActorMongoDb voiceActorMongoDb) {
         this.tmdbService = tmdbService;
+        this.movieService = movieService;
         this.voiceActorMongoDb = voiceActorMongoDb;
     }
 
@@ -47,46 +49,31 @@ public class ActorService {
     public ActorPreview getActorPreviewById(String id) {
 
         TmdbActor tmdbActor = tmdbService.getTmdbActorById(id);
-        return new ActorPreview(
-                        tmdbActor.getId(),
-                        tmdbActor.getName(),
-                        tmdbActor.getCharacter(),
-                    tmdbUrlPath + tmdbActor.getProfile_path(),
-                    "actor");
+
+        return ActorPreview.builder()
+                .id(tmdbActor.getId())
+                .name(tmdbActor.getName())
+                .character(tmdbActor.getCharacter())
+                .image(tmdbUrlPath + tmdbActor.getProfile_path())
+                .type("actor").build();
     }
 
     public Actor getActorById(String id) {
+
         TmdbActor tmdbActor = tmdbService.getTmdbActorById(id);
 
-        List<VoiceActorPreview> voiceActorPreviews = getVoiceActorPreviewsByIdOfActor(id);
-
-        List<MoviePreview> moviePreviews = new ArrayList<>();
-        List<TmdbMovie> tmdbMovies = tmdbService.getTmdbActorMovieCreditsById(id)
-                .stream()
-                .filter(item -> item.getPoster_path() != null)
-                .collect(Collectors.toList());
-
-        for (TmdbMovie tmdbMovie : tmdbMovies) {
-            MoviePreview moviePreview = new MoviePreview(
-                    tmdbMovie.getId(),
-                    tmdbMovie.getTitle(),
-                    tmdbUrlPath + tmdbMovie.getPoster_path(),
-                    "movie");
-            moviePreviews.add(moviePreview);
-        }
-
-
-        return new Actor(
-                tmdbActor.getId(),
-                tmdbActor.getName(),
-                tmdbUrlPath + tmdbActor.getProfile_path(),
-                tmdbActor.getCharacter(),
-                tmdbActor.getBiography(),
-                tmdbActor.getBirthday(),
-                tmdbActor.getPlace_of_birth(),
-                "actor",
-                moviePreviews,
-                voiceActorPreviews);
+        return Actor.builder()
+                .id(tmdbActor.getId())
+                .name(tmdbActor.getName())
+                .image(tmdbUrlPath + tmdbActor.getProfile_path())
+                .character(tmdbActor.getCharacter())
+                .biography(tmdbActor.getBiography())
+                .birthday(tmdbActor.getBirthday())
+                .placeOfBirth(tmdbActor.getPlace_of_birth())
+                .type("actor")
+                .movies(movieService.getMoviePreviewsById(id))
+                .voiceActors(getVoiceActorPreviewsByIdOfActor(id))
+                .build();
     }
 
 
@@ -100,17 +87,18 @@ public class ActorService {
             for (ActorPreview actorPreview: voiceActor.getActors()) {
 
                 if(actorPreview.getId().equals(id)) {
-                    VoiceActorPreview voiceActorPreview = new VoiceActorPreview(
-                            voiceActor.getId(),
-                            voiceActor.getName(),
-                            voiceActor.getImage(),
-                            voiceActor.getType());
-                    voiceActorPreviews.add(voiceActorPreview);
+                    voiceActorPreviews.add(VoiceActorPreview.builder()
+                            .id(voiceActor.getId())
+                            .name(voiceActor.getName())
+                            .image(voiceActor.getImage())
+                            .type(voiceActor.getType())
+                            .build());
                     break;
                 }
             }
         }
         return voiceActorPreviews;
+
     }
 
 }
