@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TmdbService {
@@ -24,13 +25,13 @@ public class TmdbService {
     public List<TmdbMovie> getTmdbMoviesByName(String name) {
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=" + name;
         ResponseEntity<TmdbMovieList> response = restTemplate.getForEntity(url, TmdbMovieList.class);
-        return response.getBody().getMovies();
+        return Objects.requireNonNull(response.getBody()).getMovies();
     }
 
     public List<TmdbActor> getTmdbActorsByName(String name) {
         String url = "https://api.themoviedb.org/3/search/person?api_key=" + apiKey + "&query=" + name;
         ResponseEntity<TmdbActorList> response = restTemplate.getForEntity(url, TmdbActorList.class);
-        return response.getBody().getActors();
+        return Objects.requireNonNull(response.getBody()).getActors();
     }
 
     public TmdbActor getTmdbActorById(String id) {
@@ -42,7 +43,7 @@ public class TmdbService {
     public List<TmdbMovie> getTmdbActorMovieCreditsById(String id) {
         String url = "https://api.themoviedb.org/3/person/" + id + "/movie_credits?api_key=" + apiKey;
         ResponseEntity<TmdbActorMovieCredits> response = restTemplate.getForEntity(url, TmdbActorMovieCredits.class);
-        return response.getBody().getMovieList();
+        return Objects.requireNonNull(response.getBody()).getMovieList();
     }
 
     public TmdbMovie getTmdbMovieById(String id) {
@@ -54,6 +55,6 @@ public class TmdbService {
     public List<TmdbActor> getTmdbMovieCrewById(String id) {
         String url = "https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + apiKey;
         ResponseEntity<TmdbMovieCrew> response = restTemplate.getForEntity(url, TmdbMovieCrew.class);
-        return response.getBody().getMovieCrew();
+        return Objects.requireNonNull(response.getBody()).getMovieCrew();
     }
 }

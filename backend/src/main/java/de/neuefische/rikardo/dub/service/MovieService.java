@@ -51,8 +51,6 @@ public class MovieService {
                 .collect(Collectors.toList());
     }
 
-
-
     public Movie getMovieById(String id) {
         TmdbMovie tmdbMovie = tmdbService.getTmdbMovieById(id);
         return Movie.builder()
