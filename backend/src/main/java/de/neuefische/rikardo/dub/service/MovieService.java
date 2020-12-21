@@ -55,38 +55,33 @@ public class MovieService {
 
     public Movie getMovieById(String id) {
         TmdbMovie tmdbMovie = tmdbService.getTmdbMovieById(id);
-        return new Movie(
-                tmdbMovie.getId(),
-                tmdbMovie.getTitle(),
-                tmdbUrlPath + tmdbMovie.getPoster_path(),
-                tmdbMovie.getOverview(),
-                tmdbMovie.getRelease_date(),
-                tmdbMovie.getRuntime(),
-                tmdbMovie.getOriginal_language(),
-                tmdbMovie.getBudget(),
-                tmdbMovie.getRevenue(),
-                "movie");
+        return Movie.builder()
+                .id(tmdbMovie.getId())
+                .name(tmdbMovie.getTitle())
+                .image(tmdbUrlPath + tmdbMovie.getPoster_path())
+                .overview(tmdbMovie.getOverview())
+                .releaseDate(tmdbMovie.getRelease_date())
+                .runtime(tmdbMovie.getRuntime())
+                .originalLanguage(tmdbMovie.getOriginal_language())
+                .budget(tmdbMovie.getBudget())
+                .revenue(tmdbMovie.getRevenue())
+                .type("movie")
+                .build();
     }
 
     public List<ActorPreview> getMovieCrewById(String id) {
 
-        List<ActorPreview> actorPreviews = new ArrayList<>();
-        List<TmdbActor> tmdbActors = tmdbService.getTmdbMovieCrewById(id)
+        return tmdbService.getTmdbMovieCrewById(id)
                 .stream()
                 .filter(item -> item.getProfile_path() != null)
                 .filter(item -> item.getKnown_for_department().equals("Acting"))
+                .map(tmdbActor -> ActorPreview.builder()
+                        .id(tmdbActor.getId())
+                        .name(tmdbActor.getName())
+                        .character(tmdbActor.getCharacter())
+                        .image(tmdbUrlPath + tmdbActor.getProfile_path())
+                        .type("actor")
+                        .build())
                 .collect(Collectors.toList());
-
-        for (TmdbActor tmdbActor : tmdbActors) {
-            ActorPreview actorPreview = new ActorPreview(
-                    tmdbActor.getId(),
-                    tmdbActor.getName(),
-                    tmdbActor.getCharacter(),
-                    tmdbUrlPath + tmdbActor.getProfile_path(),
-                    "actor");
-            actorPreviews.add(actorPreview);
-        }
-
-        return actorPreviews;
     }
 }
