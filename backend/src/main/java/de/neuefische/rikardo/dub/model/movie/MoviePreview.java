@@ -1,10 +1,12 @@
 package de.neuefische.rikardo.dub.model.movie;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MoviePreview {

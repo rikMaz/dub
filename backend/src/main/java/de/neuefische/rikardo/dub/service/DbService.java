@@ -25,37 +25,26 @@ public class DbService {
 
     public List<VoiceActorPreview> getVoiceActorPreviewsByName(String name) {
 
-        List<VoiceActorPreview> voiceActorPreviews = new ArrayList<>();
-        List<VoiceActor> voiceActors = voiceActorMongoDb.findAllByName(name);
-
-        for (VoiceActor voiceActor : voiceActors) {
-            VoiceActorPreview voiceActorPreview = new VoiceActorPreview(
-                    voiceActor.getId(),
-                    voiceActor.getName(),
-                    voiceActor.getImage(),
-                    voiceActor.getType());
-            voiceActorPreviews.add(voiceActorPreview);
-        }
-        return voiceActorPreviews;
-    }
-
-    public VoiceActorPreview getVoiceActorPreviewById(String id) {
-        VoiceActor voiceActor = voiceActorMongoDb.findAllById(id);
-        return new VoiceActorPreview(
-                voiceActor.getId(),
-                voiceActor.getName(),
-                voiceActor.getImage(),
-                voiceActor.getType());
+        return voiceActorMongoDb.findAllByName(name)
+                .stream()
+                .map(voiceActor -> VoiceActorPreview.builder()
+                        .id(voiceActor.getId())
+                        .name(voiceActor.getName())
+                        .image(voiceActor.getImage())
+                        .type(voiceActor.getType())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 
     public VoiceActor getVoiceActorById(String id) {
         VoiceActor voiceActor = voiceActorMongoDb.findAllById(id);
-        List<ActorPreview> actorPreviews = new ArrayList<>();
-        for (ActorPreview actorPreview: voiceActor.getActors()) {
-            actorPreviews.add(actorService.getActorPreviewById(actorPreview.getId()));
-        }
-        voiceActor.setActors(actorPreviews);
+
+        voiceActor.setActors(voiceActor.getActors()
+                .stream()
+                .map(actorPreview -> actorService.getActorPreviewById(actorPreview.getId()))
+                .collect(Collectors.toList()));
+
         return voiceActor;
     }
 

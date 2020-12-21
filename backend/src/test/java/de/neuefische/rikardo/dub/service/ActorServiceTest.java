@@ -21,9 +21,10 @@ import static org.mockito.Mockito.*;
 class ActorServiceTest {
 
     final TmdbService tmdbService = mock(TmdbService.class);
+    final MovieService movieService = mock(MovieService.class);
     final VoiceActorMongoDb voiceActorMongoDb = mock(VoiceActorMongoDb.class);
 
-    final ActorService actorService = new ActorService(tmdbService, voiceActorMongoDb);
+    final ActorService actorService = new ActorService(tmdbService, movieService, voiceActorMongoDb);
 
     TmdbActor tmdbActor = new TmdbActor("6384","Keanu Reeves","/image.jpg","Neo","biography","1964-09-02","Beirut, Lebanon","Acting");
     List<TmdbActor> tmdbActors = new ArrayList<>(List.of(tmdbActor));
@@ -89,6 +90,7 @@ class ActorServiceTest {
         String id = "6384";
         when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
         when(tmdbService.getTmdbActorMovieCreditsById(id)).thenReturn(tmdbMovies);
+        when(movieService.getMoviePreviewsById(id)).thenReturn(moviePreviews);
         when(voiceActorMongoDb.findAll()).thenReturn(voiceActors);
         //WHEN
         Actor result = actorService.getActorById(id);
