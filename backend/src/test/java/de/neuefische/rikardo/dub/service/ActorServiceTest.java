@@ -90,6 +90,7 @@ class ActorServiceTest {
         String id = "6384";
         when(tmdbService.getTmdbActorById(id)).thenReturn(tmdbActor);
         when(tmdbService.getTmdbActorMovieCreditsById(id)).thenReturn(tmdbMovies);
+        when(movieService.getMoviePreviewsById(id)).thenReturn(moviePreviews);
         when(voiceActorMongoDb.findAll()).thenReturn(voiceActors);
         //WHEN
         Actor result = actorService.getActorById(id);
