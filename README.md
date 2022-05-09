@@ -1,7 +1,5 @@
 # dub - Who's speaking?
 
-#### Mein Gesellenstück welches ich im Rahmen des Java-Entwickler Bootcamps der neuefische GmbH erarbeitet habe.
-
 *"Als Synchronisation, Synchronisierung oder Dubbing bezeichnet man in der Filmproduktion das Herstellen eines zeitlichen Gleichlaufs zwischen Bild und Ton." (https://de.wikipedia.org/wiki/Synchronisation_(Film))*
 
 ## Die App
